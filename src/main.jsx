@@ -22,7 +22,10 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      {/* BASE_URL is '/' everywhere except a GitHub Pages project site, where
+          it is '/himam_front/' — the router has to strip that prefix or every
+          route would fail to match. */}
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AuthProvider>
           <App />
         </AuthProvider>
