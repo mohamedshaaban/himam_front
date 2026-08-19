@@ -1,0 +1,4 @@
+# Single-page app fallback for Netlify and Cloudflare Pages.
+# Without this, refreshing /progress or /admin/books returns a 404 because no
+# such file exists — the router runs in the browser, not on the server.
+/*    /index.html   200
