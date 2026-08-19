@@ -96,3 +96,16 @@ suffix. It must be set at build time: Vite inlines `VITE_*` into the bundle.
 SPA routing is already handled (`public/_redirects` for Cloudflare Pages and
 Netlify, `vercel.json` for Vercel). Full guide, including where to host the
 Laravel API for free, is in `../Himam-Backend/DEPLOYMENT.md`.
+
+## Live deployment
+
+- App: https://mohamedshaaban.github.io/himam_front/
+- API: https://himam-back.onrender.com
+
+The app is a *project* site, so it is served from the `/himam_front/` subpath —
+the build takes that from `VITE_BASE` and the router from `BASE_URL`. Dropping
+the trailing path segment lands on the account's user site, which is a different
+thing entirely and 404s.
+
+The API sleeps after ~15 minutes idle on Render's free tier, so the first
+request after a quiet spell takes 30-60 seconds to wake it.
