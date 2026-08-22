@@ -2,7 +2,15 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
-export default function Modal({ title, onClose, onSubmit, busy, error, children, submitLabel }) {
+/**
+ * A Bootstrap dialog, driven by React rather than Bootstrap's own JS.
+ *
+ * Bootstrap ships `.modal { display: none }` and reveals it from JavaScript.
+ * Rendering it conditionally instead means adding `d-block` by hand and drawing
+ * the backdrop ourselves — which keeps the dialog's visibility owned by React
+ * state, with no second source of truth to fall out of step.
+ */
+export default function Modal({ title, onClose, onSubmit, busy, error, children, submitLabel, size = 'lg' }) {
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -11,42 +19,57 @@ export default function Modal({ title, onClose, onSubmit, busy, error, children,
     }
 
     document.addEventListener('keydown', onKeyDown)
-    // Stop the page behind from scrolling while the dialog is open.
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    // Bootstrap's own class, so the scrollbar compensation matches its CSS.
+    document.body.classList.add('modal-open')
 
     return () => {
       document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = previous
+      document.body.classList.remove('modal-open')
     }
   }, [onClose])
 
   return createPortal(
-    <div className="modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <form
-        className="modal"
+    <>
+      <div
+        className="modal fade show d-block"
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        onSubmit={(event) => {
-          event.preventDefault()
-          onSubmit()
-        }}
+        onMouseDown={(event) => event.target === event.currentTarget && onClose()}
       >
-        <h2 className="modal__title">{title}</h2>
+        <div className={`modal-dialog modal-${size} modal-dialog-centered modal-dialog-scrollable`}>
+          <form
+            className="modal-content"
+            onSubmit={(event) => {
+              event.preventDefault()
+              onSubmit()
+            }}
+          >
+            <div className="modal-header">
+              <h5 className="modal-title">{title}</h5>
+              <button type="button" className="btn-close" onClick={onClose} aria-label={t('actions.cancel')} />
+            </div>
 
-        {error && <p className="notice notice--error" role="alert">{error}</p>}
+            <div className="modal-body">
+              {error && <div className="alert alert-danger" role="alert">{error}</div>}
+              {children}
+            </div>
 
-        {children}
-
-        <div className="modal__actions">
-          <button type="button" className="btn btn-secondary" onClick={onClose}>{t('actions.cancel')}</button>
-          <button type="submit" className="btn btn-primary" disabled={busy}>
-            {busy ? t('common.loading') : (submitLabel ?? t('actions.save'))}
-          </button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={onClose}>
+                {t('actions.cancel')}
+              </button>
+              <button type="submit" className="btn btn-primary" disabled={busy}>
+                {busy && <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" />}
+                {submitLabel ?? t('actions.save')}
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>,
+      </div>
+
+      <div className="modal-backdrop fade show" />
+    </>,
     document.body,
   )
 }

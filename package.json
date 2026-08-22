@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.4",
+    "admin-lte": "^4.8.5",
     "axios": "^1.19.0",
     "i18next": "^26.3.6",
     "i18next-browser-languagedetector": "^8.2.1",

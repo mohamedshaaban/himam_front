@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
@@ -16,49 +17,53 @@ export default function Slides() {
   const { t, list, editing } = crud
 
   return (
-    <>
-      <div className="admin-head">
-        <h1>{t('admin.nav.slides')}</h1>
-        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>{t('admin.newSlide')}</button>
-      </div>
-
+    <AdminPage
+      title={t('admin.nav.slides')}
+      actions={
+        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>
+          {t('admin.newSlide')}
+        </button>
+      }
+    >
       <QueryState query={list} empty={list.data?.length === 0}>
-        <div className="table-wrap panel">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{t('admin.fields.screen')}</th>
-                <th>{t('admin.fields.image')}</th>
-                <th>{t('admin.fields.caption')}</th>
-                <th>{t('admin.fields.position')}</th>
-                <th>{t('admin.fields.active')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {list.data?.map((slide) => (
-                <tr key={slide.id}>
-                  <td>{slide.screen}</td>
-                  <td style={{ maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} dir="ltr">
-                    {slide.image}
-                  </td>
-                  <td>{pickTranslation(slide.caption, i18n.language)}</td>
-                  <td className="tnum">{slide.position}</td>
-                  <td>{slide.is_active ? t('common.yes') : t('common.no')}</td>
-                  <td>
-                    <span className="row" style={{ justifyContent: 'flex-end' }}>
-                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => crud.startEdit(slide)}>
+        <div className="card">
+          <div className="card-body p-0 table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{t('admin.fields.screen')}</th>
+                  <th>{t('admin.fields.image')}</th>
+                  <th>{t('admin.fields.caption')}</th>
+                  <th>{t('admin.fields.position')}</th>
+                  <th>{t('admin.fields.active')}</th>
+                  <th className="text-end" />
+                </tr>
+              </thead>
+              <tbody>
+                {list.data?.map((slide) => (
+                  <tr key={slide.id}>
+                    <td><span className="badge text-bg-primary">{slide.screen}</span></td>
+                    <td className="text-truncate" style={{ maxWidth: 240 }} dir="ltr">{slide.image}</td>
+                    <td>{pickTranslation(slide.caption, i18n.language)}</td>
+                    <td>{slide.position}</td>
+                    <td>
+                      <span className={`badge ${slide.is_active ? 'text-bg-success' : 'text-bg-secondary'}`}>
+                        {slide.is_active ? t('common.yes') : t('common.no')}
+                      </span>
+                    </td>
+                    <td className="text-end text-nowrap">
+                      <button type="button" className="btn btn-sm btn-outline-primary me-1" onClick={() => crud.startEdit(slide)}>
                         {t('actions.edit')}
                       </button>
-                      <button type="button" className="btn btn-danger btn-sm" onClick={() => crud.confirmRemove(slide.id)}>
+                      <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => crud.confirmRemove(slide.id)}>
                         {t('actions.delete')}
                       </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </QueryState>
 
@@ -70,57 +75,68 @@ export default function Slides() {
           busy={crud.save.isPending}
           error={crud.error}
         >
-          <div className="form-grid">
-            <div className="field">
-              <label htmlFor="screen">{t('admin.fields.screen')}</label>
+          <div className="row g-3 mb-3">
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="screen">{t('admin.fields.screen')}</label>
               <select
                 id="screen"
-                className="select"
+                className="form-select"
                 value={editing.screen}
-                onChange={(e) => crud.patch({ screen: e.target.value })}
+                onChange={(event) => crud.patch({ screen: event.target.value })}
               >
-                {SCREENS.map((screen) => (
-                  <option key={screen} value={screen}>{screen}</option>
-                ))}
+                {SCREENS.map((screen) => <option key={screen} value={screen}>{screen}</option>)}
               </select>
             </div>
 
-            <div className="field">
-              <label htmlFor="slide-position">{t('admin.fields.position')}</label>
+            <div className="col-6 col-sm-3">
+              <label className="form-label" htmlFor="slide-position">{t('admin.fields.position')}</label>
               <input
                 id="slide-position"
-                className="input"
+                className="form-control"
                 type="number"
                 min="0"
                 value={editing.position ?? 0}
-                onChange={(e) => crud.patch({ position: Number(e.target.value) })}
+                onChange={(event) => crud.patch({ position: Number(event.target.value) })}
               />
             </div>
-          </div>
 
-          <div className="field">
-            <label htmlFor="slide-image">{t('admin.fields.image')}</label>
-            <input
-              id="slide-image"
-              className="input"
-              type="text"
-              dir="ltr"
-              value={editing.image ?? ''}
-              onChange={(e) => crud.patch({ image: e.target.value })}
-              required
-            />
-          </div>
+            <div className="col-sm-auto d-flex align-items-end">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="slide-active"
+                  checked={Boolean(editing.is_active)}
+                  onChange={(event) => crud.patch({ is_active: event.target.checked })}
+                />
+                <label className="form-check-label" htmlFor="slide-active">{t('admin.fields.active')}</label>
+              </div>
+            </div>
 
-          <div className="field">
-            <label htmlFor="slide-href">{t('admin.fields.link')}</label>
-            <input
-              id="slide-href"
-              className="input"
-              type="text"
-              dir="ltr"
-              value={editing.href ?? ''}
-              onChange={(e) => crud.patch({ href: e.target.value })}
-            />
+            <div className="col-12">
+              <label className="form-label" htmlFor="slide-image">{t('admin.fields.image')}</label>
+              <input
+                id="slide-image"
+                className="form-control"
+                type="text"
+                dir="ltr"
+                value={editing.image ?? ''}
+                onChange={(event) => crud.patch({ image: event.target.value })}
+                required
+              />
+            </div>
+
+            <div className="col-12">
+              <label className="form-label" htmlFor="slide-href">{t('admin.fields.link')}</label>
+              <input
+                id="slide-href"
+                className="form-control"
+                type="text"
+                dir="ltr"
+                value={editing.href ?? ''}
+                onChange={(event) => crud.patch({ href: event.target.value })}
+              />
+            </div>
           </div>
 
           <TranslatableField
@@ -128,17 +144,8 @@ export default function Slides() {
             value={editing.caption}
             onChange={(caption) => crud.patch({ caption })}
           />
-
-          <label className="checkbox">
-            <input
-              type="checkbox"
-              checked={Boolean(editing.is_active)}
-              onChange={(e) => crud.patch({ is_active: e.target.checked })}
-            />
-            {t('admin.fields.active')}
-          </label>
         </Modal>
       )}
-    </>
+    </AdminPage>
   )
 }

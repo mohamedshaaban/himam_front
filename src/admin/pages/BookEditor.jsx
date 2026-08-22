@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
@@ -72,104 +73,102 @@ export default function BookEditor() {
   }
 
   return (
-    <>
-      <div className="admin-head">
-        <div>
-          <Link to="/admin/books" className="btn btn-ghost btn-sm">{t('actions.back')}</Link>
-          <h1 style={{ marginTop: 'var(--space-2)' }}>
-            {pickTranslation(book.data?.title, i18n.language) || t('admin.nav.books')}
-          </h1>
+    <AdminPage
+      title={pickTranslation(book.data?.title, i18n.language) || t('admin.nav.books')}
+      subtitle={t('admin.manageSections')}
+      actions={
+        <div className="d-flex gap-2">
+          <Link to="/admin/books" className="btn btn-outline-secondary">{t('actions.back')}</Link>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => { setError(null); setSection({ ...EMPTY_SECTION }) }}
+          >
+            {t('admin.newSection')}
+          </button>
         </div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => { setError(null); setSection({ ...EMPTY_SECTION }) }}
-        >
-          {t('admin.newSection')}
-        </button>
-      </div>
-
+      }
+    >
       <QueryState query={book}>
-        <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
+        <div className="row g-3">
           {book.data?.sections?.map((item) => (
-            <section key={item.id} className="panel">
-              <div className="section-head">
-                <h2>
-                  <span className="tnum" style={{ color: 'var(--color-accent-700)', marginInlineEnd: 8 }}>
-                    {String(item.position).padStart(2, '0')}
-                  </span>
-                  {pickTranslation(item.title, i18n.language)}
-                </h2>
-                <span className="row">
+            <div className="col-12" key={item.id}>
+              <div className="card">
+                <div className="card-header d-flex flex-wrap align-items-center gap-2">
+                  <h3 className="card-title mb-0 flex-grow-1">
+                    <span className="badge text-bg-primary me-2">
+                      {String(item.position).padStart(2, '0')}
+                    </span>
+                    {pickTranslation(item.title, i18n.language)}
+                  </h3>
                   <button
                     type="button"
-                    className="btn btn-secondary btn-sm"
+                    className="btn btn-sm btn-outline-secondary"
                     onClick={() => { setError(null); setQuestion({ ...structuredClone(EMPTY_QUESTION), book_section_id: item.id }) }}
                   >
                     {t('admin.newQuestion')}
                   </button>
-                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setError(null); setSection(item) }}>
+                  <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => { setError(null); setSection(item) }}>
                     {t('actions.edit')}
                   </button>
                   <button
                     type="button"
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-sm btn-outline-danger"
                     onClick={() => confirmThen(() => removeSection.mutate(item.id))}
                   >
                     {t('actions.delete')}
                   </button>
-                </span>
+                </div>
+
+                <div className="card-body">
+                  {item.questions?.length ? (
+                    <ol className="list-group list-group-numbered list-group-flush">
+                      {item.questions.map((q) => (
+                        <li className="list-group-item d-flex justify-content-between align-items-start gap-3" key={q.id}>
+                          <div className="flex-grow-1">
+                            <strong>{pickTranslation(q.text, i18n.language)}</strong>
+                            <ul className="list-unstyled mb-0 mt-1 small">
+                              {q.options?.map((option) => (
+                                <li key={option.id} className={option.is_correct ? 'text-success fw-semibold' : 'text-secondary'}>
+                                  {option.is_correct ? '● ' : '○ '}
+                                  {pickTranslation(option.text, i18n.language)}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <span className="text-nowrap">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-primary me-1"
+                              onClick={() => {
+                                setError(null)
+                                setQuestion({
+                                  id: q.id,
+                                  book_section_id: item.id,
+                                  text: q.text ?? {},
+                                  options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
+                                })
+                              }}
+                            >
+                              {t('actions.edit')}
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => confirmThen(() => removeQuestion.mutate(q.id))}
+                            >
+                              {t('actions.delete')}
+                            </button>
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <p className="text-secondary mb-0">{t('quiz.empty')}</p>
+                  )}
+                </div>
               </div>
-
-              <ol style={{ margin: 0, paddingInlineStart: '1.4em', display: 'grid', gap: 'var(--space-3)' }}>
-                {item.questions?.map((q) => (
-                  <li key={q.id}>
-                    <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <div style={{ flex: '1 1 320px' }}>
-                        <strong>{pickTranslation(q.text, i18n.language)}</strong>
-                        <ul className="list-reset" style={{ marginTop: 6, fontSize: 15 }}>
-                          {q.options?.map((option) => (
-                            <li key={option.id} style={{ color: option.is_correct ? 'var(--color-accent-700)' : 'var(--color-neutral-700)' }}>
-                              {option.is_correct ? '● ' : '○ '}
-                              {pickTranslation(option.text, i18n.language)}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <span className="row">
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          onClick={() => {
-                            setError(null)
-                            setQuestion({
-                              id: q.id,
-                              book_section_id: item.id,
-                              text: q.text ?? {},
-                              options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
-                            })
-                          }}
-                        >
-                          {t('actions.edit')}
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm"
-                          onClick={() => confirmThen(() => removeQuestion.mutate(q.id))}
-                        >
-                          {t('actions.delete')}
-                        </button>
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-
-              {(!item.questions || item.questions.length === 0) && (
-                <p className="muted" style={{ margin: 0 }}>{t('quiz.empty')}</p>
-              )}
-            </section>
+            </div>
           ))}
         </div>
       </QueryState>
@@ -192,17 +191,17 @@ export default function BookEditor() {
             value={section.body}
             onChange={(body) => setSection({ ...section, body })}
             textarea
-            rows={8}
+            rows={6}
           />
-          <div className="field" style={{ maxWidth: 160 }}>
-            <label htmlFor="section-position">{t('admin.fields.position')}</label>
+          <div className="col-sm-4">
+            <label className="form-label" htmlFor="section-position">{t('admin.fields.position')}</label>
             <input
               id="section-position"
-              className="input"
+              className="form-control"
               type="number"
               min="0"
               value={section.position ?? ''}
-              onChange={(e) => setSection({ ...section, position: e.target.value === '' ? null : Number(e.target.value) })}
+              onChange={(event) => setSection({ ...section, position: event.target.value === '' ? null : Number(event.target.value) })}
             />
           </div>
         </Modal>
@@ -219,7 +218,7 @@ export default function BookEditor() {
           t={t}
         />
       )}
-    </>
+    </AdminPage>
   )
 }
 
@@ -229,8 +228,8 @@ function QuestionModal({ question, setQuestion, onClose, onSubmit, busy, error, 
     setQuestion({ ...question, options })
   }
 
-  // Exactly one option may be correct — the API rejects anything else, so the
-  // radio behaviour is enforced here rather than letting a save fail.
+  // Grading picks a single correct option, so this is enforced here rather than
+  // letting the API reject the save after the fact.
   const markCorrect = (index) => {
     setQuestion({
       ...question,
@@ -245,6 +244,7 @@ function QuestionModal({ question, setQuestion, onClose, onSubmit, busy, error, 
       onSubmit={onSubmit}
       busy={busy}
       error={error}
+      size="xl"
     >
       <TranslatableField
         label={t('admin.fields.title')}
@@ -254,43 +254,49 @@ function QuestionModal({ question, setQuestion, onClose, onSubmit, busy, error, 
         rows={2}
       />
 
-      <h3 style={{ margin: 'var(--space-3) 0 0', fontSize: 18 }}>{t('admin.fields.options')}</h3>
+      <h6 className="mt-3">{t('admin.fields.options')}</h6>
 
       {question.options.map((option, index) => (
-        <div key={index} className="panel" style={{ background: 'transparent' }}>
-          <div className="row" style={{ justifyContent: 'space-between' }}>
-            <label className="checkbox">
-              <input
-                type="radio"
-                name="correct-option"
-                checked={Boolean(option.is_correct)}
-                onChange={() => markCorrect(index)}
-              />
-              {t('admin.fields.correct')}
-            </label>
+        <div className="card mb-2" key={index}>
+          <div className="card-body">
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="correct-option"
+                  id={`correct-${index}`}
+                  checked={Boolean(option.is_correct)}
+                  onChange={() => markCorrect(index)}
+                />
+                <label className="form-check-label" htmlFor={`correct-${index}`}>
+                  {t('admin.fields.correct')}
+                </label>
+              </div>
 
-            {question.options.length > 2 && (
-              <button
-                type="button"
-                className="btn btn-danger btn-sm"
-                onClick={() => setQuestion({ ...question, options: question.options.filter((_, i) => i !== index) })}
-              >
-                {t('admin.removeOption')}
-              </button>
-            )}
+              {question.options.length > 2 && (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-danger"
+                  onClick={() => setQuestion({ ...question, options: question.options.filter((_, i) => i !== index) })}
+                >
+                  {t('admin.removeOption')}
+                </button>
+              )}
+            </div>
+
+            <TranslatableField
+              label={`${t('admin.fields.options')} ${index + 1}`}
+              value={option.text}
+              onChange={(text) => setOption(index, { text })}
+            />
           </div>
-
-          <TranslatableField
-            label={`${t('admin.fields.options')} ${index + 1}`}
-            value={option.text}
-            onChange={(text) => setOption(index, { text })}
-          />
         </div>
       ))}
 
       <button
         type="button"
-        className="btn btn-secondary btn-sm"
+        className="btn btn-outline-secondary btn-sm"
         onClick={() => setQuestion({ ...question, options: [...question.options, { text: {}, is_correct: false }] })}
       >
         {t('admin.addOption')}

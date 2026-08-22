@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
@@ -45,9 +46,9 @@ export default function Certificates() {
   })
 
   return (
-    <>
-      <div className="admin-head">
-        <h1>{t('admin.nav.certificates')}</h1>
+    <AdminPage
+      title={t('admin.nav.certificates')}
+      actions={
         <button
           type="button"
           className="btn btn-primary"
@@ -55,31 +56,31 @@ export default function Certificates() {
         >
           {t('admin.issueCertificate')}
         </button>
-      </div>
-
+      }
+    >
       <QueryState query={certificates} empty={certificates.data?.data?.length === 0}>
-        <div className="table-wrap panel">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{t('admin.fields.serial')}</th>
-                <th>{t('admin.fields.holder')}</th>
-                <th>{t('admin.fields.level')}</th>
-                <th>{t('admin.fields.issuedAt')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {certificates.data?.data?.map((certificate) => (
-                <tr key={certificate.id}>
-                  <td dir="ltr">{certificate.serial}</td>
-                  <td>{certificate.holder?.name}</td>
-                  <td>{certificate.level?.name ?? '—'}</td>
-                  <td>{certificate.issued_at}</td>
-                  <td>
-                    <span className="row" style={{ justifyContent: 'flex-end' }}>
+        <div className="card">
+          <div className="card-body p-0 table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{t('admin.fields.serial')}</th>
+                  <th>{t('admin.fields.holder')}</th>
+                  <th>{t('admin.fields.level')}</th>
+                  <th>{t('admin.fields.issuedAt')}</th>
+                  <th className="text-end" />
+                </tr>
+              </thead>
+              <tbody>
+                {certificates.data?.data?.map((certificate) => (
+                  <tr key={certificate.id}>
+                    <td dir="ltr"><code>{certificate.serial}</code></td>
+                    <td>{certificate.holder?.name}</td>
+                    <td>{certificate.level?.name ?? '—'}</td>
+                    <td>{certificate.issued_at}</td>
+                    <td className="text-end text-nowrap">
                       <a
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-sm btn-outline-secondary me-1"
                         href={certificate.verification_url}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -88,17 +89,17 @@ export default function Certificates() {
                       </a>
                       <button
                         type="button"
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-sm btn-outline-danger"
                         onClick={() => window.confirm(t('admin.confirmDelete')) && revoke.mutate(certificate.id)}
                       >
                         {t('actions.delete')}
                       </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </QueryState>
 
@@ -109,14 +110,15 @@ export default function Certificates() {
           onSubmit={() => issue.mutate(issuing)}
           busy={issue.isPending}
           error={error}
+          size="md"
         >
-          <div className="field">
-            <label htmlFor="c-user">{t('admin.fields.holder')}</label>
+          <div className="mb-3">
+            <label className="form-label" htmlFor="c-user">{t('admin.fields.holder')}</label>
             <select
               id="c-user"
-              className="select"
+              className="form-select"
               value={issuing.user_id}
-              onChange={(e) => setIssuing({ ...issuing, user_id: e.target.value })}
+              onChange={(event) => setIssuing({ ...issuing, user_id: event.target.value })}
               required
             >
               <option value="">—</option>
@@ -126,13 +128,13 @@ export default function Certificates() {
             </select>
           </div>
 
-          <div className="field">
-            <label htmlFor="c-level">{t('admin.fields.level')}</label>
+          <div className="mb-1">
+            <label className="form-label" htmlFor="c-level">{t('admin.fields.level')}</label>
             <select
               id="c-level"
-              className="select"
+              className="form-select"
               value={issuing.level_id}
-              onChange={(e) => setIssuing({ ...issuing, level_id: e.target.value })}
+              onChange={(event) => setIssuing({ ...issuing, level_id: event.target.value })}
             >
               <option value="">—</option>
               {levels.data?.map((level) => (
@@ -144,6 +146,6 @@ export default function Certificates() {
           </div>
         </Modal>
       )}
-    </>
+    </AdminPage>
   )
 }

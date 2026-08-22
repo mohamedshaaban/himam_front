@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { LOCALES, localeCodes } from '../../i18n'
 
@@ -15,10 +16,8 @@ export default function Users() {
   const [editing, setEditing] = useState(null)
   const [error, setError] = useState(null)
 
-  const key = ['admin', 'users', term]
-
   const users = useQuery({
-    queryKey: key,
+    queryKey: ['admin', 'users', term],
     queryFn: async () => (await api.get('/admin/users', { params: term ? { search: term } : {} })).data,
   })
 
@@ -43,64 +42,63 @@ export default function Users() {
   })
 
   return (
-    <>
-      <div className="admin-head">
-        <h1>{t('admin.nav.users')}</h1>
+    <AdminPage
+      title={t('admin.nav.users')}
+      actions={
         <form
-          className="row"
+          className="d-flex gap-2"
           onSubmit={(event) => { event.preventDefault(); setTerm(search) }}
         >
           <input
-            className="input"
+            className="form-control"
             type="search"
             placeholder={t('actions.search')}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{ width: 240 }}
+            onChange={(event) => setSearch(event.target.value)}
           />
-          <button type="submit" className="btn btn-secondary">{t('actions.search')}</button>
+          <button type="submit" className="btn btn-outline-secondary text-nowrap">{t('actions.search')}</button>
         </form>
-      </div>
-
+      }
+    >
       <QueryState query={users} empty={users.data?.data?.length === 0}>
-        <div className="table-wrap panel">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{t('admin.fields.name')}</th>
-                <th>{t('admin.fields.email')}</th>
-                <th>{t('admin.fields.role')}</th>
-                <th>{t('admin.fields.level')}</th>
-                <th>{t('admin.fields.points')}</th>
-                <th>{t('admin.nav.badges')}</th>
-                <th>{t('admin.nav.certificates')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {users.data?.data?.map((user) => (
-                <tr key={user.id}>
-                  <td>
-                    <span className="row" style={{ flexWrap: 'nowrap' }}>
-                      <img src={user.avatar || '/assets/avatar-1.svg'} alt="" style={{ width: 30, height: 30, borderRadius: '50%' }} />
-                      {user.name}
-                    </span>
-                  </td>
-                  <td dir="ltr">{user.email}</td>
-                  <td>
-                    <span className={`tag ${user.role === 'admin' ? 'tag-accent' : 'tag-neutral'}`}>
-                      {t(`admin.roles.${user.role}`, { defaultValue: user.role })}
-                    </span>
-                  </td>
-                  <td>{user.level?.name ?? '—'}</td>
-                  <td className="tnum">{user.points}</td>
-                  <td className="tnum">{user.badges_count}</td>
-                  <td className="tnum">{user.certificates_count}</td>
-                  <td>
-                    <span className="row" style={{ justifyContent: 'flex-end' }}>
+        <div className="card">
+          <div className="card-body p-0 table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{t('admin.fields.name')}</th>
+                  <th>{t('admin.fields.email')}</th>
+                  <th>{t('admin.fields.role')}</th>
+                  <th>{t('admin.fields.level')}</th>
+                  <th>{t('admin.fields.points')}</th>
+                  <th>{t('admin.nav.badges')}</th>
+                  <th>{t('admin.nav.certificates')}</th>
+                  <th className="text-end" />
+                </tr>
+              </thead>
+              <tbody>
+                {users.data?.data?.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <span className="d-flex align-items-center gap-2">
+                        <img src={user.avatar || '/assets/avatar-1.svg'} alt="" className="rounded-circle" style={{ width: 28, height: 28 }} />
+                        {user.name}
+                      </span>
+                    </td>
+                    <td dir="ltr">{user.email}</td>
+                    <td>
+                      <span className={`badge ${user.role === 'admin' ? 'text-bg-danger' : 'text-bg-secondary'}`}>
+                        {t(`admin.roles.${user.role}`, { defaultValue: user.role })}
+                      </span>
+                    </td>
+                    <td>{user.level?.name ?? '—'}</td>
+                    <td><strong>{user.points}</strong></td>
+                    <td>{user.badges_count}</td>
+                    <td>{user.certificates_count}</td>
+                    <td className="text-end text-nowrap">
                       <button
                         type="button"
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-sm btn-outline-secondary me-1"
                         onClick={() => recalculate.mutate(user.id)}
                         disabled={recalculate.isPending}
                       >
@@ -108,24 +106,24 @@ export default function Users() {
                       </button>
                       <button
                         type="button"
-                        className="btn btn-ghost btn-sm"
+                        className="btn btn-sm btn-outline-primary me-1"
                         onClick={() => { setError(null); setEditing({ ...user, level_id: user.level?.id ?? null, password: '' }) }}
                       >
                         {t('actions.edit')}
                       </button>
                       <button
                         type="button"
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-sm btn-outline-danger"
                         onClick={() => window.confirm(t('admin.confirmDelete')) && remove.mutate(user.id)}
                       >
                         {t('actions.delete')}
                       </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </QueryState>
 
@@ -137,7 +135,7 @@ export default function Users() {
           busy={save.isPending}
           error={error}
         >
-          <div className="form-grid">
+          <div className="row g-3">
             <Field id="u-name" label={t('admin.fields.name')} value={editing.name}
               onChange={(name) => setEditing({ ...editing, name })} />
             <Field id="u-email" label={t('admin.fields.email')} type="email" dir="ltr" value={editing.email}
@@ -147,26 +145,26 @@ export default function Users() {
             <Field id="u-city" label={t('admin.fields.city')} value={editing.city}
               onChange={(city) => setEditing({ ...editing, city })} />
 
-            <div className="field">
-              <label htmlFor="u-role">{t('admin.fields.role')}</label>
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="u-role">{t('admin.fields.role')}</label>
               <select
                 id="u-role"
-                className="select"
+                className="form-select"
                 value={editing.role}
-                onChange={(e) => setEditing({ ...editing, role: e.target.value })}
+                onChange={(event) => setEditing({ ...editing, role: event.target.value })}
               >
                 <option value="student">{t('admin.roles.student')}</option>
                 <option value="admin">{t('admin.roles.admin')}</option>
               </select>
             </div>
 
-            <div className="field">
-              <label htmlFor="u-locale">{t('admin.fields.locale')}</label>
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="u-locale">{t('admin.fields.locale')}</label>
               <select
                 id="u-locale"
-                className="select"
+                className="form-select"
                 value={editing.locale}
-                onChange={(e) => setEditing({ ...editing, locale: e.target.value })}
+                onChange={(event) => setEditing({ ...editing, locale: event.target.value })}
               >
                 {localeCodes.map((code) => (
                   <option key={code} value={code}>{LOCALES[code].name}</option>
@@ -181,21 +179,21 @@ export default function Users() {
           </div>
         </Modal>
       )}
-    </>
+    </AdminPage>
   )
 }
 
 function Field({ id, label, value, onChange, type = 'text', dir }) {
   return (
-    <div className="field">
-      <label htmlFor={id}>{label}</label>
+    <div className="col-sm-6">
+      <label className="form-label" htmlFor={id}>{label}</label>
       <input
         id={id}
-        className="input"
+        className="form-control"
         type={type}
         dir={dir}
         value={value ?? ''}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
       />
     </div>
   )

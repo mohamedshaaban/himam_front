@@ -4,6 +4,7 @@ import api, { errorMessage } from '../../api/client'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
@@ -31,56 +32,62 @@ export default function Announcements() {
   })
 
   return (
-    <>
-      <div className="admin-head">
-        <h1>{t('admin.nav.announcements')}</h1>
-        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>{t('admin.newAnnouncement')}</button>
-      </div>
-
+    <AdminPage
+      title={t('admin.nav.announcements')}
+      actions={
+        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>
+          {t('admin.newAnnouncement')}
+        </button>
+      }
+    >
       <QueryState query={list} empty={list.data?.length === 0}>
-        <div className="table-wrap panel">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{t('admin.fields.title')}</th>
-                <th>{t('admin.fields.category')}</th>
-                <th>{t('admin.fields.holder')}</th>
-                <th>{t('admin.fields.published')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {list.data?.map((item) => (
-                <tr key={item.id}>
-                  <td>{pickTranslation(item.title, i18n.language)}</td>
-                  <td>{t(`notifications.category.${item.category}`, { defaultValue: item.category })}</td>
-                  <td>{item.user ? item.user.name : t('admin.broadcast')}</td>
-                  <td>
-                    {item.published_at
-                      ? new Date(item.published_at).toLocaleDateString(i18n.language)
-                      : <span className="tag tag-neutral">{t('admin.draft')}</span>}
-                  </td>
-                  <td>
-                    <span className="row" style={{ justifyContent: 'flex-end' }}>
+        <div className="card">
+          <div className="card-body p-0 table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{t('admin.fields.title')}</th>
+                  <th>{t('admin.fields.category')}</th>
+                  <th>{t('admin.fields.holder')}</th>
+                  <th>{t('admin.fields.published')}</th>
+                  <th className="text-end" />
+                </tr>
+              </thead>
+              <tbody>
+                {list.data?.map((item) => (
+                  <tr key={item.id}>
+                    <td>{pickTranslation(item.title, i18n.language)}</td>
+                    <td>{t(`notifications.category.${item.category}`, { defaultValue: item.category })}</td>
+                    <td>{item.user ? item.user.name : t('admin.broadcast')}</td>
+                    <td>
+                      {item.published_at ? (
+                        <span className="badge text-bg-success">
+                          {new Date(item.published_at).toLocaleDateString(i18n.language)}
+                        </span>
+                      ) : (
+                        <span className="badge text-bg-secondary">{t('admin.draft')}</span>
+                      )}
+                    </td>
+                    <td className="text-end text-nowrap">
                       <button
                         type="button"
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-sm btn-outline-secondary me-1"
                         onClick={() => publish.mutate({ id: item.id, published: !item.published_at })}
                       >
                         {item.published_at ? t('admin.unpublish') : t('admin.publish')}
                       </button>
-                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => crud.startEdit(item)}>
+                      <button type="button" className="btn btn-sm btn-outline-primary me-1" onClick={() => crud.startEdit(item)}>
                         {t('actions.edit')}
                       </button>
-                      <button type="button" className="btn btn-danger btn-sm" onClick={() => crud.confirmRemove(item.id)}>
+                      <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => crud.confirmRemove(item.id)}>
                         {t('actions.delete')}
                       </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </QueryState>
 
@@ -99,17 +106,17 @@ export default function Announcements() {
             value={editing.body}
             onChange={(body) => crud.patch({ body })}
             textarea
-            rows={4}
+            rows={3}
           />
 
-          <div className="form-grid">
-            <div className="field">
-              <label htmlFor="category">{t('admin.fields.category')}</label>
+          <div className="row g-3">
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="category">{t('admin.fields.category')}</label>
               <select
                 id="category"
-                className="select"
+                className="form-select"
                 value={editing.category}
-                onChange={(e) => crud.patch({ category: e.target.value })}
+                onChange={(event) => crud.patch({ category: event.target.value })}
               >
                 {CATEGORIES.map((category) => (
                   <option key={category} value={category}>
@@ -119,20 +126,20 @@ export default function Announcements() {
               </select>
             </div>
 
-            <div className="field">
-              <label htmlFor="ann-image">{t('admin.fields.image')}</label>
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="ann-image">{t('admin.fields.image')}</label>
               <input
                 id="ann-image"
-                className="input"
+                className="form-control"
                 type="text"
                 dir="ltr"
                 value={editing.image ?? ''}
-                onChange={(e) => crud.patch({ image: e.target.value })}
+                onChange={(event) => crud.patch({ image: event.target.value })}
               />
             </div>
           </div>
         </Modal>
       )}
-    </>
+    </AdminPage>
   )
 }

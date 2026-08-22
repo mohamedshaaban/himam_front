@@ -5,6 +5,7 @@ import api from '../../api/client'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
@@ -31,52 +32,58 @@ export default function Books() {
   })
 
   return (
-    <>
-      <div className="admin-head">
-        <h1>{t('admin.nav.books')}</h1>
-        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>{t('admin.newBook')}</button>
-      </div>
-
+    <AdminPage
+      title={t('admin.nav.books')}
+      actions={
+        <button type="button" className="btn btn-primary" onClick={crud.startCreate}>
+          {t('admin.newBook')}
+        </button>
+      }
+    >
       <QueryState query={list} empty={list.data?.length === 0}>
-        <div className="table-wrap panel">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{t('admin.fields.title')}</th>
-                <th>{t('admin.fields.level')}</th>
-                <th>{t('admin.fields.sections')}</th>
-                <th>{t('admin.fields.pages')}</th>
-                <th>{t('admin.fields.points')}</th>
-                <th>{t('admin.fields.published')}</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {list.data?.map((book) => (
-                <tr key={book.id}>
-                  <td>{pickTranslation(book.title, i18n.language)}</td>
-                  <td>{pickTranslation(book.level?.name, i18n.language)}</td>
-                  <td className="tnum">{book.sections_count}</td>
-                  <td className="tnum">{book.pages}</td>
-                  <td className="tnum">{book.points}</td>
-                  <td>{book.is_published ? t('common.yes') : t('common.no')}</td>
-                  <td>
-                    <span className="row" style={{ justifyContent: 'flex-end' }}>
-                      <Link to={`/admin/books/${book.id}`} className="btn btn-secondary btn-sm">
+        <div className="card">
+          <div className="card-body p-0 table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{t('admin.fields.title')}</th>
+                  <th>{t('admin.fields.level')}</th>
+                  <th>{t('admin.fields.sections')}</th>
+                  <th>{t('admin.fields.pages')}</th>
+                  <th>{t('admin.fields.points')}</th>
+                  <th>{t('admin.fields.published')}</th>
+                  <th className="text-end" />
+                </tr>
+              </thead>
+              <tbody>
+                {list.data?.map((book) => (
+                  <tr key={book.id}>
+                    <td>{pickTranslation(book.title, i18n.language)}</td>
+                    <td>{pickTranslation(book.level?.name, i18n.language)}</td>
+                    <td>{book.sections_count}</td>
+                    <td>{book.pages}</td>
+                    <td>{book.points}</td>
+                    <td>
+                      <span className={`badge ${book.is_published ? 'text-bg-success' : 'text-bg-secondary'}`}>
+                        {book.is_published ? t('common.yes') : t('common.no')}
+                      </span>
+                    </td>
+                    <td className="text-end text-nowrap">
+                      <Link to={`/admin/books/${book.id}`} className="btn btn-sm btn-outline-secondary me-1">
                         {t('admin.manageSections')}
                       </Link>
-                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => crud.startEdit(book)}>
+                      <button type="button" className="btn btn-sm btn-outline-primary me-1" onClick={() => crud.startEdit(book)}>
                         {t('actions.edit')}
                       </button>
-                      <button type="button" className="btn btn-danger btn-sm" onClick={() => crud.confirmRemove(book.id)}>
+                      <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => crud.confirmRemove(book.id)}>
                         {t('actions.delete')}
                       </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </QueryState>
 
@@ -88,13 +95,13 @@ export default function Books() {
           busy={crud.save.isPending}
           error={crud.error}
         >
-          <div className="field">
-            <label htmlFor="level_id">{t('admin.fields.level')}</label>
+          <div className="mb-3">
+            <label className="form-label" htmlFor="level_id">{t('admin.fields.level')}</label>
             <select
               id="level_id"
-              className="select"
+              className="form-select"
               value={editing.level_id ?? ''}
-              onChange={(e) => crud.patch({ level_id: e.target.value })}
+              onChange={(event) => crud.patch({ level_id: event.target.value })}
               required
             >
               <option value="">—</option>
@@ -113,52 +120,56 @@ export default function Books() {
             value={editing.description}
             onChange={(description) => crud.patch({ description })}
             textarea
-            rows={4}
+            rows={3}
           />
 
-          <div className="form-grid">
-            <NumberField id="pages" label={t('admin.fields.pages')} value={editing.pages} onChange={(pages) => crud.patch({ pages })} />
-            <NumberField id="points" label={t('admin.fields.points')} value={editing.points} onChange={(points) => crud.patch({ points })} />
-            <NumberField id="position" label={t('admin.fields.position')} value={editing.position} onChange={(position) => crud.patch({ position })} />
+          <div className="row g-3 align-items-end">
+            <Num id="pages" label={t('admin.fields.pages')} value={editing.pages} onChange={(pages) => crud.patch({ pages })} />
+            <Num id="points" label={t('admin.fields.points')} value={editing.points} onChange={(points) => crud.patch({ points })} />
+            <Num id="position" label={t('admin.fields.position')} value={editing.position} onChange={(position) => crud.patch({ position })} />
 
-            <div className="field">
-              <label htmlFor="cover">{t('admin.fields.cover')}</label>
+            <div className="col-sm-6">
+              <label className="form-label" htmlFor="cover">{t('admin.fields.cover')}</label>
               <input
                 id="cover"
-                className="input"
+                className="form-control"
                 type="text"
                 dir="ltr"
                 value={editing.cover ?? ''}
-                onChange={(e) => crud.patch({ cover: e.target.value })}
+                onChange={(event) => crud.patch({ cover: event.target.value })}
               />
             </div>
 
-            <label className="checkbox" style={{ alignSelf: 'end', paddingBottom: 8 }}>
-              <input
-                type="checkbox"
-                checked={Boolean(editing.is_published)}
-                onChange={(e) => crud.patch({ is_published: e.target.checked })}
-              />
-              {t('admin.fields.published')}
-            </label>
+            <div className="col-sm-auto">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="is_published"
+                  checked={Boolean(editing.is_published)}
+                  onChange={(event) => crud.patch({ is_published: event.target.checked })}
+                />
+                <label className="form-check-label" htmlFor="is_published">{t('admin.fields.published')}</label>
+              </div>
+            </div>
           </div>
         </Modal>
       )}
-    </>
+    </AdminPage>
   )
 }
 
-function NumberField({ id, label, value, onChange }) {
+function Num({ id, label, value, onChange }) {
   return (
-    <div className="field">
-      <label htmlFor={id}>{label}</label>
+    <div className="col-6 col-sm-3">
+      <label className="form-label" htmlFor={id}>{label}</label>
       <input
         id={id}
-        className="input"
+        className="form-control"
         type="number"
         min="0"
         value={value ?? 0}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(event) => onChange(Number(event.target.value))}
       />
     </div>
   )
