@@ -6,6 +6,7 @@ import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
 import MediaInput from '../components/MediaInput.jsx'
+import RichTextField from '../components/RichTextField.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -116,12 +117,10 @@ export default function Books() {
 
           <TranslatableField label={t('admin.fields.title')} value={editing.title} onChange={(title) => crud.patch({ title })} />
           <TranslatableField label={t('admin.fields.author')} value={editing.author} onChange={(author) => crud.patch({ author })} />
-          <TranslatableField
+          <RichTextField
             label={t('admin.fields.description')}
             value={editing.description}
             onChange={(description) => crud.patch({ description })}
-            textarea
-            rows={3}
           />
 
           <MediaInput

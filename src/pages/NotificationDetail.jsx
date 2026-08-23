@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function NotificationDetail() {
   const { announcementId } = useParams()
@@ -46,7 +47,7 @@ export default function NotificationDetail() {
 
           {item.image ? (
             <div className="plate">
-              <img src={item.image} alt="" style={{ width: '100%' }} />
+              <img src={mediaUrl(item.image)} alt="" style={{ width: '100%' }} />
             </div>
           ) : (
             <Slider screen="notifications" height={320} />

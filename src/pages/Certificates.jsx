@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Certificates() {
   const { t } = useTranslation()
@@ -34,7 +35,7 @@ export default function Certificates() {
               }}
             >
               <div className="plate" style={{ maxWidth: 160 }}>
-                <img src="/assets/certificate.png" alt="" />
+                <img src={mediaUrl("assets/certificate.png")} alt="" />
               </div>
 
               <div>
@@ -56,7 +57,7 @@ export default function Certificates() {
               </div>
 
               <img
-                src="/assets/qr.png"
+                src={mediaUrl("assets/qr.png")}
                 alt="QR"
                 style={{ width: 96, height: 96, border: '1px solid var(--color-divider)' }}
               />

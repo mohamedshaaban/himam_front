@@ -3,8 +3,8 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api, { clearToken, errorMessage, fieldErrors } from '../../api/client'
 import { useAuth } from '../../context/AuthContext.jsx'
-import { useLocales } from '../../i18n/LocaleProvider.jsx'
 import useAdminLte, { LOGIN_BODY_CLASSES } from '../useAdminLte.js'
+import { mediaUrl } from '../../api/media'
 
 /**
  * Sign-in for the dashboard, on AdminLTE's own login layout.
@@ -15,11 +15,10 @@ import useAdminLte, { LOGIN_BODY_CLASSES } from '../useAdminLte.js'
  * no access to.
  */
 export default function AdminLogin() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { login, logout, isAuthenticated, isAdmin, loading } = useAuth()
-  const { locales, codes } = useLocales()
 
   useAdminLte(LOGIN_BODY_CLASSES)
 
@@ -59,12 +58,10 @@ export default function AdminLogin() {
     }
   }
 
-  const chooseLanguage = (code) => i18n.changeLanguage(code)
-
   return (
     <div className="login-box">
       <div className="login-logo">
-        <img src="/assets/logo.svg" alt="" style={{ height: 56 }} />
+        <img src={mediaUrl("assets/logo.svg")} alt="" style={{ height: 56 }} />
         <div className="mt-2 fs-6 text-secondary">{t('app.association')}</div>
       </div>
 
@@ -115,23 +112,8 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          <div className="d-flex justify-content-between align-items-center mt-3">
+          <div className="text-center mt-3">
             <Link to="/" className="small">{t('admin.login.backToSite')}</Link>
-
-            <div className="btn-group btn-group-sm">
-              {codes.map((code) => (
-                <button
-                  key={code}
-                  type="button"
-                  className={`btn btn-outline-secondary ${code === i18n.language ? 'active' : ''}`}
-                  onClick={() => chooseLanguage(code)}
-                  lang={code}
-                  title={locales[code]?.name}
-                >
-                  {code.toUpperCase()}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </div>

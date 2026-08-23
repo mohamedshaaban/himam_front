@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { errorMessage, fieldErrors } from '../api/client'
 import { useAuth } from '../context/AuthContext.jsx'
+import { mediaUrl } from '../api/media'
 
 /**
  * Deliberately spare: the two logos, the credentials, and nothing else.
@@ -43,9 +44,9 @@ export default function Login() {
   return (
     <section className="login">
       <div className="login__marks">
-        <img src="/assets/logo.svg" alt={t('app.name')} className="login__logo" />
+        <img src={mediaUrl("assets/logo.svg")} alt={t('app.name')} className="login__logo" />
         <span className="login__divider" aria-hidden="true" />
-        <img src="/assets/association.svg" alt={t('app.association')} className="login__logo" />
+        <img src={mediaUrl("assets/association.svg")} alt={t('app.association')} className="login__logo" />
       </div>
 
       <h1 className="login__title">{t('auth.loginTitle')}</h1>

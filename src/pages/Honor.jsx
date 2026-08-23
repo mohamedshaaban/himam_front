@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Honor() {
   const { t } = useTranslation()
@@ -60,7 +61,7 @@ export default function Honor() {
                   <td className="tnum" style={{ fontSize: 19, color: 'var(--color-accent-700)' }}>{row.rank}</td>
                   <td>
                     <span className="row" style={{ gap: 'var(--space-3)', flexWrap: 'nowrap' }}>
-                      <img src={row.avatar || '/assets/avatar-1.svg'} alt="" style={{ width: 34, height: 34, borderRadius: '50%' }} />
+                      <img src={mediaUrl(row.avatar || '/assets/avatar-1.svg')} alt="" style={{ width: 34, height: 34, borderRadius: '50%' }} />
                       <span>{row.name}</span>
                     </span>
                   </td>

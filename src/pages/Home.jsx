@@ -4,6 +4,7 @@ import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Home() {
   const { t } = useTranslation()
@@ -114,7 +115,7 @@ function Dashboard({ data, user, t }) {
                 alignItems: 'center',
               }}
             >
-              <div className="plate"><img src="/assets/certificate.png" alt="" /></div>
+              <div className="plate"><img src={mediaUrl("assets/certificate.png")} alt="" /></div>
               <div>
                 <h3 style={{ margin: '0 0 var(--space-2)', fontSize: 22 }}>
                   {certificates[0].title ?? t('certificates.certificateTitle')}
@@ -126,7 +127,7 @@ function Dashboard({ data, user, t }) {
                   {certificates[0].serial}
                 </p>
               </div>
-              <img src="/assets/qr.png" alt="QR" style={{ width: 96, height: 96, border: '1px solid var(--color-divider)' }} />
+              <img src={mediaUrl("assets/qr.png")} alt="QR" style={{ width: 96, height: 96, border: '1px solid var(--color-divider)' }} />
             </div>
           ) : (
             <p className="muted">{t('certificates.empty')}</p>
@@ -142,7 +143,7 @@ function Dashboard({ data, user, t }) {
               <div className="grid-auto" style={{ '--min': '140px' }}>
                 {badges.map((badge) => (
                   <div key={badge.id} className="card badge-tile">
-                    <img src={badge.image || '/assets/badge.png'} alt="" style={{ height: 68 }} />
+                    <img src={mediaUrl(badge.image || '/assets/badge.png')} alt="" style={{ height: 68 }} />
                     <div>{badge.name}</div>
                   </div>
                 ))}
@@ -163,7 +164,7 @@ function Dashboard({ data, user, t }) {
             {honor.map((row) => (
               <li key={row.id}>
                 <span className="honor-list__rank">{row.rank}</span>
-                <img src={row.avatar || '/assets/avatar-1.svg'} alt="" style={{ width: 40, height: 40, borderRadius: '50%' }} />
+                <img src={mediaUrl(row.avatar || '/assets/avatar-1.svg')} alt="" style={{ width: 40, height: 40, borderRadius: '50%' }} />
                 <span style={{ fontSize: 16 }}>{row.name}</span>
                 <span className="tnum muted">{row.points}</span>
               </li>

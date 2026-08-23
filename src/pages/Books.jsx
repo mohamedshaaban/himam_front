@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Books() {
   const { t } = useTranslation()
@@ -53,7 +54,7 @@ export default function Books() {
                 }}
               >
                 {book.cover
-                  ? <img src={book.cover} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ? <img src={mediaUrl(book.cover)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   : <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, color: 'var(--color-neutral-700)' }}>cover</span>}
               </div>
 

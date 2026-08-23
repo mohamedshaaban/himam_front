@@ -5,6 +5,7 @@ import useAdminLte from './useAdminLte.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useLocales } from '../i18n/LocaleProvider.jsx'
 import api from '../api/client'
+import { mediaUrl } from '../api/media'
 
 const NAV_ICONS = {
   dashboard: 'M3 12l9-9 9 9M5 10v10h14V10',
@@ -144,7 +145,7 @@ export default function AdminLayout() {
       <aside className="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
         <div className="sidebar-brand">
           <Link to="/admin" className="brand-link d-flex align-items-center gap-2">
-            <img src="/assets/logo.svg" alt="" className="brand-image opacity-75" style={{ height: 32 }} />
+            <img src={mediaUrl("assets/logo.svg")} alt="" className="brand-image opacity-75" style={{ height: 32 }} />
             <span className="brand-text fw-light">{t('admin.title')}</span>
           </Link>
         </div>

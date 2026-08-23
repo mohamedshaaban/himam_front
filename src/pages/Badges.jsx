@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Badges() {
   const { t } = useTranslation()
@@ -24,7 +25,7 @@ export default function Badges() {
               key={badge.id}
               className={`card badge-tile${badge.earned ? '' : ' badge-tile--locked'}`}
             >
-              <img src={badge.image || '/assets/badge.png'} alt="" />
+              <img src={mediaUrl(badge.image || '/assets/badge.png')} alt="" />
               <div style={{ fontSize: 17 }}>{badge.name}</div>
               <div className="muted" style={{ fontSize: 14 }}>
                 {badge.earned ? t('badges.earned') : t('badges.locked')}

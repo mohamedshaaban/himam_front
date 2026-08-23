@@ -5,6 +5,7 @@ import api, { errorMessage, fieldErrors } from '../api/client'
 import Slider from '../components/Slider.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useLocales } from '../i18n/LocaleProvider.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Account() {
   const { t, i18n } = useTranslation()
@@ -78,7 +79,7 @@ export default function Account() {
     <section className="grid-auto" style={{ '--min': '280px', gap: 'var(--space-8)' }}>
       <div className="card" style={{ padding: 'var(--space-6)', alignSelf: 'start', textAlign: 'center' }}>
         <img
-          src={user?.avatar || '/assets/avatar-2.svg'}
+          src={mediaUrl(user?.avatar || '/assets/avatar-2.svg')}
           alt=""
           style={{ width: 96, height: 96, borderRadius: '50%', margin: '0 auto var(--space-3)' }}
         />

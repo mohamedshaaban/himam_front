@@ -6,6 +6,7 @@ import Modal from '../components/Modal.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { useLocales } from '../../i18n/LocaleProvider.jsx'
+import { mediaUrl } from '../../api/media'
 
 export default function Users() {
   const { t } = useTranslation()
@@ -82,7 +83,7 @@ export default function Users() {
                   <tr key={user.id}>
                     <td>
                       <span className="d-flex align-items-center gap-2">
-                        <img src={user.avatar || '/assets/avatar-1.svg'} alt="" className="rounded-circle" style={{ width: 28, height: 28 }} />
+                        <img src={mediaUrl(user.avatar || '/assets/avatar-1.svg')} alt="" className="rounded-circle" style={{ width: 28, height: 28 }} />
                         {user.name}
                       </span>
                     </td>

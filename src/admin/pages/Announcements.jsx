@@ -5,6 +5,7 @@ import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
 import MediaInput from '../components/MediaInput.jsx'
+import RichTextField from '../components/RichTextField.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -102,12 +103,10 @@ export default function Announcements() {
         >
           <TranslatableField label={t('admin.fields.tag')} value={editing.tag} onChange={(tag) => crud.patch({ tag })} />
           <TranslatableField label={t('admin.fields.title')} value={editing.title} onChange={(title) => crud.patch({ title })} />
-          <TranslatableField
+          <RichTextField
             label={t('admin.fields.body')}
             value={editing.body}
             onChange={(body) => crud.patch({ body })}
-            textarea
-            rows={3}
           />
 
           <div className="row g-3">

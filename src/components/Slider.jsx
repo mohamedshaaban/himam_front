@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import { isRtl } from '../i18n'
+import { mediaUrl } from '../api/media'
 
 /**
  * The carousel used across the app. Pass `items` directly, or a `screen` name
@@ -39,7 +40,7 @@ export default function Slider({ screen, items, height }) {
         <div className="plate slider__plate">
           <img
             className="slider__image"
-            src={current.image}
+            src={mediaUrl(current.image)}
             alt={current.caption ?? ''}
             style={height ? { height } : undefined}
             loading="lazy"

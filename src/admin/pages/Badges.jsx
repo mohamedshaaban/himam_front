@@ -6,6 +6,7 @@ import MediaInput from '../components/MediaInput.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
+import { mediaUrl } from '../../api/media'
 
 const CRITERIA = ['manual', 'sections_passed', 'books_completed', 'points']
 
@@ -52,7 +53,7 @@ export default function Badges() {
                   <tr key={badge.id}>
                     <td>
                       <span className="d-flex align-items-center gap-2">
-                        <img src={badge.image || '/assets/badge.png'} alt="" style={{ width: 26, height: 26, objectFit: 'contain' }} />
+                        <img src={mediaUrl(badge.image || '/assets/badge.png')} alt="" style={{ width: 26, height: 26, objectFit: 'contain' }} />
                         {pickTranslation(badge.name, i18n.language)}
                       </span>
                     </td>

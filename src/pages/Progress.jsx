@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import QueryState, { EmptyState } from '../components/PageState.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Progress() {
   const { t, i18n } = useTranslation()
@@ -184,7 +185,7 @@ function NextBadges({ badges, t }) {
           <div key={badge.id} className="card" style={{ padding: 'var(--space-4)' }}>
             <div className="row" style={{ flexWrap: 'nowrap', gap: 'var(--space-3)' }}>
               <img
-                src={badge.image || '/assets/badge.png'}
+                src={mediaUrl(badge.image || '/assets/badge.png')}
                 alt=""
                 style={{ height: 48, filter: 'grayscale(1)', opacity: 0.6 }}
               />

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createPortal } from 'react-dom'
 import api, { errorMessage } from '../../api/client'
+import { mediaUrl } from '../../api/media'
 
 /**
  * An image field: shows the current picture, uploads a new one, or picks from
@@ -50,7 +51,7 @@ export default function MediaInput({ label, value, onChange, help }) {
           style={{ width: 96, height: 96, overflow: 'hidden' }}
         >
           {value ? (
-            <img src={value} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+            <img src={mediaUrl(value)} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
           ) : (
             <span className="text-secondary small">—</span>
           )}
@@ -151,7 +152,7 @@ function MediaBrowser({ onClose, onPick }) {
                         title={file.name}
                       >
                         <img
-                          src={file.url}
+                          src={mediaUrl(file.url)}
                           alt=""
                           className="w-100"
                           style={{ height: 90, objectFit: 'contain' }}

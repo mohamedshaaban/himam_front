@@ -17,6 +17,14 @@ export const clearToken = () => localStorage.removeItem(TOKEN_KEY)
  */
 const baseURL = (import.meta.env.VITE_API_URL || '/api').replace(/\/+$/, '')
 
+/**
+ * The API's own origin, derived from baseURL. Uploaded files are served from
+ * /storage on that host, which is not necessarily the host serving this app.
+ */
+export const apiOrigin = /^https?:\/\//i.test(baseURL)
+  ? new URL(baseURL).origin
+  : window.location.origin
+
 const api = axios.create({
   baseURL,
   headers: { Accept: 'application/json' },

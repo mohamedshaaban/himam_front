@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import api from '../../api/client'
 import QueryState from '../../components/PageState.jsx'
 import AdminPage from '../components/AdminPage.jsx'
+import { mediaUrl } from '../../api/media'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -51,7 +52,7 @@ export default function Dashboard() {
                         <li className="list-group-item d-flex align-items-center gap-2" key={reader.id}>
                           <span className="badge text-bg-secondary">{index + 1}</span>
                           <img
-                            src={reader.avatar || '/assets/avatar-1.svg'}
+                            src={mediaUrl(reader.avatar || '/assets/avatar-1.svg')}
                             alt=""
                             className="rounded-circle"
                             style={{ width: 32, height: 32 }}

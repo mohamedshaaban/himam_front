@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
+import { mediaUrl } from '../api/media'
 
 export default function Header() {
   const { t } = useTranslation()
@@ -34,7 +35,7 @@ export default function Header() {
     <header className="site-header">
       <div className="site-header__inner">
         <Link to={isAuthenticated ? '/home' : '/'} className="brand">
-          <img src="/assets/logo.svg" alt={t('app.name')} />
+          <img src={mediaUrl("assets/logo.svg")} alt={t('app.name')} />
           <span className="brand__latin">{t('app.brandLatin')}</span>
         </Link>
 
@@ -69,7 +70,7 @@ export default function Header() {
               </Link>
 
               <Link to="/account" aria-label={t('nav.account')}>
-                <img className="avatar" src={user?.avatar || '/assets/avatar-2.svg'} alt="" />
+                <img className="avatar" src={mediaUrl(user?.avatar || '/assets/avatar-2.svg')} alt="" />
               </Link>
 
               <button type="button" className="btn btn-ghost" onClick={signOut}>
