@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next'
 import api, { errorMessage, fieldErrors } from '../api/client'
 import Slider from '../components/Slider.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { LOCALES, localeCodes } from '../i18n'
+import { useLocales } from '../i18n/LocaleProvider.jsx'
 
 export default function Account() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { user, setUser, logout } = useAuth()
+  const { locales, codes } = useLocales()
 
   const [profile, setProfile] = useState({
     name: user?.name ?? '',
@@ -122,8 +123,8 @@ export default function Account() {
                 value={profile.locale}
                 onChange={(e) => setProfile({ ...profile, locale: e.target.value })}
               >
-                {localeCodes.map((code) => (
-                  <option key={code} value={code}>{LOCALES[code].name}</option>
+                {codes.map((code) => (
+                  <option key={code} value={code}>{locales[code].name}</option>
                 ))}
               </select>
             </div>

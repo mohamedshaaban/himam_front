@@ -49,9 +49,21 @@
     "title": "Un programme scientifique qui rend la lecture structurée accessible",
     "body": "Himam, de l'Association scientifique Murtaqi : des livres choisis avec soin, un plan de lecture ordonné et un court quiz après chaque section — avec certificats, insignes et tableau d'honneur pour suivre vos progrès.",
     "pillars": {
-      "one": { "n": "01", "title": "Un programme singulier", "body": "Un programme scientifique conçu pour rendre la lecture structurée accessible." },
-      "two": { "n": "02", "title": "Des livres choisis avec soin", "body": "Un contenu puisé dans les grands livres et les sources savantes de référence." },
-      "three": { "n": "03", "title": "Former la conscience et la pensée", "body": "Un parcours agréable qui construit les compétences intellectuelles et approfondit la culture." }
+      "one": {
+        "n": "01",
+        "title": "Un programme singulier",
+        "body": "Un programme scientifique conçu pour rendre la lecture structurée accessible."
+      },
+      "two": {
+        "n": "02",
+        "title": "Des livres choisis avec soin",
+        "body": "Un contenu puisé dans les grands livres et les sources savantes de référence."
+      },
+      "three": {
+        "n": "03",
+        "title": "Former la conscience et la pensée",
+        "body": "Un parcours agréable qui construit les compétences intellectuelles et approfondit la culture."
+      }
     }
   },
   "intro": {
@@ -84,7 +96,11 @@
     "booksCompleted": "Livres terminés",
     "totalPoints": "Points",
     "outOf": "sur {{total}}",
-    "unit": { "section": "sections", "book": "livres", "point": "points" },
+    "unit": {
+      "section": "sections",
+      "book": "livres",
+      "point": "points"
+    },
     "honorNote": "Une émulation qui met à l'honneur les lecteurs les plus assidus à travers les niveaux et les livres, classés chaque mois ou chaque année selon la décision de l'administration."
   },
   "progress": {
@@ -229,7 +245,8 @@
       "announcements": "Annonces",
       "slides": "Diapositives",
       "certificates": "Certificats",
-      "users": "Utilisateurs"
+      "users": "Utilisateurs",
+      "locales": "Langues"
     },
     "stats": {
       "users": "Lecteurs",
@@ -276,9 +293,17 @@
       "correct": "Bonne réponse",
       "questions": "Questions",
       "options": "Options",
-      "sections": "Sections"
+      "sections": "Sections",
+      "code": "Code",
+      "englishName": "Nom anglais",
+      "direction": "Sens de lecture",
+      "default": "Par défaut",
+      "interface": "Interface"
     },
-    "roles": { "student": "Lecteur", "admin": "Administrateur" },
+    "roles": {
+      "student": "Lecteur",
+      "admin": "Administrateur"
+    },
     "criteria": {
       "manual": "Attribué à la main",
       "sections_passed": "Sections validées",
@@ -309,7 +334,26 @@
     "translationHint": "Une seule langue suffit ; la langue de repli est utilisée lorsqu'une traduction manque.",
     "confirmDelete": "Supprimer ? Cette action est irréversible.",
     "saved": "Enregistré.",
-    "deleted": "Supprimé."
+    "deleted": "Supprimé.",
+    "newLocale": "Nouvelle langue",
+    "locales": {
+      "help": "Ajoutez ou désactivez une langue sans ajouter de champs.",
+      "codeHelp": "Code ISO, par ex. tr ou pt-BR",
+      "nameHelp": "Le nom dans sa propre langue",
+      "ltr": "De gauche à droite",
+      "rtl": "De droite à gauche",
+      "translated": "Traduite",
+      "fallsBack": "Repli",
+      "defaultLocked": "La langue par défaut ne peut pas être supprimée",
+      "note": "Une nouvelle langue est immédiatement disponible sur tous les champs de contenu. L'interface utilise la langue par défaut tant qu'aucune traduction n'est ajoutée au projet."
+    },
+    "media": {
+      "upload": "Téléverser",
+      "browse": "Parcourir",
+      "clear": "Effacer",
+      "library": "Bibliothèque d'images",
+      "empty": "Aucune image pour le moment."
+    }
   },
   "common": {
     "loading": "Chargement…",

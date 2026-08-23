@@ -8,6 +8,7 @@ import './styles/tokens.css'
 import './styles/app.css'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { LocaleProvider } from './i18n/LocaleProvider.jsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,9 +27,11 @@ createRoot(document.getElementById('root')).render(
           it is '/himam_front/' — the router has to strip that prefix or every
           route would fail to match. */}
       <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <LocaleProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </LocaleProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,

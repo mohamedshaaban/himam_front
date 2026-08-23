@@ -5,11 +5,12 @@ import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
-import { LOCALES, localeCodes } from '../../i18n'
+import { useLocales } from '../../i18n/LocaleProvider.jsx'
 
 export default function Users() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+  const { locales, codes } = useLocales()
 
   const [search, setSearch] = useState('')
   const [term, setTerm] = useState('')
@@ -166,8 +167,8 @@ export default function Users() {
                 value={editing.locale}
                 onChange={(event) => setEditing({ ...editing, locale: event.target.value })}
               >
-                {localeCodes.map((code) => (
-                  <option key={code} value={code}>{LOCALES[code].name}</option>
+                {codes.map((code) => (
+                  <option key={code} value={code}>{locales[code].name}</option>
                 ))}
               </select>
             </div>

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import MediaInput from '../components/MediaInput.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -96,6 +97,12 @@ export default function Badges() {
             rows={3}
           />
 
+          <MediaInput
+            label={t('admin.fields.image')}
+            value={editing.image}
+            onChange={(image) => crud.patch({ image })}
+          />
+
           <div className="row g-3 align-items-end">
             <div className="col-sm-6">
               <label className="form-label" htmlFor="criteria_type">{t('admin.fields.criteria')}</label>
@@ -121,18 +128,6 @@ export default function Badges() {
                 disabled={editing.criteria_type === 'manual'}
                 value={editing.criteria_value ?? 0}
                 onChange={(event) => crud.patch({ criteria_value: Number(event.target.value) })}
-              />
-            </div>
-
-            <div className="col-sm-6">
-              <label className="form-label" htmlFor="image">{t('admin.fields.image')}</label>
-              <input
-                id="image"
-                className="form-control"
-                type="text"
-                dir="ltr"
-                value={editing.image ?? ''}
-                onChange={(event) => crud.patch({ image: event.target.value })}
               />
             </div>
 

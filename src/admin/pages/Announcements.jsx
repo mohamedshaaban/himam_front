@@ -4,6 +4,7 @@ import api, { errorMessage } from '../../api/client'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import MediaInput from '../components/MediaInput.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -126,18 +127,13 @@ export default function Announcements() {
               </select>
             </div>
 
-            <div className="col-sm-6">
-              <label className="form-label" htmlFor="ann-image">{t('admin.fields.image')}</label>
-              <input
-                id="ann-image"
-                className="form-control"
-                type="text"
-                dir="ltr"
-                value={editing.image ?? ''}
-                onChange={(event) => crud.patch({ image: event.target.value })}
-              />
-            </div>
           </div>
+
+          <MediaInput
+            label={t('admin.fields.image')}
+            value={editing.image}
+            onChange={(image) => crud.patch({ image })}
+          />
         </Modal>
       )}
     </AdminPage>

@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import useAdminLte from './useAdminLte.js'
 import { useAuth } from '../context/AuthContext.jsx'
-import { LOCALES, localeCodes } from '../i18n'
+import { useLocales } from '../i18n/LocaleProvider.jsx'
 import api from '../api/client'
 
 const NAV_ICONS = {
@@ -15,12 +15,14 @@ const NAV_ICONS = {
   slides: 'M3 5h18v11H3z M8 20h8',
   certificates: 'M6 3h12v13l-6-3-6 3z M9 19h6',
   users: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 20a8 8 0 0 1 16 0',
+  locales: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z',
 }
 
 export default function AdminLayout() {
   const { t, i18n } = useTranslation()
   const { user, setUser, logout } = useAuth()
   const { pathname } = useLocation()
+  const { locales, codes } = useLocales()
   const [langOpen, setLangOpen] = useState(false)
   const [userOpen, setUserOpen] = useState(false)
 
@@ -66,6 +68,7 @@ export default function AdminLayout() {
     { key: 'slides', to: '/admin/slides' },
     { key: 'certificates', to: '/admin/certificates' },
     { key: 'users', to: '/admin/users' },
+    { key: 'locales', to: '/admin/locales' },
   ]
 
   return (
@@ -92,19 +95,19 @@ export default function AdminLayout() {
                 aria-expanded={langOpen}
               >
                 <Icon d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18" />
-                <span className="d-none d-sm-inline">{LOCALES[i18n.language]?.name}</span>
+                <span className="d-none d-sm-inline">{locales[i18n.language]?.name}</span>
               </button>
               <div className={`dropdown-menu dropdown-menu-end ${langOpen ? 'show' : ''}`}>
-                {localeCodes.map((code) => (
+                {codes.map((code) => (
                   <button
                     key={code}
                     type="button"
                     className={`dropdown-item ${code === i18n.language ? 'active' : ''}`}
                     onClick={() => chooseLanguage(code)}
                     lang={code}
-                    dir={LOCALES[code].dir}
+                    dir={locales[code].dir}
                   >
-                    {LOCALES[code].name}
+                    {locales[code].name}
                   </button>
                 ))}
               </div>

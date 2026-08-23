@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { LOCALES, localeCodes } from '../../i18n'
+import { useLocales } from '../../i18n/LocaleProvider.jsx'
 
 /**
  * One input per language for a translatable content field.
@@ -13,6 +13,7 @@ import { LOCALES, localeCodes } from '../../i18n'
  */
 export default function TranslatableField({ label, value = {}, onChange, textarea = false, rows = 4 }) {
   const { t } = useTranslation()
+  const { locales, codes } = useLocales()
 
   const update = (locale, text) => onChange({ ...value, [locale]: text })
 
@@ -20,28 +21,28 @@ export default function TranslatableField({ label, value = {}, onChange, textare
     <div className="mb-3">
       <label className="form-label fw-semibold">{label}</label>
 
-      {localeCodes.map((code) => (
+      {codes.map((code) => (
         <div className="input-group input-group-sm mb-1" key={code}>
           <span className="input-group-text text-uppercase" style={{ minWidth: 52 }}>{code}</span>
           {textarea ? (
             <textarea
               className="form-control"
               rows={rows}
-              dir={LOCALES[code].dir}
+              dir={locales[code].dir}
               lang={code}
               value={value?.[code] ?? ''}
               onChange={(event) => update(code, event.target.value)}
-              aria-label={`${label} — ${LOCALES[code].name}`}
+              aria-label={`${label} — ${locales[code].name}`}
             />
           ) : (
             <input
               type="text"
               className="form-control"
-              dir={LOCALES[code].dir}
+              dir={locales[code].dir}
               lang={code}
               value={value?.[code] ?? ''}
               onChange={(event) => update(code, event.target.value)}
-              aria-label={`${label} — ${LOCALES[code].name}`}
+              aria-label={`${label} — ${locales[code].name}`}
             />
           )}
         </div>

@@ -1,8 +1,10 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import Layout from './components/Layout.jsx'
 import RequireAuth from './components/RequireAuth.jsx'
 import RequireAdmin from './components/RequireAdmin.jsx'
+import { Loading } from './components/PageState.jsx'
 
 import Landing from './pages/Landing.jsx'
 import Intro from './pages/Intro.jsx'
@@ -22,16 +24,27 @@ import NotificationDetail from './pages/NotificationDetail.jsx'
 import Account from './pages/Account.jsx'
 import NotFound from './pages/NotFound.jsx'
 
-import AdminLayout from './admin/AdminLayout.jsx'
-import AdminDashboard from './admin/pages/Dashboard.jsx'
-import AdminLevels from './admin/pages/Levels.jsx'
-import AdminBooks from './admin/pages/Books.jsx'
-import AdminBookEditor from './admin/pages/BookEditor.jsx'
-import AdminBadges from './admin/pages/Badges.jsx'
-import AdminAnnouncements from './admin/pages/Announcements.jsx'
-import AdminSlides from './admin/pages/Slides.jsx'
-import AdminCertificates from './admin/pages/Certificates.jsx'
-import AdminUsers from './admin/pages/Users.jsx'
+
+
+/*
+ * The admin area is loaded on demand.
+ *
+ * It pulls in AdminLTE and CKEditor, which together are larger than the entire
+ * reader app. Importing them statically put both in the main bundle, so every
+ * reader downloaded an editor and a dashboard theme they can never open.
+ * Splitting here keeps the reader payload to what readers actually use.
+ */
+const AdminLayout = lazy(() => import('./admin/AdminLayout.jsx'))
+const AdminDashboard = lazy(() => import('./admin/pages/Dashboard.jsx'))
+const AdminLevels = lazy(() => import('./admin/pages/Levels.jsx'))
+const AdminLocales = lazy(() => import('./admin/pages/Locales.jsx'))
+const AdminBooks = lazy(() => import('./admin/pages/Books.jsx'))
+const AdminBookEditor = lazy(() => import('./admin/pages/BookEditor.jsx'))
+const AdminBadges = lazy(() => import('./admin/pages/Badges.jsx'))
+const AdminAnnouncements = lazy(() => import('./admin/pages/Announcements.jsx'))
+const AdminSlides = lazy(() => import('./admin/pages/Slides.jsx'))
+const AdminCertificates = lazy(() => import('./admin/pages/Certificates.jsx'))
+const AdminUsers = lazy(() => import('./admin/pages/Users.jsx'))
 
 export default function App() {
   return (
@@ -63,9 +76,10 @@ export default function App() {
 
       {/* Admin dashboard */}
       <Route element={<RequireAdmin />}>
-        <Route path="admin" element={<AdminLayout />}>
+        <Route path="admin" element={<Suspense fallback={<Loading />}><AdminLayout /></Suspense>}>
           <Route index element={<AdminDashboard />} />
           <Route path="levels" element={<AdminLevels />} />
+          <Route path="locales" element={<AdminLocales />} />
           <Route path="books" element={<AdminBooks />} />
           <Route path="books/:bookId" element={<AdminBookEditor />} />
           <Route path="badges" element={<AdminBadges />} />

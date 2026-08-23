@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 96" role="img" aria-label="جمعية مرتقي العلمية">
+  <defs>
+    <linearGradient id="assocInk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7d5411"/>
+      <stop offset="1" stop-color="#3a270d"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="218" height="94" rx="6" fill="none" stroke="#201f1d" stroke-opacity=".18"/>
+  <path d="M110 20 L124 34 L110 48 L96 34 Z" fill="none" stroke="url(#assocInk)" stroke-width="1.6"/>
+  <path d="M110 28 L117 34 L110 40 L103 34 Z" fill="url(#assocInk)" fill-opacity=".65"/>
+  <text x="110" y="70" text-anchor="middle" font-family="Amiri, serif" font-size="17" fill="url(#assocInk)">جمعية مرتقي العلمية</text>
+  <path d="M40 80 H180" stroke="url(#assocInk)" stroke-width="1" stroke-opacity=".4"/>
+</svg>

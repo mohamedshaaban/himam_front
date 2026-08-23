@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import api from '../api/client'
-import { LOCALES, localeCodes } from '../i18n'
+import { useLocales } from '../i18n/LocaleProvider.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 
 export default function LanguageSwitcher() {
   const { t, i18n } = useTranslation()
   const { isAuthenticated, setUser } = useAuth()
+  const { locales, codes } = useLocales()
   const [open, setOpen] = useState(false)
   const containerRef = useRef(null)
 
@@ -49,7 +50,7 @@ export default function LanguageSwitcher() {
     }
   }
 
-  const current = LOCALES[i18n.language] ?? LOCALES.ar
+  const current = locales[i18n.language] ?? Object.values(locales)[0] ?? { name: i18n.language }
 
   return (
     <div className="lang-switcher" ref={containerRef}>
@@ -70,7 +71,7 @@ export default function LanguageSwitcher() {
 
       {open && (
         <ul className="lang-switcher__menu" role="listbox">
-          {localeCodes.map((code) => (
+          {codes.map((code) => (
             <li key={code}>
               <button
                 type="button"
@@ -79,10 +80,10 @@ export default function LanguageSwitcher() {
                 aria-selected={code === i18n.language}
                 onClick={() => choose(code)}
                 lang={code}
-                dir={LOCALES[code].dir}
+                dir={locales[code].dir}
               >
-                <span>{LOCALES[code].name}</span>
-                <span className="lang-switcher__native">{LOCALES[code].englishName}</span>
+                <span>{locales[code].name}</span>
+                <span className="lang-switcher__native">{locales[code].englishName}</span>
               </button>
             </li>
           ))}

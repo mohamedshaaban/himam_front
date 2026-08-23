@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import RichTextField from '../components/RichTextField.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -186,12 +187,10 @@ export default function BookEditor() {
             value={section.title}
             onChange={(title) => setSection({ ...section, title })}
           />
-          <TranslatableField
+          <RichTextField
             label={t('admin.fields.body')}
             value={section.body}
             onChange={(body) => setSection({ ...section, body })}
-            textarea
-            rows={6}
           />
           <div className="col-sm-4">
             <label className="form-label" htmlFor="section-position">{t('admin.fields.position')}</label>

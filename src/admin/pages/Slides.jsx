@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import MediaInput from '../components/MediaInput.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -114,19 +115,6 @@ export default function Slides() {
             </div>
 
             <div className="col-12">
-              <label className="form-label" htmlFor="slide-image">{t('admin.fields.image')}</label>
-              <input
-                id="slide-image"
-                className="form-control"
-                type="text"
-                dir="ltr"
-                value={editing.image ?? ''}
-                onChange={(event) => crud.patch({ image: event.target.value })}
-                required
-              />
-            </div>
-
-            <div className="col-12">
               <label className="form-label" htmlFor="slide-href">{t('admin.fields.link')}</label>
               <input
                 id="slide-href"
@@ -138,6 +126,12 @@ export default function Slides() {
               />
             </div>
           </div>
+
+          <MediaInput
+            label={t('admin.fields.image')}
+            value={editing.image}
+            onChange={(image) => crud.patch({ image })}
+          />
 
           <TranslatableField
             label={t('admin.fields.caption')}

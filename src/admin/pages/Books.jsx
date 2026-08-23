@@ -5,6 +5,7 @@ import api from '../../api/client'
 import useCrud from '../useCrud.js'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
+import MediaInput from '../components/MediaInput.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
@@ -123,22 +124,16 @@ export default function Books() {
             rows={3}
           />
 
+          <MediaInput
+            label={t('admin.fields.cover')}
+            value={editing.cover}
+            onChange={(cover) => crud.patch({ cover })}
+          />
+
           <div className="row g-3 align-items-end">
             <Num id="pages" label={t('admin.fields.pages')} value={editing.pages} onChange={(pages) => crud.patch({ pages })} />
             <Num id="points" label={t('admin.fields.points')} value={editing.points} onChange={(points) => crud.patch({ points })} />
             <Num id="position" label={t('admin.fields.position')} value={editing.position} onChange={(position) => crud.patch({ position })} />
-
-            <div className="col-sm-6">
-              <label className="form-label" htmlFor="cover">{t('admin.fields.cover')}</label>
-              <input
-                id="cover"
-                className="form-control"
-                type="text"
-                dir="ltr"
-                value={editing.cover ?? ''}
-                onChange={(event) => crud.patch({ cover: event.target.value })}
-              />
-            </div>
 
             <div className="col-sm-auto">
               <div className="form-check">

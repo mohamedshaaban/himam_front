@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
+import RichText from '../components/RichText.jsx'
 
 export default function Read() {
   const { sectionId } = useParams()
@@ -30,13 +31,14 @@ export default function Read() {
 
           <hr className="hr" />
 
-          {/* The section body arrives as plain text with blank-line paragraph
-              breaks, so it is split rather than rendered as HTML. */}
-          <div className="justify" style={{ fontSize: 19, lineHeight: 2 }}>
-            {(data.body ?? '').split(/\n{2,}/).filter(Boolean).map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          {/* Section bodies are authored in a rich-text editor now, but older
+              content is still plain text — RichText handles both, and sanitises
+              the markup before it reaches the page. */}
+          <RichText
+            html={data.body}
+            className="justify"
+            style={{ fontSize: 19, lineHeight: 2 }}
+          />
 
           <div
             className="row"

@@ -49,9 +49,21 @@
     "title": "A distinctive scholarly programme that makes structured reading achievable",
     "body": "Himam, from the Murtaqi Scientific Association: carefully chosen books, an ordered reading plan, and a short quiz after every section — with certificates, badges and an honour board that track your progress as you go.",
     "pillars": {
-      "one": { "n": "01", "title": "A distinctive programme", "body": "A scholarly programme built to make structured reading achievable." },
-      "two": { "n": "02", "title": "Carefully chosen books", "body": "Content drawn from the great books and trusted scholarly sources." },
-      "three": { "n": "03", "title": "Building awareness and thought", "body": "An enjoyable journey that builds intellectual skill and deepens understanding." }
+      "one": {
+        "n": "01",
+        "title": "A distinctive programme",
+        "body": "A scholarly programme built to make structured reading achievable."
+      },
+      "two": {
+        "n": "02",
+        "title": "Carefully chosen books",
+        "body": "Content drawn from the great books and trusted scholarly sources."
+      },
+      "three": {
+        "n": "03",
+        "title": "Building awareness and thought",
+        "body": "An enjoyable journey that builds intellectual skill and deepens understanding."
+      }
     }
   },
   "intro": {
@@ -84,7 +96,11 @@
     "booksCompleted": "Books completed",
     "totalPoints": "Points",
     "outOf": "of {{total}}",
-    "unit": { "section": "sections", "book": "books", "point": "points" },
+    "unit": {
+      "section": "sections",
+      "book": "books",
+      "point": "points"
+    },
     "honorNote": "A friendly competition honouring the readers who work hardest across the levels and books, ranked monthly or yearly as the programme administration decides."
   },
   "progress": {
@@ -229,7 +245,8 @@
       "announcements": "Announcements",
       "slides": "Slides",
       "certificates": "Certificates",
-      "users": "Users"
+      "users": "Users",
+      "locales": "Languages"
     },
     "stats": {
       "users": "Readers",
@@ -276,9 +293,17 @@
       "correct": "Correct answer",
       "questions": "Questions",
       "options": "Options",
-      "sections": "Sections"
+      "sections": "Sections",
+      "code": "Code",
+      "englishName": "English name",
+      "direction": "Direction",
+      "default": "Default",
+      "interface": "Interface"
     },
-    "roles": { "student": "Reader", "admin": "Administrator" },
+    "roles": {
+      "student": "Reader",
+      "admin": "Administrator"
+    },
     "criteria": {
       "manual": "Awarded by hand",
       "sections_passed": "Sections passed",
@@ -309,7 +334,26 @@
     "translationHint": "One language is enough; the fallback language is used wherever a translation is missing.",
     "confirmDelete": "Delete this? The action cannot be undone.",
     "saved": "Saved.",
-    "deleted": "Deleted."
+    "deleted": "Deleted.",
+    "newLocale": "New language",
+    "locales": {
+      "help": "Add or disable a language without adding any new fields.",
+      "codeHelp": "ISO code, e.g. tr or pt-BR",
+      "nameHelp": "The name in its own language",
+      "ltr": "Left to right",
+      "rtl": "Right to left",
+      "translated": "Translated",
+      "fallsBack": "Falls back",
+      "defaultLocked": "The default language cannot be deleted",
+      "note": "A new language is immediately available on every content field. Interface text falls back to the default language until a translation bundle is added to the project."
+    },
+    "media": {
+      "upload": "Upload",
+      "browse": "Browse",
+      "clear": "Clear",
+      "library": "Image library",
+      "empty": "Nothing uploaded yet."
+    }
   },
   "common": {
     "loading": "Loading…",
