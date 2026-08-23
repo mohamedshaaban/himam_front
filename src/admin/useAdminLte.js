@@ -7,6 +7,9 @@ import adminLteRtl from 'admin-lte/dist/css/adminlte.rtl.min.css?url'
 
 const LINK_ID = 'adminlte-stylesheet'
 
+export const DASHBOARD_BODY_CLASSES = ['layout-fixed', 'sidebar-expand-lg', 'bg-body-tertiary']
+export const LOGIN_BODY_CLASSES = ['login-page', 'bg-body-secondary']
+
 /**
  * Loads AdminLTE only while the admin area is on screen.
  *
@@ -20,7 +23,7 @@ const LINK_ID = 'adminlte-stylesheet'
  * The link is appended to <head> so it wins over the design system wherever the
  * two genuinely collide inside the admin area.
  */
-export default function useAdminLte() {
+export default function useAdminLte(bodyClasses = DASHBOARD_BODY_CLASSES) {
   const { i18n } = useTranslation()
   const rtl = isRtl(i18n.language)
 
@@ -38,13 +41,13 @@ export default function useAdminLte() {
     // don't cover the sidebar and layout offsets.
     link.href = rtl ? adminLteRtl : adminLteLtr
 
-    // AdminLTE's layout keys off body classes rather than a wrapper element.
-    const bodyClasses = ['layout-fixed', 'sidebar-expand-lg', 'bg-body-tertiary']
+    // AdminLTE's layout keys off body classes rather than a wrapper element,
+    // and its sign-in screen uses a different set from the dashboard shell.
     document.body.classList.add(...bodyClasses)
 
     return () => {
       document.getElementById(LINK_ID)?.remove()
       document.body.classList.remove(...bodyClasses, 'sidebar-open', 'sidebar-collapse')
     }
-  }, [rtl])
+  }, [rtl, bodyClasses])
 }

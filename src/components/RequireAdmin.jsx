@@ -9,7 +9,7 @@ export default function RequireAdmin() {
   if (loading) return <Loading />
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />
+    return <Navigate to="/admin/login" replace state={{ from: location }} />
   }
 
   // A signed-in reader who isn't an administrator goes to their own home rather

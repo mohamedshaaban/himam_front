@@ -34,6 +34,7 @@ import NotFound from './pages/NotFound.jsx'
  * reader downloaded an editor and a dashboard theme they can never open.
  * Splitting here keeps the reader payload to what readers actually use.
  */
+const AdminLogin = lazy(() => import('./admin/pages/Login.jsx'))
 const AdminLayout = lazy(() => import('./admin/AdminLayout.jsx'))
 const AdminDashboard = lazy(() => import('./admin/pages/Dashboard.jsx'))
 const AdminLevels = lazy(() => import('./admin/pages/Levels.jsx'))
@@ -73,6 +74,13 @@ export default function App() {
           <Route path="account" element={<Account />} />
         </Route>
       </Route>
+
+      {/* The dashboard's own sign-in. Outside RequireAdmin, since guarding it
+          would redirect to itself. */}
+      <Route
+        path="admin/login"
+        element={<Suspense fallback={<Loading />}><AdminLogin /></Suspense>}
+      />
 
       {/* Admin dashboard */}
       <Route element={<RequireAdmin />}>

@@ -353,6 +353,11 @@
       "clear": "Clear",
       "library": "Image library",
       "empty": "Nothing uploaded yet."
+    },
+    "login": {
+      "title": "Sign in to reach the dashboard",
+      "notAdmin": "That account is not an administrator. Use your admin credentials.",
+      "backToSite": "Back to the site"
     }
   },
   "common": {

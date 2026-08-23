@@ -353,6 +353,11 @@
       "clear": "Effacer",
       "library": "Bibliothèque d'images",
       "empty": "Aucune image pour le moment."
+    },
+    "login": {
+      "title": "Connectez-vous pour accéder au tableau de bord",
+      "notAdmin": "Ce compte n'est pas administrateur. Utilisez vos identifiants d'administration.",
+      "backToSite": "Retour au site"
     }
   },
   "common": {
