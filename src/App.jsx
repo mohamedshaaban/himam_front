@@ -46,6 +46,9 @@ const AdminAnnouncements = lazy(() => import('./admin/pages/Announcements.jsx'))
 const AdminSlides = lazy(() => import('./admin/pages/Slides.jsx'))
 const AdminCertificates = lazy(() => import('./admin/pages/Certificates.jsx'))
 const AdminUsers = lazy(() => import('./admin/pages/Users.jsx'))
+const AdminPages = lazy(() => import('./admin/pages/Pages.jsx'))
+const AdminFaqs = lazy(() => import('./admin/pages/Faqs.jsx'))
+const AdminContact = lazy(() => import('./admin/pages/Contact.jsx'))
 
 export default function App() {
   return (
@@ -95,6 +98,9 @@ export default function App() {
           <Route path="slides" element={<AdminSlides />} />
           <Route path="certificates" element={<AdminCertificates />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="pages" element={<AdminPages />} />
+          <Route path="faqs" element={<AdminFaqs />} />
+          <Route path="contact" element={<AdminContact />} />
         </Route>
       </Route>
 

@@ -39,6 +39,10 @@ export default function RichTextField({ label, value = {}, onChange }) {
 
   const config = useMemo(
     () => ({
+      // Required since CKEditor 5 v44: without it the editor refuses to start
+      // with license-key-missing and every field silently renders as nothing.
+      // 'GPL' is the value for the open-source build we depend on.
+      licenseKey: 'GPL',
       plugins: [
         Essentials, Paragraph, Heading, Bold, Italic, Link, List,
         BlockQuote, Autoformat, Table, TableToolbar, SourceEditing,

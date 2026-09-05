@@ -17,6 +17,9 @@ const NAV_ICONS = {
   certificates: 'M6 3h12v13l-6-3-6 3z M9 19h6',
   users: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 20a8 8 0 0 1 16 0',
   locales: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z',
+  pages: 'M6 3h9l4 4v14H6z M15 3v5h4',
+  faqs: 'M12 19h.01M9.1 9a3 3 0 1 1 4.2 2.7c-.8.4-1.3 1.2-1.3 2.1v.7',
+  contact: 'M4 5h16v14H4z M4 7l8 6 8-6',
 }
 
 export default function AdminLayout() {
@@ -70,6 +73,9 @@ export default function AdminLayout() {
     { key: 'certificates', to: '/admin/certificates' },
     { key: 'users', to: '/admin/users' },
     { key: 'locales', to: '/admin/locales' },
+    { key: 'pages', to: '/admin/pages' },
+    { key: 'faqs', to: '/admin/faqs' },
+    { key: 'contact', to: '/admin/contact' },
   ]
 
   return (

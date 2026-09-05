@@ -246,7 +246,10 @@
       "slides": "Slides",
       "certificates": "Certificates",
       "users": "Users",
-      "locales": "Languages"
+      "locales": "Languages",
+      "pages": "Pages",
+      "faqs": "FAQ",
+      "contact": "Contact & support"
     },
     "stats": {
       "users": "Readers",
@@ -298,7 +301,19 @@
       "englishName": "English name",
       "direction": "Direction",
       "default": "Default",
-      "interface": "Interface"
+      "interface": "Interface",
+      "slug": "Slug",
+      "question": "Question",
+      "answer": "Answer",
+      "order": "Order",
+      "address": "Address",
+      "workingHours": "Working hours",
+      "note": "Note",
+      "social": "Social links",
+      "platform": "Platform",
+      "url": "Link",
+      "website": "Website",
+      "whatsapp": "WhatsApp"
     },
     "roles": {
       "student": "Reader",
@@ -358,7 +373,18 @@
       "title": "Sign in to reach the dashboard",
       "notAdmin": "That account is not an administrator. Use your admin credentials.",
       "backToSite": "Back to the site"
-    }
+    },
+    "newPage": "New page",
+    "newFaq": "New question",
+    "published": "Published",
+    "hidden": "Hidden",
+    "addLink": "Add link",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "pagesHint": "The About and Privacy screens. A new slug becomes a new page — no deploy needed.",
+    "slugHint": "Lower-case letters, numbers and hyphens. The app reads the page at /api/pages/<slug>.",
+    "contactHint": "Shown on the contact and support screen.",
+    "active": "Active"
   },
   "common": {
     "loading": "Loading…",

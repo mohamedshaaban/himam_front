@@ -246,7 +246,10 @@
       "slides": "Diapositives",
       "certificates": "Certificats",
       "users": "Utilisateurs",
-      "locales": "Langues"
+      "locales": "Langues",
+      "pages": "Pages",
+      "faqs": "FAQ",
+      "contact": "Contact et assistance"
     },
     "stats": {
       "users": "Lecteurs",
@@ -298,7 +301,19 @@
       "englishName": "Nom anglais",
       "direction": "Sens de lecture",
       "default": "Par défaut",
-      "interface": "Interface"
+      "interface": "Interface",
+      "slug": "Identifiant",
+      "question": "Question",
+      "answer": "Réponse",
+      "order": "Ordre",
+      "address": "Adresse",
+      "workingHours": "Heures d'ouverture",
+      "note": "Note",
+      "social": "Réseaux sociaux",
+      "platform": "Plateforme",
+      "url": "Lien",
+      "website": "Site web",
+      "whatsapp": "WhatsApp"
     },
     "roles": {
       "student": "Lecteur",
@@ -358,7 +373,18 @@
       "title": "Connectez-vous pour accéder au tableau de bord",
       "notAdmin": "Ce compte n'est pas administrateur. Utilisez vos identifiants d'administration.",
       "backToSite": "Retour au site"
-    }
+    },
+    "newPage": "Nouvelle page",
+    "newFaq": "Nouvelle question",
+    "published": "Publiée",
+    "hidden": "Masquée",
+    "addLink": "Ajouter un lien",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "pagesHint": "Les écrans À propos et Confidentialité. Un nouvel identifiant crée une page, sans déploiement.",
+    "slugHint": "Minuscules, chiffres et tirets. L'application lit la page sur /api/pages/<identifiant>.",
+    "contactHint": "Affiché sur l'écran de contact et d'assistance.",
+    "active": "Actif"
   },
   "common": {
     "loading": "Chargement…",
