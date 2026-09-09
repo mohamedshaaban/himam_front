@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import api from '../api/client'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
@@ -16,12 +17,25 @@ export default function NotificationDetail() {
     select: (body) => body.data,
   })
 
-  // Opening one marks it read server-side; refresh the header's unread count.
+  // Mark it read explicitly rather than leaning on the GET's side effect: a
+  // cached or repeated read may never reach the server, and this is the moment
+  // we actually know the reader has opened it.
   useEffect(() => {
-    if (announcement.isSuccess) {
-      queryClient.invalidateQueries({ queryKey: ['announcements'] })
-    }
-  }, [announcement.isSuccess, queryClient])
+    if (!announcement.isSuccess) return
+
+    let cancelled = false
+
+    api.post(`/announcements/${announcementId}/read`)
+      .then(() => {
+        if (!cancelled) queryClient.invalidateQueries({ queryKey: ['announcements'] })
+      })
+      .catch(() => {
+        // Failing to record the read shouldn't stop the reader seeing the
+        // notification they just opened.
+      })
+
+    return () => { cancelled = true }
+  }, [announcement.isSuccess, announcementId, queryClient])
 
   const item = announcement.data
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { errorMessage, fieldErrors } from '../api/client'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -51,6 +51,10 @@ export default function Login() {
 
       <h1 className="login__title">{t('auth.loginTitle')}</h1>
 
+      {location.state?.notice && (
+        <p className="notice notice--success" role="status">{location.state.notice}</p>
+      )}
+
       {message && <p className="notice notice--error" role="alert">{message}</p>}
 
       <form onSubmit={submit} noValidate>
@@ -92,6 +96,10 @@ export default function Login() {
         >
           {busy ? t('common.loading') : t('actions.login')}
         </button>
+
+        <p style={{ textAlign: 'center', marginTop: 'var(--space-4)' }}>
+          <Link to="/forgot-password" className="btn btn-ghost btn-sm">{t('actions.forgotPassword')}</Link>
+        </p>
       </form>
     </section>
   )

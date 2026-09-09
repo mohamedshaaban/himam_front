@@ -43,7 +43,12 @@
     "search": "Rechercher",
     "next": "Suivant",
     "previous": "Précédent",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "forgotPassword": "Mot de passe oublié ?",
+    "sendResetLink": "Envoyer le lien",
+    "backToLogin": "Retour à la connexion",
+    "resetPassword": "Enregistrer",
+    "requestNewLink": "Demander un nouveau lien"
   },
   "landing": {
     "title": "Un programme scientifique qui rend la lecture structurée accessible",
@@ -83,7 +88,43 @@
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "invalid": "Ces identifiants ne correspondent à aucun compte.",
-    "demoHint": "Compte de démonstration : mohammed@himam.test — mot de passe : password"
+    "demoHint": "Compte de démonstration : mohammed@himam.test — mot de passe : password",
+    "nameHint": "Tel qu’il figurera sur votre certificat.",
+    "gender": "Genre",
+    "ageBand": "Âge",
+    "educationLevel": "Niveau d’études",
+    "country": "Pays",
+    "whatsapp": "Numéro WhatsApp",
+    "whatsappHint": "Avec l’indicatif international.",
+    "acceptsEmail": "J’accepte de recevoir des e-mails de l’Institut Murtaqi.",
+    "emailNotice": "Indiquez une adresse e-mail valide pour recevoir les messages du programme.",
+    "forgotTitle": "Mot de passe oublié ?",
+    "forgotBody": "Saisissez l’adresse e-mail de votre compte et nous vous enverrons un lien pour définir un nouveau mot de passe.",
+    "resetTitle": "Définir un nouveau mot de passe",
+    "resetBody": "Choisissez un nouveau mot de passe pour {{email}}.",
+    "resetDone": "Votre mot de passe a été réinitialisé. Vous pouvez vous connecter.",
+    "resetLinkMissing": "Cette page nécessite le lien reçu par e-mail. Ouvrez ce lien ou demandez-en un nouveau.",
+    "newPassword": "Nouveau mot de passe",
+    "genders": {
+      "male": "Homme",
+      "female": "Femme"
+    },
+    "ageBands": {
+      "under_21": "Moins de 21",
+      "21_30": "21–30",
+      "31_45": "31–45",
+      "over_46": "Plus de 46"
+    },
+    "educationLevels": {
+      "primary": "Primaire",
+      "intermediate": "Collège",
+      "secondary": "Lycée",
+      "diploma": "Diplôme",
+      "bachelor": "Licence",
+      "master": "Master",
+      "doctorate": "Doctorat",
+      "other": "Autre"
+    }
   },
   "home": {
     "welcome": "Bienvenue",
@@ -396,6 +437,7 @@
     "language": "Langue",
     "unread": "Non lu",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "choose": "Choisir…"
   }
 }

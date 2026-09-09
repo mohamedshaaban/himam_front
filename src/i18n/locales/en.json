@@ -43,7 +43,12 @@
     "search": "Search",
     "next": "Next",
     "previous": "Previous",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "forgotPassword": "Forgot your password?",
+    "sendResetLink": "Send reset link",
+    "backToLogin": "Back to sign in",
+    "resetPassword": "Save new password",
+    "requestNewLink": "Request a new link"
   },
   "landing": {
     "title": "A distinctive scholarly programme that makes structured reading achievable",
@@ -83,7 +88,43 @@
     "password": "Password",
     "confirmPassword": "Confirm password",
     "invalid": "Those credentials don't match our records.",
-    "demoHint": "Demo account: mohammed@himam.test — password: password"
+    "demoHint": "Demo account: mohammed@himam.test — password: password",
+    "nameHint": "As it should appear on your certificate.",
+    "gender": "Gender",
+    "ageBand": "Age",
+    "educationLevel": "Education level",
+    "country": "Country",
+    "whatsapp": "WhatsApp number",
+    "whatsappHint": "Include the international dialling code.",
+    "acceptsEmail": "I agree to receive emails from Murtaqi Institute.",
+    "emailNotice": "Please give a working email address so the programme’s messages reach you.",
+    "forgotTitle": "Forgot your password?",
+    "forgotBody": "Enter the email address on your account and we will send you a link to set a new password.",
+    "resetTitle": "Set a new password",
+    "resetBody": "Choose a new password for {{email}}.",
+    "resetDone": "Your password has been reset. You can sign in now.",
+    "resetLinkMissing": "This page needs the link from your reset email. Please open that link, or ask for a new one.",
+    "newPassword": "New password",
+    "genders": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "ageBands": {
+      "under_21": "Under 21",
+      "21_30": "21–30",
+      "31_45": "31–45",
+      "over_46": "Over 46"
+    },
+    "educationLevels": {
+      "primary": "Primary",
+      "intermediate": "Intermediate",
+      "secondary": "Secondary",
+      "diploma": "Diploma",
+      "bachelor": "Bachelor’s",
+      "master": "Master’s",
+      "doctorate": "Doctorate",
+      "other": "Other"
+    }
   },
   "home": {
     "welcome": "Welcome",
@@ -396,6 +437,7 @@
     "language": "Language",
     "unread": "Unread",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "choose": "Choose…"
   }
 }

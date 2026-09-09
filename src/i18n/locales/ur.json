@@ -43,7 +43,12 @@
     "search": "تلاش",
     "next": "اگلا",
     "previous": "پچھلا",
-    "confirm": "تصدیق"
+    "confirm": "تصدیق",
+    "forgotPassword": "پاس ورڈ بھول گئے؟",
+    "sendResetLink": "لنک بھیجیں",
+    "backToLogin": "واپس لاگ اِن",
+    "resetPassword": "پاس ورڈ محفوظ کریں",
+    "requestNewLink": "نیا لنک طلب کریں"
   },
   "landing": {
     "title": "ایک منفرد علمی پروگرام جو منظم مطالعے کو آسان بناتا ہے",
@@ -83,7 +88,43 @@
     "password": "پاس ورڈ",
     "confirmPassword": "پاس ورڈ کی تصدیق",
     "invalid": "یہ تفصیلات ہمارے ریکارڈ سے مطابقت نہیں رکھتیں۔",
-    "demoHint": "آزمائشی اکاؤنٹ: mohammed@himam.test — پاس ورڈ: password"
+    "demoHint": "آزمائشی اکاؤنٹ: mohammed@himam.test — پاس ورڈ: password",
+    "nameHint": "جیسا کہ سند پر لکھا جائے گا۔",
+    "gender": "جنس",
+    "ageBand": "عمر",
+    "educationLevel": "تعلیمی سطح",
+    "country": "ملک",
+    "whatsapp": "واٹس ایپ نمبر",
+    "whatsappHint": "بین الاقوامی کوڈ کے ساتھ۔",
+    "acceptsEmail": "میں مرتقی انسٹیٹیوٹ سے ای میل وصول کرنے پر رضامند ہوں۔",
+    "emailNotice": "براہِ کرم فعال ای میل دیں تاکہ پروگرام کے پیغامات آپ تک پہنچیں۔",
+    "forgotTitle": "پاس ورڈ بھول گئے؟",
+    "forgotBody": "اپنے اکاؤنٹ کا ای میل درج کریں، ہم آپ کو نیا پاس ورڈ بنانے کا لنک بھیجیں گے۔",
+    "resetTitle": "نیا پاس ورڈ مقرر کریں",
+    "resetBody": "{{email}} کے لیے نیا پاس ورڈ منتخب کریں۔",
+    "resetDone": "آپ کا پاس ورڈ تبدیل ہو گیا۔ اب آپ داخل ہو سکتے ہیں۔",
+    "resetLinkMissing": "اس صفحے کو ای میل والے لنک کی ضرورت ہے۔ وہ لنک کھولیں یا نیا لنک طلب کریں۔",
+    "newPassword": "نیا پاس ورڈ",
+    "genders": {
+      "male": "مرد",
+      "female": "عورت"
+    },
+    "ageBands": {
+      "under_21": "۲۱ سے کم",
+      "21_30": "۲۱ – ۳۰",
+      "31_45": "۳۱ – ۴۵",
+      "over_46": "۴۶ سے زیادہ"
+    },
+    "educationLevels": {
+      "primary": "ابتدائی",
+      "intermediate": "متوسط",
+      "secondary": "ثانوی",
+      "diploma": "ڈپلومہ",
+      "bachelor": "بیچلر",
+      "master": "ماسٹر",
+      "doctorate": "ڈاکٹریٹ",
+      "other": "دیگر"
+    }
   },
   "home": {
     "welcome": "خوش آمدید",
@@ -396,6 +437,7 @@
     "language": "زبان",
     "unread": "غیر پڑھا",
     "yes": "ہاں",
-    "no": "نہیں"
+    "no": "نہیں",
+    "choose": "منتخب کریں…"
   }
 }
