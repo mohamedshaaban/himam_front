@@ -270,7 +270,8 @@
       "locales": "Languages",
       "pages": "Pages",
       "faqs": "FAQ",
-      "contact": "Contact & support"
+      "contact": "Contact & support",
+      "programs": "Programs"
     },
     "stats": {
       "users": "Readers",
@@ -334,7 +335,10 @@
       "platform": "Platform",
       "url": "Link",
       "website": "Website",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "type": "Type",
+      "assignedReaders": "Assigned readers",
+      "listedForEveryone": "Listed for everyone"
     },
     "roles": {
       "student": "Reader",
@@ -405,7 +409,13 @@
     "pagesHint": "The About and Privacy screens. A new slug becomes a new page — no deploy needed.",
     "slugHint": "Lower-case letters, numbers and hyphens. The app reads the page at /api/pages/<slug>.",
     "contactHint": "Shown on the contact and support screen.",
-    "active": "Active"
+    "active": "Active",
+    "newProgram": "New program",
+    "manageContents": "Books & readers",
+    "addBooks": "Add books",
+    "orderMatters": "Order decides what unlocks next. Book 1 is open; each one after it waits on the one before.",
+    "selectiveHint": "Only the readers ticked here can see this program. It is hidden from everyone else.",
+    "programsHint": "Reading programs: open to all, unlocked in order, or assigned to chosen readers."
   },
   "common": {
     "loading": "Loading…",
@@ -419,5 +429,26 @@
     "yes": "Yes",
     "no": "No",
     "choose": "Choose…"
+  },
+  "programs": {
+    "title": "Reading programs",
+    "everyone": "Everyone",
+    "types": {
+      "general": "General",
+      "sequential": "Sequential",
+      "selective": "Selective"
+    },
+    "typeHints": {
+      "general": "Visible to everyone. Books can be read in any order.",
+      "sequential": "Each book unlocks only once the previous one is finished.",
+      "selective": "Visible only to the readers you assign. Hidden from everyone else."
+    },
+    "locked": "Locked",
+    "lockedBecause": "Finish “{{book}}” first",
+    "completed": "Completed",
+    "inProgress": "In progress",
+    "available": "Available",
+    "booksProgress": "{{done}} of {{total}} books",
+    "empty": "No programs are available to you yet."
   }
 }

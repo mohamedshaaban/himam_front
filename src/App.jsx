@@ -51,6 +51,7 @@ const AdminUsers = lazy(() => import('./admin/pages/Users.jsx'))
 const AdminPages = lazy(() => import('./admin/pages/Pages.jsx'))
 const AdminFaqs = lazy(() => import('./admin/pages/Faqs.jsx'))
 const AdminContact = lazy(() => import('./admin/pages/Contact.jsx'))
+const AdminPrograms = lazy(() => import('./admin/pages/Programs.jsx'))
 
 export default function App() {
   return (
@@ -105,6 +106,7 @@ export default function App() {
           <Route path="pages" element={<AdminPages />} />
           <Route path="faqs" element={<AdminFaqs />} />
           <Route path="contact" element={<AdminContact />} />
+          <Route path="programs" element={<AdminPrograms />} />
         </Route>
       </Route>
 

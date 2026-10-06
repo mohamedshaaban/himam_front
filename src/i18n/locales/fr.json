@@ -270,7 +270,8 @@
       "locales": "Langues",
       "pages": "Pages",
       "faqs": "FAQ",
-      "contact": "Contact et assistance"
+      "contact": "Contact et assistance",
+      "programs": "Programmes"
     },
     "stats": {
       "users": "Lecteurs",
@@ -334,7 +335,10 @@
       "platform": "Plateforme",
       "url": "Lien",
       "website": "Site web",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "type": "Type",
+      "assignedReaders": "Lecteurs assignés",
+      "listedForEveryone": "Visible par tous"
     },
     "roles": {
       "student": "Lecteur",
@@ -405,7 +409,13 @@
     "pagesHint": "Les écrans À propos et Confidentialité. Un nouvel identifiant crée une page, sans déploiement.",
     "slugHint": "Minuscules, chiffres et tirets. L'application lit la page sur /api/pages/<identifiant>.",
     "contactHint": "Affiché sur l'écran de contact et d'assistance.",
-    "active": "Actif"
+    "active": "Actif",
+    "newProgram": "Nouveau programme",
+    "manageContents": "Livres et lecteurs",
+    "addBooks": "Ajouter des livres",
+    "orderMatters": "L’ordre détermine le déverrouillage. Le premier livre est ouvert ; chaque suivant attend le précédent.",
+    "selectiveHint": "Seuls les lecteurs cochés ici voient ce programme. Il est masqué pour les autres.",
+    "programsHint": "Programmes de lecture : ouverts à tous, déverrouillés dans l’ordre, ou réservés à des lecteurs choisis."
   },
   "common": {
     "loading": "Chargement…",
@@ -419,5 +429,26 @@
     "yes": "Oui",
     "no": "Non",
     "choose": "Choisir…"
+  },
+  "programs": {
+    "title": "Programmes de lecture",
+    "everyone": "Tout le monde",
+    "types": {
+      "general": "Général",
+      "sequential": "Méthodique",
+      "selective": "Sélectif"
+    },
+    "typeHints": {
+      "general": "Visible par tous. Les livres se lisent dans n’importe quel ordre.",
+      "sequential": "Chaque livre se déverrouille une fois le précédent terminé.",
+      "selective": "Visible uniquement par les lecteurs assignés. Masqué pour les autres."
+    },
+    "locked": "Verrouillé",
+    "lockedBecause": "Terminez d’abord « {{book}} »",
+    "completed": "Terminé",
+    "inProgress": "En cours",
+    "available": "Disponible",
+    "booksProgress": "{{done}} livres sur {{total}}",
+    "empty": "Aucun programme ne vous est encore proposé."
   }
 }

@@ -20,6 +20,7 @@ const NAV_ICONS = {
   pages: 'M6 3h9l4 4v14H6z M15 3v5h4',
   faqs: 'M12 19h.01M9.1 9a3 3 0 1 1 4.2 2.7c-.8.4-1.3 1.2-1.3 2.1v.7',
   contact: 'M4 5h16v14H4z M4 7l8 6 8-6',
+  programs: 'M4 5h10l2 2h4v12H4z M8 11h8M8 15h5',
 }
 
 export default function AdminLayout() {
@@ -66,6 +67,7 @@ export default function AdminLayout() {
   const nav = [
     { key: 'dashboard', to: '/admin', end: true },
     { key: 'levels', to: '/admin/levels' },
+    { key: 'programs', to: '/admin/programs' },
     { key: 'books', to: '/admin/books' },
     { key: 'badges', to: '/admin/badges' },
     { key: 'announcements', to: '/admin/announcements' },
