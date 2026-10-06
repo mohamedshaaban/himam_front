@@ -91,11 +91,7 @@
     "demoHint": "آزمائشی اکاؤنٹ: mohammed@himam.test — پاس ورڈ: password",
     "nameHint": "جیسا کہ سند پر لکھا جائے گا۔",
     "gender": "جنس",
-    "ageBand": "عمر",
-    "educationLevel": "تعلیمی سطح",
     "country": "ملک",
-    "whatsapp": "واٹس ایپ نمبر",
-    "whatsappHint": "بین الاقوامی کوڈ کے ساتھ۔",
     "acceptsEmail": "میں مرتقی انسٹیٹیوٹ سے ای میل وصول کرنے پر رضامند ہوں۔",
     "emailNotice": "براہِ کرم فعال ای میل دیں تاکہ پروگرام کے پیغامات آپ تک پہنچیں۔",
     "forgotTitle": "پاس ورڈ بھول گئے؟",
@@ -108,22 +104,6 @@
     "genders": {
       "male": "مرد",
       "female": "عورت"
-    },
-    "ageBands": {
-      "under_21": "۲۱ سے کم",
-      "21_30": "۲۱ – ۳۰",
-      "31_45": "۳۱ – ۴۵",
-      "over_46": "۴۶ سے زیادہ"
-    },
-    "educationLevels": {
-      "primary": "ابتدائی",
-      "intermediate": "متوسط",
-      "secondary": "ثانوی",
-      "diploma": "ڈپلومہ",
-      "bachelor": "بیچلر",
-      "master": "ماسٹر",
-      "doctorate": "ڈاکٹریٹ",
-      "other": "دیگر"
     }
   },
   "home": {

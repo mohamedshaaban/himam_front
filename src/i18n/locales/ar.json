@@ -91,11 +91,7 @@
     "demoHint": "حساب للتجربة: mohammed@himam.test — كلمة المرور: password",
     "nameHint": "كما سيُكتب في الشهادة.",
     "gender": "الجنس",
-    "ageBand": "العمر",
-    "educationLevel": "المستوى التعليمي",
     "country": "الدولة",
-    "whatsapp": "رقم الواتساب",
-    "whatsappHint": "مع المفتاح الدولي.",
     "acceptsEmail": "أوافق على استقبال رسائل البريد الإلكتروني من معهد مرتقى.",
     "emailNotice": "يُرجى كتابة بريد إلكتروني فعّال لتصلك رسائل البرنامج.",
     "forgotTitle": "نسيت كلمة المرور؟",
@@ -108,22 +104,6 @@
     "genders": {
       "male": "ذكر",
       "female": "أنثى"
-    },
-    "ageBands": {
-      "under_21": "أقل من ٢١",
-      "21_30": "٢١ – ٣٠",
-      "31_45": "٣١ – ٤٥",
-      "over_46": "أكثر من ٤٦"
-    },
-    "educationLevels": {
-      "primary": "ابتدائي",
-      "intermediate": "متوسط",
-      "secondary": "ثانوي",
-      "diploma": "دبلوم",
-      "bachelor": "بكالوريوس",
-      "master": "ماجستير",
-      "doctorate": "دكتوراه",
-      "other": "غير ذلك"
     }
   },
   "home": {

@@ -91,11 +91,7 @@
     "demoHint": "Compte de démonstration : mohammed@himam.test — mot de passe : password",
     "nameHint": "Tel qu’il figurera sur votre certificat.",
     "gender": "Genre",
-    "ageBand": "Âge",
-    "educationLevel": "Niveau d’études",
     "country": "Pays",
-    "whatsapp": "Numéro WhatsApp",
-    "whatsappHint": "Avec l’indicatif international.",
     "acceptsEmail": "J’accepte de recevoir des e-mails de l’Institut Murtaqi.",
     "emailNotice": "Indiquez une adresse e-mail valide pour recevoir les messages du programme.",
     "forgotTitle": "Mot de passe oublié ?",
@@ -108,22 +104,6 @@
     "genders": {
       "male": "Homme",
       "female": "Femme"
-    },
-    "ageBands": {
-      "under_21": "Moins de 21",
-      "21_30": "21–30",
-      "31_45": "31–45",
-      "over_46": "Plus de 46"
-    },
-    "educationLevels": {
-      "primary": "Primaire",
-      "intermediate": "Collège",
-      "secondary": "Lycée",
-      "diploma": "Diplôme",
-      "bachelor": "Licence",
-      "master": "Master",
-      "doctorate": "Doctorat",
-      "other": "Autre"
     }
   },
   "home": {

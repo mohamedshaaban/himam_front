@@ -91,11 +91,7 @@
     "demoHint": "Demo account: mohammed@himam.test — password: password",
     "nameHint": "As it should appear on your certificate.",
     "gender": "Gender",
-    "ageBand": "Age",
-    "educationLevel": "Education level",
     "country": "Country",
-    "whatsapp": "WhatsApp number",
-    "whatsappHint": "Include the international dialling code.",
     "acceptsEmail": "I agree to receive emails from Murtaqi Institute.",
     "emailNotice": "Please give a working email address so the programme’s messages reach you.",
     "forgotTitle": "Forgot your password?",
@@ -108,22 +104,6 @@
     "genders": {
       "male": "Male",
       "female": "Female"
-    },
-    "ageBands": {
-      "under_21": "Under 21",
-      "21_30": "21–30",
-      "31_45": "31–45",
-      "over_46": "Over 46"
-    },
-    "educationLevels": {
-      "primary": "Primary",
-      "intermediate": "Intermediate",
-      "secondary": "Secondary",
-      "diploma": "Diploma",
-      "bachelor": "Bachelor’s",
-      "master": "Master’s",
-      "doctorate": "Doctorate",
-      "other": "Other"
     }
   },
   "home": {
