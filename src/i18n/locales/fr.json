@@ -13,7 +13,8 @@
     "honor": "Tableau d'honneur",
     "account": "Compte",
     "notifications": "Notifications",
-    "admin": "Administration"
+    "admin": "Administration",
+    "programs": "Programmes"
   },
   "actions": {
     "login": "Se connecter",
@@ -449,6 +450,11 @@
     "inProgress": "En cours",
     "available": "Disponible",
     "booksProgress": "{{done}} livres sur {{total}}",
-    "empty": "Aucun programme ne vous est encore proposé."
+    "empty": "Aucun programme ne vous est encore proposé.",
+    "lead": "Choisissez un parcours et menez-le à son terme. Certains sont ouverts à tous, d’autres se déverrouillent livre après livre.",
+    "open": "Ouvrir le programme",
+    "join": "Rejoindre ce programme",
+    "leave": "Quitter le programme",
+    "joined": "Inscrit"
   }
 }

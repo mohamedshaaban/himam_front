@@ -13,7 +13,8 @@
     "honor": "Honour board",
     "account": "Account",
     "notifications": "Notifications",
-    "admin": "Admin"
+    "admin": "Admin",
+    "programs": "Programs"
   },
   "actions": {
     "login": "Sign in",
@@ -449,6 +450,11 @@
     "inProgress": "In progress",
     "available": "Available",
     "booksProgress": "{{done}} of {{total}} books",
-    "empty": "No programs are available to you yet."
+    "empty": "No programs are available to you yet.",
+    "lead": "Choose a path and read it through. Some are open to all, some unlock book by book.",
+    "open": "Open program",
+    "join": "Join this program",
+    "leave": "Leave program",
+    "joined": "Joined"
   }
 }

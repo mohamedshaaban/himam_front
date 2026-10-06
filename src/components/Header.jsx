@@ -19,6 +19,7 @@ export default function Header() {
   const links = [
     { to: '/home', label: t('nav.home'), authOnly: true },
     { to: '/progress', label: t('progress.title'), authOnly: true },
+    { to: '/programs', label: t('nav.programs') },
     { to: '/books', label: t('nav.books') },
     { to: '/badges', label: t('nav.badges') },
     { to: '/certificates', label: t('nav.certificates'), authOnly: true },

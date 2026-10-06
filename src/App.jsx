@@ -15,6 +15,8 @@ import ResetPassword from './pages/ResetPassword.jsx'
 import Home from './pages/Home.jsx'
 import Progress from './pages/Progress.jsx'
 import Books from './pages/Books.jsx'
+import Programs from './pages/Programs.jsx'
+import ProgramDetail from './pages/ProgramDetail.jsx'
 import BookDetail from './pages/BookDetail.jsx'
 import Read from './pages/Read.jsx'
 import Quiz from './pages/Quiz.jsx'
@@ -66,6 +68,8 @@ export default function App() {
         <Route path="reset-password" element={<ResetPassword />} />
 
         {/* Browsable without an account so the catalogue can be previewed. */}
+        <Route path="programs" element={<Programs />} />
+        <Route path="programs/:programId" element={<ProgramDetail />} />
         <Route path="books" element={<Books />} />
         <Route path="books/:bookId" element={<BookDetail />} />
         <Route path="badges" element={<Badges />} />
