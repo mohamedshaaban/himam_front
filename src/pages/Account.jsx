@@ -16,7 +16,6 @@ export default function Account() {
   const [profile, setProfile] = useState({
     name: user?.name ?? '',
     email: user?.email ?? '',
-    phone: user?.phone ?? '',
     city: user?.city ?? '',
     locale: user?.locale ?? i18n.language,
   })
@@ -111,8 +110,6 @@ export default function Account() {
               onChange={(v) => setProfile({ ...profile, name: v })} />
             <Field id="email" label={t('auth.email')} type="email" dir="ltr" value={profile.email} error={errors.email}
               onChange={(v) => setProfile({ ...profile, email: v })} />
-            <Field id="phone" label={t('auth.phone')} type="tel" dir="ltr" value={profile.phone} error={errors.phone}
-              onChange={(v) => setProfile({ ...profile, phone: v })} />
             <Field id="city" label={t('auth.city')} value={profile.city} error={errors.city}
               onChange={(v) => setProfile({ ...profile, city: v })} />
 

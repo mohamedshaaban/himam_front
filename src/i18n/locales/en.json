@@ -84,7 +84,6 @@
     "registerBody": "A new account gives you access to Himam and to the Murtaqi Association.",
     "name": "Name",
     "email": "Email address",
-    "phone": "Mobile number",
     "city": "City",
     "password": "Password",
     "confirmPassword": "Confirm password",

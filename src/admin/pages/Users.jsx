@@ -142,8 +142,6 @@ export default function Users() {
               onChange={(name) => setEditing({ ...editing, name })} />
             <Field id="u-email" label={t('admin.fields.email')} type="email" dir="ltr" value={editing.email}
               onChange={(email) => setEditing({ ...editing, email })} />
-            <Field id="u-phone" label={t('admin.fields.phone')} dir="ltr" value={editing.phone}
-              onChange={(phone) => setEditing({ ...editing, phone })} />
             <Field id="u-city" label={t('admin.fields.city')} value={editing.city}
               onChange={(city) => setEditing({ ...editing, city })} />
 
