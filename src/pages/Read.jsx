@@ -4,6 +4,7 @@ import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
 import RichText from '../components/RichText.jsx'
+import PdfViewer from '../components/PdfViewer.jsx'
 
 export default function Read() {
   const { sectionId } = useParams()
@@ -27,13 +28,19 @@ export default function Read() {
             {data.title}
           </h1>
 
-          <Slider screen="books" height={320} />
+          {/* The decorative slider earns its place on a text section; on a
+              document one it only pushes the thing being read below the fold. */}
+          {!data.pdf && <Slider screen="books" height={320} />}
 
           <hr className="hr" />
+
+          <PdfViewer src={data.pdf} title={data.title} />
 
           {/* Section bodies are authored in a rich-text editor now, but older
               content is still plain text — RichText handles both, and sanitises
               the markup before it reaches the page. */}
+          {/* A section may carry both: the document is the reading material
+              and the text is the introduction to it. */}
           <RichText
             html={data.body}
             className="justify"

@@ -173,7 +173,11 @@
     "progress": "{{done}} of {{total}} completed"
   },
   "read": {
-    "sectionCounter": "Section {{current}} of {{total}}"
+    "sectionCounter": "Section {{current}} of {{total}}",
+    "openPdf": "Open the file",
+    "expandPdf": "Larger",
+    "shrinkPdf": "Smaller",
+    "pdfFallback": "Your browser cannot show the document here."
   },
   "quiz": {
     "title": "Section quiz",
@@ -338,7 +342,8 @@
       "whatsapp": "WhatsApp",
       "type": "Type",
       "assignedReaders": "Assigned readers",
-      "listedForEveryone": "Listed for everyone"
+      "listedForEveryone": "Listed for everyone",
+      "pdf": "Section document (PDF)"
     },
     "roles": {
       "student": "Reader",
@@ -415,7 +420,8 @@
     "addBooks": "Add books",
     "orderMatters": "Order decides what unlocks next. Book 1 is open; each one after it waits on the one before.",
     "selectiveHint": "Only the readers ticked here can see this program. It is hidden from everyone else.",
-    "programsHint": "Reading programs: open to all, unlocked in order, or assigned to chosen readers."
+    "programsHint": "Reading programs: open to all, unlocked in order, or assigned to chosen readers.",
+    "pdfHint": "Shown on the reading screen. The section text can stay as an introduction, or be left empty."
   },
   "common": {
     "loading": "Loading…",

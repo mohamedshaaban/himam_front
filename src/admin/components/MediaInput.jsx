@@ -6,14 +6,19 @@ import api, { errorMessage } from '../../api/client'
 import { mediaUrl } from '../../api/media'
 
 /**
- * An image field: shows the current picture, uploads a new one, or picks from
- * what has already been uploaded.
+ * A file field: shows what is set, uploads a new one, or picks from what has
+ * already been uploaded.
+ *
+ * `kind` switches between pictures and documents. One component rather than
+ * two because everything except the preview is identical, and because the
+ * library is shared — an author who uploaded a PDF here should find it from
+ * any other section's field.
  *
  * The stored value stays a plain string so nothing else has to change — the
  * models, the API and the reader app all still just hold a URL. This only
  * replaces the way an administrator arrives at that string.
  */
-export default function MediaInput({ label, value, onChange, help }) {
+export default function MediaInput({ label, value, onChange, help, kind = 'image' }) {
   const { t } = useTranslation()
   const [browsing, setBrowsing] = useState(false)
   const [error, setError] = useState(null)
@@ -50,10 +55,23 @@ export default function MediaInput({ label, value, onChange, help }) {
           className="border rounded d-flex align-items-center justify-content-center bg-body-tertiary flex-shrink-0"
           style={{ width: 96, height: 96, overflow: 'hidden' }}
         >
-          {value ? (
-            <img src={mediaUrl(value)} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-          ) : (
+          {!value ? (
             <span className="text-secondary small">—</span>
+          ) : kind === 'pdf' ? (
+            // A document has no thumbnail worth showing, so the tile opens it
+            // instead — checking the right file is attached means looking at it.
+            <a
+              href={mediaUrl(value)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-decoration-none text-center p-1"
+              title={value}
+            >
+              <div style={{ fontSize: 28, lineHeight: 1 }}>📄</div>
+              <small className="d-block text-truncate" style={{ maxWidth: 84 }}>PDF</small>
+            </a>
+          ) : (
+            <img src={mediaUrl(value)} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
           )}
         </div>
 
@@ -86,7 +104,7 @@ export default function MediaInput({ label, value, onChange, help }) {
             dir="ltr"
             value={value ?? ''}
             onChange={(event) => onChange(event.target.value)}
-            placeholder="assets/banner.svg"
+            placeholder={kind === 'pdf' ? 'uploads/section.pdf' : 'assets/banner.svg'}
           />
 
           {help && <div className="form-text">{help}</div>}
@@ -94,10 +112,17 @@ export default function MediaInput({ label, value, onChange, help }) {
         </div>
       </div>
 
-      <input ref={fileRef} type="file" accept="image/*" hidden onChange={pick} />
+      <input
+        ref={fileRef}
+        type="file"
+        accept={kind === 'pdf' ? 'application/pdf' : 'image/*'}
+        hidden
+        onChange={pick}
+      />
 
       {browsing && (
         <MediaBrowser
+          kind={kind}
           onClose={() => setBrowsing(false)}
           onPick={(url) => { onChange(url); setBrowsing(false) }}
         />
@@ -106,7 +131,7 @@ export default function MediaInput({ label, value, onChange, help }) {
   )
 }
 
-function MediaBrowser({ onClose, onPick }) {
+function MediaBrowser({ kind, onClose, onPick }) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
 
@@ -114,6 +139,10 @@ function MediaBrowser({ onClose, onPick }) {
     queryKey: ['admin', 'media'],
     queryFn: async () => (await api.get('/admin/media')).data.data,
   })
+
+  // Older uploads predate the kind flag; treat anything unlabelled as an image
+  // so an existing library does not look empty.
+  const files = (media.data ?? []).filter((file) => (file.kind ?? 'image') === kind)
 
   const remove = useMutation({
     mutationFn: async (path) => api.delete('/admin/media', { data: { path } }),
@@ -139,10 +168,12 @@ function MediaBrowser({ onClose, onPick }) {
             <div className="modal-body">
               {media.isPending && <p className="text-secondary mb-0">{t('common.loading')}</p>}
               {media.isError && <p className="text-danger mb-0">{t('common.error')}</p>}
-              {media.data?.length === 0 && <p className="text-secondary mb-0">{t('admin.media.empty')}</p>}
+              {files.length === 0 && !media.isPending && (
+                <p className="text-secondary mb-0">{t('admin.media.empty')}</p>
+              )}
 
               <div className="row g-2">
-                {media.data?.map((file) => (
+                {files.map((file) => (
                   <div className="col-6 col-md-3" key={file.path}>
                     <div className="card h-100">
                       <button
@@ -151,12 +182,22 @@ function MediaBrowser({ onClose, onPick }) {
                         onClick={() => onPick(file.url)}
                         title={file.name}
                       >
-                        <img
-                          src={mediaUrl(file.url)}
-                          alt=""
-                          className="w-100"
-                          style={{ height: 90, objectFit: 'contain' }}
-                        />
+                        {file.kind === 'pdf' ? (
+                          <div
+                            className="w-100 d-flex flex-column align-items-center justify-content-center"
+                            style={{ height: 90 }}
+                          >
+                            <span style={{ fontSize: 30, lineHeight: 1 }}>📄</span>
+                            <small className="text-secondary">PDF</small>
+                          </div>
+                        ) : (
+                          <img
+                            src={mediaUrl(file.url)}
+                            alt=""
+                            className="w-100"
+                            style={{ height: 90, objectFit: 'contain' }}
+                          />
+                        )}
                       </button>
                       <div className="card-footer p-1 d-flex justify-content-between align-items-center gap-1">
                         <small className="text-truncate" title={file.name}>{file.name}</small>

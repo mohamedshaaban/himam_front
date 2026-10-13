@@ -173,7 +173,11 @@
     "progress": "{{done}} sur {{total}} terminées"
   },
   "read": {
-    "sectionCounter": "Section {{current}} sur {{total}}"
+    "sectionCounter": "Section {{current}} sur {{total}}",
+    "openPdf": "Ouvrir le fichier",
+    "expandPdf": "Agrandir",
+    "shrinkPdf": "Réduire",
+    "pdfFallback": "Votre navigateur ne peut pas afficher le document ici."
   },
   "quiz": {
     "title": "Quiz de la section",
@@ -338,7 +342,8 @@
       "whatsapp": "WhatsApp",
       "type": "Type",
       "assignedReaders": "Lecteurs assignés",
-      "listedForEveryone": "Visible par tous"
+      "listedForEveryone": "Visible par tous",
+      "pdf": "Document de la section (PDF)"
     },
     "roles": {
       "student": "Lecteur",
@@ -415,7 +420,8 @@
     "addBooks": "Ajouter des livres",
     "orderMatters": "L’ordre détermine le déverrouillage. Le premier livre est ouvert ; chaque suivant attend le précédent.",
     "selectiveHint": "Seuls les lecteurs cochés ici voient ce programme. Il est masqué pour les autres.",
-    "programsHint": "Programmes de lecture : ouverts à tous, déverrouillés dans l’ordre, ou réservés à des lecteurs choisis."
+    "programsHint": "Programmes de lecture : ouverts à tous, déverrouillés dans l’ordre, ou réservés à des lecteurs choisis.",
+    "pdfHint": "Affiché sur l’écran de lecture. Le texte de la section peut rester en introduction, ou être laissé vide."
   },
   "common": {
     "loading": "Chargement…",
