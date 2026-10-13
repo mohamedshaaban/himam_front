@@ -34,8 +34,13 @@ jobs:
           VITE_BASE: /${{ github.event.repository.name }}/
           # Vite inlines VITE_* at build time, so the API URL must be present
           # here — setting it after the fact does nothing until a rebuild.
-          # Set it under Settings → Secrets and variables → Actions → Variables.
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          #
+          # The fallback is not a convenience. Without it an unset variable
+          # builds cleanly and ships an app that calls /api on the Pages domain,
+          # where nothing answers: every screen fails at runtime and the build
+          # that produced it is green. Override it under Settings → Secrets and
+          # variables → Actions → Variables when the API moves.
+          VITE_API_URL: ${{ vars.VITE_API_URL || 'https://himam-back.onrender.com/api' }}
         run: npm run build
 
       - name: Add SPA fallback
