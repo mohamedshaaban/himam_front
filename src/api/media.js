@@ -18,6 +18,12 @@ import { apiOrigin } from './client'
 export function mediaUrl(value) {
   if (!value) return ''
 
+  // A translatable field arrives as a locale => path map, and a field that has
+  // just become translatable arrives as one from a server that is ahead of this
+  // build. Neither is a URL, and neither is worth taking the whole page down
+  // for: render nothing and let the caller's own fallback show.
+  if (typeof value !== 'string') return ''
+
   if (/^(https?:)?\/\//i.test(value) || value.startsWith('data:')) {
     return value
   }
