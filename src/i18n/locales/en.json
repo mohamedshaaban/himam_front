@@ -421,7 +421,7 @@
     "orderMatters": "Order decides what unlocks next. Book 1 is open; each one after it waits on the one before.",
     "selectiveHint": "Only the readers ticked here can see this program. It is hidden from everyone else.",
     "programsHint": "Reading programs: open to all, unlocked in order, or assigned to chosen readers.",
-    "pdfHint": "Shown on the reading screen. The section text can stay as an introduction, or be left empty."
+    "pdfHint": "One document per language. Leaving a language empty falls back to another, so a reader always sees a file."
   },
   "common": {
     "loading": "Loading…",

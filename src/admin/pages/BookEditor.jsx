@@ -6,12 +6,12 @@ import api, { errorMessage } from '../../api/client'
 import Modal from '../components/Modal.jsx'
 import TranslatableField from '../components/TranslatableField.jsx'
 import RichTextField from '../components/RichTextField.jsx'
-import MediaInput from '../components/MediaInput.jsx'
+import TranslatableMediaField from '../components/TranslatableMediaField.jsx'
 import AdminPage from '../components/AdminPage.jsx'
 import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 
-const EMPTY_SECTION = { title: {}, body: {}, pdf: '', position: null }
+const EMPTY_SECTION = { title: {}, body: {}, pdf: {}, position: null }
 const EMPTY_QUESTION = {
   text: {},
   options: [
@@ -194,8 +194,7 @@ export default function BookEditor() {
             onChange={(body) => setSection({ ...section, body })}
           />
 
-          <MediaInput
-            kind="pdf"
+          <TranslatableMediaField
             label={t('admin.fields.pdf')}
             value={section.pdf}
             onChange={(pdf) => setSection({ ...section, pdf })}

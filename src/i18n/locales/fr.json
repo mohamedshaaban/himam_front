@@ -421,7 +421,7 @@
     "orderMatters": "L’ordre détermine le déverrouillage. Le premier livre est ouvert ; chaque suivant attend le précédent.",
     "selectiveHint": "Seuls les lecteurs cochés ici voient ce programme. Il est masqué pour les autres.",
     "programsHint": "Programmes de lecture : ouverts à tous, déverrouillés dans l’ordre, ou réservés à des lecteurs choisis.",
-    "pdfHint": "Affiché sur l’écran de lecture. Le texte de la section peut rester en introduction, ou être laissé vide."
+    "pdfHint": "Un document par langue. Une langue laissée vide retombe sur une autre, pour que le lecteur voie toujours un fichier."
   },
   "common": {
     "loading": "Chargement…",
