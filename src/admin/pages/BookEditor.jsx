@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -56,10 +56,15 @@ export default function BookEditor() {
   })
 
   const saveQuestion = useMutation({
-    mutationFn: async (record) =>
-      record.id
-        ? api.put(`/admin/questions/${record.id}`, record)
-        : api.post(`/admin/sections/${record.book_section_id}/questions`, record),
+    // A question belongs either to a section or to the book itself, and the
+    // endpoint follows from which.
+    mutationFn: async (record) => {
+      if (record.id) return api.put(`/admin/questions/${record.id}`, record)
+
+      return record.book_section_id
+        ? api.post(`/admin/sections/${record.book_section_id}/questions`, record)
+        : api.post(`/admin/books/${bookId}/questions`, record)
+    },
     onSuccess: () => { setQuestion(null); setError(null); invalidate() },
     onError: fail,
   })
@@ -73,6 +78,9 @@ export default function BookEditor() {
   const confirmThen = (action) => {
     if (window.confirm(t('admin.confirmDelete'))) action()
   }
+
+  const sections = book.data?.sections ?? []
+  const wholeBook = sections.length === 0
 
   return (
     <AdminPage
@@ -92,8 +100,52 @@ export default function BookEditor() {
       }
     >
       <QueryState query={book}>
+        {book.data && (
+          <BookSettings
+            book={book.data}
+            wholeBook={wholeBook}
+            onSaved={invalidate}
+            t={t}
+          />
+        )}
+
+        {/* A book read as one document is examined as a whole, so its questions
+            live here rather than on sections it does not have. */}
+        {book.data && wholeBook && (
+          <div className="card mb-3">
+            <div className="card-header d-flex flex-wrap align-items-center gap-2">
+              <h3 className="card-title mb-0 flex-grow-1">{t('admin.bookQuestions')}</h3>
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-secondary"
+                onClick={() => { setError(null); setQuestion({ ...structuredClone(EMPTY_QUESTION) }) }}
+              >
+                {t('admin.newQuestion')}
+              </button>
+            </div>
+
+            <div className="card-body">
+              <QuestionList
+                questions={book.data.questions}
+                emptyMessage={t('admin.noBookQuestions')}
+                onEdit={(q) => {
+                  setError(null)
+                  setQuestion({
+                    id: q.id,
+                    text: q.text ?? {},
+                    options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
+                  })
+                }}
+                onRemove={(id) => confirmThen(() => removeQuestion.mutate(id))}
+                t={t}
+                language={i18n.language}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="row g-3">
-          {book.data?.sections?.map((item) => (
+          {sections.map((item) => (
             <div className="col-12" key={item.id}>
               <div className="card">
                 <div className="card-header d-flex flex-wrap align-items-center gap-2">
@@ -123,51 +175,22 @@ export default function BookEditor() {
                 </div>
 
                 <div className="card-body">
-                  {item.questions?.length ? (
-                    <ol className="list-group list-group-numbered list-group-flush">
-                      {item.questions.map((q) => (
-                        <li className="list-group-item d-flex justify-content-between align-items-start gap-3" key={q.id}>
-                          <div className="flex-grow-1">
-                            <strong>{pickTranslation(q.text, i18n.language)}</strong>
-                            <ul className="list-unstyled mb-0 mt-1 small">
-                              {q.options?.map((option) => (
-                                <li key={option.id} className={option.is_correct ? 'text-success fw-semibold' : 'text-secondary'}>
-                                  {option.is_correct ? '● ' : '○ '}
-                                  {pickTranslation(option.text, i18n.language)}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <span className="text-nowrap">
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-outline-primary me-1"
-                              onClick={() => {
-                                setError(null)
-                                setQuestion({
-                                  id: q.id,
-                                  book_section_id: item.id,
-                                  text: q.text ?? {},
-                                  options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
-                                })
-                              }}
-                            >
-                              {t('actions.edit')}
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-outline-danger"
-                              onClick={() => confirmThen(() => removeQuestion.mutate(q.id))}
-                            >
-                              {t('actions.delete')}
-                            </button>
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                  ) : (
-                    <p className="text-secondary mb-0">{t('quiz.empty')}</p>
-                  )}
+                  <QuestionList
+                    questions={item.questions}
+                    emptyMessage={t('quiz.empty')}
+                    onEdit={(q) => {
+                      setError(null)
+                      setQuestion({
+                        id: q.id,
+                        book_section_id: item.id,
+                        text: q.text ?? {},
+                        options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
+                      })
+                    }}
+                    onRemove={(id) => confirmThen(() => removeQuestion.mutate(id))}
+                    t={t}
+                    language={i18n.language}
+                  />
                 </div>
               </div>
             </div>
@@ -226,6 +249,144 @@ export default function BookEditor() {
         />
       )}
     </AdminPage>
+  )
+}
+
+/**
+ * How the book is read, and what its quiz button says.
+ *
+ * The reading mode is not a field of its own: a book with sections is read in
+ * sections and a book without them is read whole. Showing it as a stored
+ * setting would invite it to disagree with the sections below.
+ */
+function BookSettings({ book, wholeBook, onSaved, t }) {
+  const [form, setForm] = useState({
+    pdf: book.pdf ?? {},
+    quiz_button_visible: book.quiz_button_visible ?? true,
+    quiz_button_label: book.quiz_button_label ?? {},
+  })
+  const [notice, setNotice] = useState(null)
+  const [error, setError] = useState(null)
+
+  // A save elsewhere on this page refetches the book, and the form should show
+  // what was stored rather than what was typed before that.
+  useEffect(() => {
+    setForm({
+      pdf: book.pdf ?? {},
+      quiz_button_visible: book.quiz_button_visible ?? true,
+      quiz_button_label: book.quiz_button_label ?? {},
+    })
+  }, [book.pdf, book.quiz_button_visible, book.quiz_button_label])
+
+  const save = useMutation({
+    mutationFn: async () => api.put(`/admin/books/${book.id}`, form),
+    onSuccess: () => { setError(null); setNotice(t('admin.saved')); onSaved() },
+    onError: (err) => { setNotice(null); setError(errorMessage(err)) },
+  })
+
+  return (
+    <div className="card mb-3">
+      <div className="card-header">
+        <h3 className="card-title mb-0">{t('admin.bookSettings')}</h3>
+      </div>
+
+      <div className="card-body">
+        <p className="mb-1">
+          <strong>{t('admin.readingMode')}:</strong>{' '}
+          {wholeBook ? t('admin.modeWholeBook') : t('admin.modeSections')}
+        </p>
+        <p className="text-secondary small">{t('admin.modeHint')}</p>
+
+        {error && <div className="alert alert-danger py-2">{error}</div>}
+        {notice && <div className="alert alert-success py-2">{notice}</div>}
+
+        <div className="row g-3">
+          {/* Offered on every book: a book read in sections may still carry
+              the whole text as one document beside them. */}
+          <TranslatableMediaField
+            label={t('admin.fields.bookPdf')}
+            value={form.pdf}
+            onChange={(pdf) => setForm({ ...form, pdf })}
+            help={t('admin.bookPdfHint')}
+          />
+
+          <div className="col-12">
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="quiz-button-visible"
+                checked={Boolean(form.quiz_button_visible)}
+                onChange={(event) => setForm({ ...form, quiz_button_visible: event.target.checked })}
+              />
+              <label className="form-check-label" htmlFor="quiz-button-visible">
+                {t('admin.fields.quizButtonVisible')}
+              </label>
+            </div>
+            <div className="form-text">{t('admin.quizButtonHint')}</div>
+          </div>
+
+          <TranslatableField
+            label={t('admin.fields.quizButtonLabel')}
+            value={form.quiz_button_label}
+            onChange={(quiz_button_label) => setForm({ ...form, quiz_button_label })}
+          />
+        </div>
+
+        <button
+          type="button"
+          className="btn btn-primary mt-3"
+          onClick={() => save.mutate()}
+          disabled={save.isPending}
+        >
+          {save.isPending && <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" />}
+          {t('actions.save')}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function QuestionList({ questions, emptyMessage, onEdit, onRemove, t, language }) {
+  if (!questions?.length) {
+    return <p className="text-secondary mb-0">{emptyMessage}</p>
+  }
+
+  return (
+    <ol className="list-group list-group-numbered list-group-flush">
+      {questions.map((q) => (
+        <li className="list-group-item d-flex justify-content-between align-items-start gap-3" key={q.id}>
+          <div className="flex-grow-1">
+            <strong>{pickTranslation(q.text, language)}</strong>
+            <ul className="list-unstyled mb-0 mt-1 small">
+              {q.options?.map((option) => (
+                <li key={option.id} className={option.is_correct ? 'text-success fw-semibold' : 'text-secondary'}>
+                  {option.is_correct ? '● ' : '○ '}
+                  {pickTranslation(option.text, language)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <span className="text-nowrap">
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-primary me-1"
+              onClick={() => onEdit(q)}
+            >
+              {t('actions.edit')}
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-danger"
+              onClick={() => onRemove(q.id)}
+            >
+              {t('actions.delete')}
+            </button>
+          </span>
+        </li>
+      ))}
+    </ol>
   )
 }
 

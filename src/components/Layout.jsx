@@ -25,7 +25,6 @@ export default function Layout() {
         <div className="site-footer__inner">
           <span>{t('app.association')}</span>
           <span className="row" style={{ gap: 'var(--space-4)' }}>
-            <Link to="/intro">{t('actions.intro')}</Link>
             <Link to="/login">{t('actions.login')}</Link>
             <Link to="/register">{t('actions.register')}</Link>
           </span>

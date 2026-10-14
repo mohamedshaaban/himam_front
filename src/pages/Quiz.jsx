@@ -10,7 +10,14 @@ import { useAuth } from '../context/AuthContext.jsx'
 const LETTERS = ['أ', 'ب', 'ج', 'د', 'هـ']
 
 export default function Quiz() {
-  const { sectionId } = useParams()
+  // One screen for both exams. A book is examined either per section or as a
+  // whole, and the two endpoints take the same request and answer with the same
+  // body, so the only difference here is which one to call.
+  const { sectionId, bookId } = useParams()
+  const scope = sectionId ? 'sections' : 'books'
+  const id = sectionId ?? bookId
+  const path = `/${scope}/${id}/quiz`
+
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const { refresh } = useAuth()
@@ -19,10 +26,10 @@ export default function Quiz() {
   const [result, setResult] = useState(null)
   const [message, setMessage] = useState(null)
 
-  const quiz = useLocalizedQuery(['quiz', sectionId], `/sections/${sectionId}/quiz`)
+  const quiz = useLocalizedQuery(['quiz', scope, id], path)
 
   const submit = useMutation({
-    mutationFn: async () => (await api.post(`/sections/${sectionId}/quiz`, { answers })).data,
+    mutationFn: async () => (await api.post(path, { answers })).data,
     onSuccess: (data) => {
       setResult(data)
       setMessage(null)
@@ -30,6 +37,8 @@ export default function Quiz() {
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       queryClient.invalidateQueries({ queryKey: ['books'] })
       queryClient.invalidateQueries({ queryKey: ['badges'] })
+      queryClient.invalidateQueries({ queryKey: ['certificates'] })
+      queryClient.invalidateQueries({ queryKey: ['announcements'] })
       refresh()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
@@ -64,16 +73,30 @@ export default function Quiz() {
   return (
     <QueryState query={quiz}>
       <section style={{ maxWidth: 760, margin: '0 auto' }}>
-        <Link to={`/books/${meta?.book?.id ?? ''}`} className="btn btn-ghost btn-sm">{t('actions.backToBook')}</Link>
+        <Link to={`/books/${meta?.book?.id ?? bookId ?? ''}`} className="btn btn-ghost btn-sm">{t('actions.backToBook')}</Link>
 
         <p className="kicker" style={{ margin: 'var(--space-4) 0 0' }}>{meta?.book?.title}</p>
         <h1 className="page-title" style={{ margin: 'var(--space-2) 0', fontSize: 'clamp(28px, 3.6vw, 40px)' }}>
-          {t('quiz.title')}
+          {sectionId ? t('quiz.title') : t('quiz.bookTitle')}
         </h1>
-        <p className="muted" style={{ margin: '0 0 var(--space-6)' }}>{meta?.section?.title}</p>
+        <p className="muted" style={{ margin: '0 0 var(--space-6)' }}>
+          {sectionId ? meta?.section?.title : t('book.wholeBookNote')}
+        </p>
+
+        {/* A reader may sit the exam again as often as they like. Saying so
+            before they start, along with what a retake does and does not
+            change, is better than letting them discover it from the result. */}
+        {meta?.taken && !graded && (
+          <div className="notice" style={{ marginBottom: 'var(--space-6)' }}>
+            {meta.passed && <p style={{ margin: 0 }}>{t('quiz.retakeNote')}</p>}
+            <p className="muted" style={{ margin: 'var(--space-1) 0 0', fontSize: 14 }}>
+              {t('quiz.attemptCount', { count: meta.attempts, best: meta.best_score ?? 0 })}
+            </p>
+          </div>
+        )}
 
         {questions.length === 0 ? (
-          <EmptyState message={t('quiz.empty')} />
+          <EmptyState message={sectionId ? t('quiz.empty') : t('quiz.emptyBook')} />
         ) : (
           <>
             {graded && <Scorecard result={result} t={t} />}

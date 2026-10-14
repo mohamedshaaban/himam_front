@@ -170,7 +170,10 @@
     "factPoints": "Points du livre",
     "statusDone": "Section terminée",
     "statusTodo": "Lire, puis un court quiz",
-    "progress": "{{done}} sur {{total}} terminées"
+    "progress": "{{done}} sur {{total}} terminées",
+    "documentTitle": "Le livre",
+    "wholeBookNote": "Ce livre se lit d'un seul tenant, et l'examen porte sur l'ensemble.",
+    "noDocument": "Le document n'a pas encore été téléversé."
   },
   "read": {
     "sectionCounter": "Section {{current}} sur {{total}}",
@@ -192,7 +195,11 @@
     "newCertificates": "Nouveaux certificats",
     "answerAll": "Merci de répondre à toutes les questions avant de valider.",
     "pointsAwarded": "+{{points}} points",
-    "empty": "Cette section n'a pas encore de questions."
+    "empty": "Cette section n'a pas encore de questions.",
+    "bookTitle": "Examen du livre",
+    "emptyBook": "Ce livre n'a pas encore de questions.",
+    "retakeNote": "Vous avez déjà réussi cet examen. Un nouvel essai met à jour votre résultat et votre certificat, sans points supplémentaires.",
+    "attemptCount": "Tentatives : {{count}} · Meilleur résultat : {{best}}"
   },
   "badges": {
     "title": "Insignes",
@@ -343,7 +350,10 @@
       "type": "Type",
       "assignedReaders": "Lecteurs assignés",
       "listedForEveryone": "Visible par tous",
-      "pdf": "Document de la section (PDF)"
+      "pdf": "Document de la section (PDF)",
+      "bookPdf": "Document du livre entier (PDF)",
+      "quizButtonVisible": "Afficher le bouton d'examen",
+      "quizButtonLabel": "Texte du bouton d'examen"
     },
     "roles": {
       "student": "Lecteur",
@@ -424,7 +434,17 @@
     "orderMatters": "L’ordre détermine le déverrouillage. Le premier livre est ouvert ; chaque suivant attend le précédent.",
     "selectiveHint": "Seuls les lecteurs cochés ici voient ce programme. Il est masqué pour les autres.",
     "programsHint": "Programmes de lecture : ouverts à tous, déverrouillés dans l’ordre, ou réservés à des lecteurs choisis.",
-    "pdfHint": "Un document par langue. Une langue laissée vide retombe sur une autre, pour que le lecteur voie toujours un fichier."
+    "pdfHint": "Un document par langue. Une langue laissée vide retombe sur une autre, pour que le lecteur voie toujours un fichier.",
+    "bookSettings": "Réglages du livre",
+    "readingMode": "Mode de lecture",
+    "modeSections": "En parties, chacune avec son examen",
+    "modeWholeBook": "D'un seul tenant, avec un examen sur l'ensemble",
+    "modeHint": "Le mode découle des parties : un livre qui n'en a pas est présenté et examiné en entier.",
+    "bookPdfHint": "Présenté au lecteur comme le texte entier. Il peut coexister avec les parties, qui en sont alors le chemin de lecture.",
+    "quizButtonHint": "Masquer le bouton masque l'examen. Il reste masqué tant qu'aucune question n'est ajoutée.",
+    "bookQuestions": "Questions du livre",
+    "noBookQuestions": "Aucune question. Le bouton reste masqué tant qu'il n'y en a pas.",
+    "sectionsBlockBookQuiz": "Ce livre se lit en parties ; ses questions appartiennent donc aux parties."
   },
   "common": {
     "loading": "Chargement…",

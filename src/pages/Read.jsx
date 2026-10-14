@@ -1,5 +1,8 @@
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useQueryClient } from '@tanstack/react-query'
+import api from '../api/client'
 import useLocalizedQuery from '../api/useLocalizedQuery.js'
 import Slider from '../components/Slider.jsx'
 import QueryState from '../components/PageState.jsx'
@@ -12,8 +15,29 @@ export default function Read() {
 
   const section = useLocalizedQuery(['section', sectionId], `/sections/${sectionId}`)
 
+  const queryClient = useQueryClient()
+
   const data = section.data?.data
   const meta = section.data?.meta
+
+  // Opening the section is what counts as reading it, and the API no longer
+  // infers that from the fetch — a prefetch or a retry is not a reader.
+  useEffect(() => {
+    if (!section.isSuccess) return
+
+    let cancelled = false
+
+    api.post(`/sections/${sectionId}/read`)
+      .then(() => {
+        // The book screen shows which sections are read, so it is now stale.
+        if (!cancelled) queryClient.invalidateQueries({ queryKey: ['book'] })
+      })
+      .catch(() => {
+        // Failing to record the read must not stop the reader reading.
+      })
+
+    return () => { cancelled = true }
+  }, [section.isSuccess, sectionId, queryClient])
 
   return (
     <QueryState query={section}>

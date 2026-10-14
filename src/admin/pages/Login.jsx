@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import api, { clearToken, errorMessage, fieldErrors } from '../../api/client'
 import { useAuth } from '../../context/AuthContext.jsx'
 import useAdminLte, { LOGIN_BODY_CLASSES } from '../useAdminLte.js'
-import { mediaUrl } from '../../api/media'
 
 /**
  * Sign-in for the dashboard, on AdminLTE's own login layout.
@@ -61,8 +60,7 @@ export default function AdminLogin() {
   return (
     <div className="login-box">
       <div className="login-logo">
-        <img src={mediaUrl("assets/logo.svg")} alt="" style={{ height: 56 }} />
-        <div className="mt-2 fs-6 text-secondary">{t('app.association')}</div>
+        <div className="fs-6 text-secondary">{t('app.association')}</div>
       </div>
 
       <div className="card">
@@ -111,10 +109,6 @@ export default function AdminLogin() {
               {t('actions.login')}
             </button>
           </form>
-
-          <div className="text-center mt-3">
-            <Link to="/" className="small">{t('admin.login.backToSite')}</Link>
-          </div>
         </div>
       </div>
     </div>

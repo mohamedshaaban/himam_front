@@ -24,7 +24,6 @@ export default function Header() {
     { to: '/badges', label: t('nav.badges') },
     { to: '/certificates', label: t('nav.certificates'), authOnly: true },
     { to: '/honor', label: t('nav.honor') },
-    { to: '/account', label: t('nav.account'), authOnly: true },
   ].filter((link) => !link.authOnly || isAuthenticated)
 
   const signOut = async () => {
@@ -70,9 +69,7 @@ export default function Header() {
                 {unread.data > 0 && <span className="badge-count">{unread.data}</span>}
               </Link>
 
-              <Link to="/account" aria-label={t('nav.account')}>
-                <img className="avatar" src={mediaUrl(user?.avatar || '/assets/avatar-2.svg')} alt="" />
-              </Link>
+              <img className="avatar" src={mediaUrl(user?.avatar || '/assets/avatar-2.svg')} alt="" />
 
               <button type="button" className="btn btn-ghost" onClick={signOut}>
                 {t('actions.logout')}
@@ -80,7 +77,6 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link to="/intro" className="btn btn-ghost">{t('actions.intro')}</Link>
               <Link to="/login" className="btn btn-primary">{t('actions.login')}</Link>
             </>
           )}

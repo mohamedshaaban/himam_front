@@ -90,9 +90,6 @@ export default function AdminLayout() {
                 <Icon d="M3 6h18M3 12h18M3 18h18" />
               </button>
             </li>
-            <li className="nav-item d-none d-md-block">
-              <Link to="/home" className="nav-link">{t('admin.backToApp')}</Link>
-            </li>
           </ul>
 
           <ul className="navbar-nav ms-auto">
@@ -138,9 +135,6 @@ export default function AdminLayout() {
                 <span className="d-none d-sm-inline">{user?.name}</span>
               </button>
               <div className={`dropdown-menu dropdown-menu-end ${userOpen ? 'show' : ''}`}>
-                <Link className="dropdown-item" to="/account">{t('account.profile')}</Link>
-                <Link className="dropdown-item" to="/home">{t('admin.backToApp')}</Link>
-                <div className="dropdown-divider" />
                 <button type="button" className="dropdown-item text-danger" onClick={logout}>
                   {t('actions.logout')}
                 </button>

@@ -170,7 +170,10 @@
     "factPoints": "Book points",
     "statusDone": "Section completed",
     "statusTodo": "Read, then a short quiz",
-    "progress": "{{done}} of {{total}} completed"
+    "progress": "{{done}} of {{total}} completed",
+    "documentTitle": "The book",
+    "wholeBookNote": "This book is read as one document, and the exam covers all of it.",
+    "noDocument": "The document has not been uploaded yet."
   },
   "read": {
     "sectionCounter": "Section {{current}} of {{total}}",
@@ -192,7 +195,11 @@
     "newCertificates": "New certificates",
     "answerAll": "Please answer every question before submitting.",
     "pointsAwarded": "+{{points}} points",
-    "empty": "This section has no questions yet."
+    "empty": "This section has no questions yet.",
+    "bookTitle": "Book exam",
+    "emptyBook": "This book has no questions yet.",
+    "retakeNote": "You have already passed this exam. A retake updates your result and your certificate, but awards no further points.",
+    "attemptCount": "Attempts: {{count}} · Best score: {{best}}"
   },
   "badges": {
     "title": "Badges",
@@ -343,7 +350,10 @@
       "type": "Type",
       "assignedReaders": "Assigned readers",
       "listedForEveryone": "Listed for everyone",
-      "pdf": "Section document (PDF)"
+      "pdf": "Section document (PDF)",
+      "bookPdf": "Whole-book document (PDF)",
+      "quizButtonVisible": "Show the quiz button",
+      "quizButtonLabel": "Quiz button text"
     },
     "roles": {
       "student": "Reader",
@@ -424,7 +434,17 @@
     "orderMatters": "Order decides what unlocks next. Book 1 is open; each one after it waits on the one before.",
     "selectiveHint": "Only the readers ticked here can see this program. It is hidden from everyone else.",
     "programsHint": "Reading programs: open to all, unlocked in order, or assigned to chosen readers.",
-    "pdfHint": "One document per language. Leaving a language empty falls back to another, so a reader always sees a file."
+    "pdfHint": "One document per language. Leaving a language empty falls back to another, so a reader always sees a file.",
+    "bookSettings": "Book settings",
+    "readingMode": "How it is read",
+    "modeSections": "In sections, each with its own quiz",
+    "modeWholeBook": "As one document, with one exam over all of it",
+    "modeHint": "The mode follows from the sections: a book with none is shown whole and examined as a whole.",
+    "bookPdfHint": "Shown to the reader as the whole text. It can sit alongside the sections, which are then the way through it.",
+    "quizButtonHint": "Hiding the button hides the exam from readers. It stays hidden until questions are added.",
+    "bookQuestions": "Book questions",
+    "noBookQuestions": "No questions yet. The button stays hidden until some are added.",
+    "sectionsBlockBookQuiz": "This book is read in sections, so its questions belong to the sections."
   },
   "common": {
     "loading": "Loading…",

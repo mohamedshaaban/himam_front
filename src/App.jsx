@@ -7,7 +7,6 @@ import RequireAdmin from './components/RequireAdmin.jsx'
 import { Loading } from './components/PageState.jsx'
 
 import Landing from './pages/Landing.jsx'
-import Intro from './pages/Intro.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
@@ -25,7 +24,6 @@ import Certificates from './pages/Certificates.jsx'
 import Honor from './pages/Honor.jsx'
 import Notifications from './pages/Notifications.jsx'
 import NotificationDetail from './pages/NotificationDetail.jsx'
-import Account from './pages/Account.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 
@@ -61,7 +59,6 @@ export default function App() {
       {/* Reader-facing app */}
       <Route element={<Layout />}>
         <Route index element={<Landing />} />
-        <Route path="intro" element={<Intro />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
@@ -80,10 +77,12 @@ export default function App() {
           <Route path="progress" element={<Progress />} />
           <Route path="sections/:sectionId" element={<Read />} />
           <Route path="sections/:sectionId/quiz" element={<Quiz />} />
+
+          {/* The exam for a book read as one document rather than in parts. */}
+          <Route path="books/:bookId/quiz" element={<Quiz />} />
           <Route path="certificates" element={<Certificates />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="notifications/:announcementId" element={<NotificationDetail />} />
-          <Route path="account" element={<Account />} />
         </Route>
       </Route>
 
