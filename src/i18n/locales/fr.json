@@ -397,7 +397,10 @@
       "browse": "Parcourir",
       "clear": "Effacer",
       "library": "Bibliothèque d'images",
-      "empty": "Aucune image pour le moment."
+      "empty": "Aucune image pour le moment.",
+      "uploadFile": "Téléverser un fichier",
+      "libraryFiles": "Bibliothèque de fichiers",
+      "emptyFiles": "Aucun fichier téléversé."
     },
     "login": {
       "title": "Connectez-vous pour accéder au tableau de bord",

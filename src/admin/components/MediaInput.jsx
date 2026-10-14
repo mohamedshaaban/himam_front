@@ -84,7 +84,7 @@ export default function MediaInput({ label, value, onChange, help, kind = 'image
               disabled={upload.isPending}
             >
               {upload.isPending && <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" />}
-              {t('admin.media.upload')}
+              {t(kind === 'pdf' ? 'admin.media.uploadFile' : 'admin.media.upload')}
             </button>
             <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => setBrowsing(true)}>
               {t('admin.media.browse')}
@@ -161,7 +161,7 @@ function MediaBrowser({ kind, onClose, onPick }) {
         <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">{t('admin.media.library')}</h5>
+              <h5 className="modal-title">{t(kind === 'pdf' ? 'admin.media.libraryFiles' : 'admin.media.library')}</h5>
               <button type="button" className="btn-close" onClick={onClose} aria-label={t('actions.cancel')} />
             </div>
 
@@ -169,7 +169,7 @@ function MediaBrowser({ kind, onClose, onPick }) {
               {media.isPending && <p className="text-secondary mb-0">{t('common.loading')}</p>}
               {media.isError && <p className="text-danger mb-0">{t('common.error')}</p>}
               {files.length === 0 && !media.isPending && (
-                <p className="text-secondary mb-0">{t('admin.media.empty')}</p>
+                <p className="text-secondary mb-0">{t(kind === 'pdf' ? 'admin.media.emptyFiles' : 'admin.media.empty')}</p>
               )}
 
               <div className="row g-2">

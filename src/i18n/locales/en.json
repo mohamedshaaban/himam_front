@@ -397,7 +397,10 @@
       "browse": "Browse",
       "clear": "Clear",
       "library": "Image library",
-      "empty": "Nothing uploaded yet."
+      "empty": "Nothing uploaded yet.",
+      "uploadFile": "Upload file",
+      "libraryFiles": "File library",
+      "emptyFiles": "No files uploaded yet."
     },
     "login": {
       "title": "Sign in to reach the dashboard",
