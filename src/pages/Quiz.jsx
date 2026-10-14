@@ -99,7 +99,7 @@ export default function Quiz() {
           <EmptyState message={sectionId ? t('quiz.empty') : t('quiz.emptyBook')} />
         ) : (
           <>
-            {graded && <Scorecard result={result} t={t} />}
+            {graded && <Scorecard result={result} t={t} isSection={Boolean(sectionId)} />}
             {message && <p className="notice notice--error" role="alert">{message}</p>}
 
             <div style={{ display: 'grid', gap: 'var(--space-6)' }}>
@@ -163,16 +163,22 @@ export default function Quiz() {
   )
 }
 
-function Scorecard({ result, t }) {
+function Scorecard({ result, t, isSection }) {
+  // The result is reported in the terms of whatever was sat: a book exam that
+  // congratulated the reader on passing "the section quiz" and credited "the
+  // section's points" would be describing something that did not happen.
+  const passed = isSection ? t('quiz.passed') : t('quiz.passedBook')
+  const note = result.passed
+    ? (isSection ? t('quiz.passedNote') : t('quiz.passedBookNote'))
+    : (isSection ? t('quiz.failedNote') : t('quiz.failedBookNote'))
+
   return (
     <div className="card" style={{ padding: 'var(--space-6)', marginBottom: 'var(--space-6)', gap: 'var(--space-2)' }}>
       <div className="tnum" style={{ fontSize: 44, lineHeight: 1, color: 'var(--color-accent-700)' }}>
         {t('quiz.score', { score: result.score, total: result.total })}
       </div>
-      <div style={{ fontSize: 18 }}>{result.passed ? t('quiz.passed') : t('quiz.failed')}</div>
-      <div className="muted" style={{ fontSize: 15 }}>
-        {result.passed ? t('quiz.passedNote') : t('quiz.failedNote')}
-      </div>
+      <div style={{ fontSize: 18 }}>{result.passed ? passed : t('quiz.failed')}</div>
+      <div className="muted" style={{ fontSize: 15 }}>{note}</div>
 
       {result.points_awarded > 0 && (
         <div style={{ color: 'var(--color-accent-700)' }}>{t('quiz.pointsAwarded', { points: result.points_awarded })}</div>

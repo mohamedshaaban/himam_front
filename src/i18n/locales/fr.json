@@ -199,7 +199,10 @@
     "bookTitle": "Examen du livre",
     "emptyBook": "Ce livre n'a pas encore de questions.",
     "retakeNote": "Vous avez déjà réussi cet examen. Un nouvel essai met à jour votre résultat et votre certificat, sans points supplémentaires.",
-    "attemptCount": "Tentatives : {{count}} · Meilleur résultat : {{best}}"
+    "attemptCount": "Tentatives : {{count}} · Meilleur résultat : {{best}}",
+    "passedBook": "Vous avez réussi l'examen du livre",
+    "passedBookNote": "Les points du livre ont été ajoutés à votre solde.",
+    "failedBookNote": "Relisez le livre, puis réessayez."
   },
   "badges": {
     "title": "Insignes",

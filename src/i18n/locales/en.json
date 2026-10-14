@@ -199,7 +199,10 @@
     "bookTitle": "Book exam",
     "emptyBook": "This book has no questions yet.",
     "retakeNote": "You have already passed this exam. A retake updates your result and your certificate, but awards no further points.",
-    "attemptCount": "Attempts: {{count}} · Best score: {{best}}"
+    "attemptCount": "Attempts: {{count}} · Best score: {{best}}",
+    "passedBook": "You passed the book exam",
+    "passedBookNote": "The book's points have been added to your balance.",
+    "failedBookNote": "Read the book again, then try once more."
   },
   "badges": {
     "title": "Badges",
