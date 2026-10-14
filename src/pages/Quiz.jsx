@@ -110,9 +110,18 @@ export default function Quiz() {
                   <div style={{ display: 'grid', gap: 'var(--space-2)' }}>
                     {question.options.map((option, index) => {
                       const picked = answers[question.id] === option.id
+
+                      // The key comes back only on a pass. After a failure the
+                      // reader is told which questions they got wrong, so their
+                      // own answer is marked but nothing is marked right —
+                      // otherwise a free resit would just be copying.
                       const correctId = result?.correct_options?.[question.id]
-                      const right = graded && option.id === correctId
-                      const wrong = graded && picked && option.id !== correctId
+                      const missed = result?.incorrect_questions?.includes(question.id)
+
+                      const right = graded && correctId != null && option.id === correctId
+                      const wrong = graded && picked && (
+                        correctId != null ? option.id !== correctId : Boolean(missed)
+                      )
 
                       const classes = ['quiz-option']
                       if (right) classes.push('quiz-option--right')
