@@ -116,7 +116,14 @@ function Detail({ book, t, isAuthenticated }) {
             <p className="notice">{t('book.noDocument')}</p>
           )}
 
-          {hasSections && <Sections sections={sections} t={t} isAuthenticated={isAuthenticated} />}
+          {hasSections && (
+            <Sections
+              sections={sections}
+              t={t}
+              isAuthenticated={isAuthenticated}
+              hasOwnQuiz={book.has_own_quiz}
+            />
+          )}
 
           {(button.visible || !isAuthenticated) && (
             <div
@@ -144,10 +151,19 @@ function Detail({ book, t, isAuthenticated }) {
 /**
  * A book read in parts, each part with its own short quiz.
  */
-function Sections({ sections, t, isAuthenticated }) {
+function Sections({ sections, t, isAuthenticated, hasOwnQuiz }) {
   return (
     <>
       <h2 style={{ margin: '0 0 var(--space-3)', fontSize: 26 }}>{t('book.sectionsTitle')}</h2>
+
+      {/* When the exam belongs to the book, the sections are the way through
+          the reading rather than five separate examinations. Saying so beats
+          leaving a reader to wonder where the quiz buttons went. */}
+      {hasOwnQuiz && (
+        <p className="muted" style={{ margin: '0 0 var(--space-3)', fontSize: 15 }}>
+          {t('book.quizMovedToBook')}
+        </p>
+      )}
 
       <ol className="rule-list">
         {sections.map((section) => (
@@ -168,7 +184,15 @@ function Sections({ sections, t, isAuthenticated }) {
               <span>
                 <span style={{ display: 'block', fontSize: 21 }}>{section.title}</span>
                 <span style={{ display: 'block', fontSize: 14, color: 'var(--color-neutral-700)' }}>
-                  {section.passed ? t('book.statusDone') : t('book.statusTodo')}
+                  {/* "Read, then a short quiz" is only true while the section
+                      has one of its own. */}
+                  {section.passed
+                    ? t('book.statusDone')
+                    : section.read
+                      ? t('book.statusRead')
+                      : hasOwnQuiz
+                        ? t('book.statusUnread')
+                        : t('book.statusTodo')}
                 </span>
               </span>
 
@@ -176,7 +200,9 @@ function Sections({ sections, t, isAuthenticated }) {
                 {isAuthenticated ? (
                   <>
                     <Link to={`/sections/${section.id}`} className="btn btn-primary btn-sm">{t('actions.read')}</Link>
-                    <Link to={`/sections/${section.id}/quiz`} className="btn btn-ghost btn-sm">{t('actions.quiz')}</Link>
+                    {!hasOwnQuiz && (
+                      <Link to={`/sections/${section.id}/quiz`} className="btn btn-ghost btn-sm">{t('actions.quiz')}</Link>
+                    )}
                   </>
                 ) : (
                   <Link to="/login" className="btn btn-primary btn-sm">{t('actions.login')}</Link>

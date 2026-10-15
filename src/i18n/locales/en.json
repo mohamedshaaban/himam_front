@@ -173,7 +173,13 @@
     "progress": "{{done}} of {{total}} completed",
     "documentTitle": "The book",
     "wholeBookNote": "This book is read as one document, and the exam covers all of it.",
-    "noDocument": "The document has not been uploaded yet."
+    "noDocument": "The document has not been uploaded yet.",
+    "progressRead": "{{done}} of {{total}} read",
+    "completedBadge": "Book finished",
+    "examPending": "The book exam is still to come",
+    "quizMovedToBook": "This book is examined as a whole, not section by section.",
+    "statusRead": "Read",
+    "statusUnread": "Not read yet"
   },
   "read": {
     "sectionCounter": "Section {{current}} of {{total}}",
@@ -202,7 +208,8 @@
     "attemptCount": "Attempts: {{count}} · Best score: {{best}}",
     "passedBook": "You passed the book exam",
     "passedBookNote": "The book's points have been added to your balance.",
-    "failedBookNote": "Read the book again, then try once more."
+    "failedBookNote": "Read the book again, then try once more.",
+    "bookScope": "This exam covers the whole book."
   },
   "badges": {
     "title": "Badges",
@@ -440,14 +447,18 @@
     "pdfHint": "One document per language. Leaving a language empty falls back to another, so a reader always sees a file.",
     "bookSettings": "Book settings",
     "readingMode": "How it is read",
-    "modeSections": "In sections, each with its own quiz",
-    "modeWholeBook": "As one document, with one exam over all of it",
-    "modeHint": "The mode follows from the sections: a book with none is shown whole and examined as a whole.",
+    "modeSections": "In sections",
+    "modeWholeBook": "As one document",
+    "modeHint": "The layout follows the sections. The exam follows the questions: write questions for the book and it is examined as a whole, and the section quizzes stop being offered.",
     "bookPdfHint": "Shown to the reader as the whole text. It can sit alongside the sections, which are then the way through it.",
     "quizButtonHint": "Hiding the button hides the exam from readers. It stays hidden until questions are added.",
-    "bookQuestions": "Book questions",
-    "noBookQuestions": "No questions yet. The button stays hidden until some are added.",
-    "sectionsBlockBookQuiz": "This book is read in sections, so its questions belong to the sections."
+    "bookQuestions": "Book questions (one exam over the whole book)",
+    "noBookQuestions": "No book questions. The exam is on the sections and the book button stays hidden. Add one to move the exam to the whole book.",
+    "sectionsBlockBookQuiz": "This book is read in sections, so its questions belong to the sections.",
+    "examPlace": "Exam",
+    "examOnBook": "over the whole book",
+    "examOnSections": "one per section",
+    "examNone": "no questions yet — no exam"
   },
   "common": {
     "loading": "Loading…",

@@ -173,7 +173,13 @@
     "progress": "{{done}} sur {{total}} terminées",
     "documentTitle": "Le livre",
     "wholeBookNote": "Ce livre se lit d'un seul tenant, et l'examen porte sur l'ensemble.",
-    "noDocument": "Le document n'a pas encore été téléversé."
+    "noDocument": "Le document n'a pas encore été téléversé.",
+    "progressRead": "{{done}} sur {{total}} lues",
+    "completedBadge": "Livre terminé",
+    "examPending": "L'examen du livre reste à passer",
+    "quizMovedToBook": "Ce livre est examiné d'un seul tenant, non partie par partie.",
+    "statusRead": "Lu",
+    "statusUnread": "Pas encore lu"
   },
   "read": {
     "sectionCounter": "Section {{current}} sur {{total}}",
@@ -202,7 +208,8 @@
     "attemptCount": "Tentatives : {{count}} · Meilleur résultat : {{best}}",
     "passedBook": "Vous avez réussi l'examen du livre",
     "passedBookNote": "Les points du livre ont été ajoutés à votre solde.",
-    "failedBookNote": "Relisez le livre, puis réessayez."
+    "failedBookNote": "Relisez le livre, puis réessayez.",
+    "bookScope": "Cet examen porte sur l'ensemble du livre."
   },
   "badges": {
     "title": "Insignes",
@@ -440,14 +447,18 @@
     "pdfHint": "Un document par langue. Une langue laissée vide retombe sur une autre, pour que le lecteur voie toujours un fichier.",
     "bookSettings": "Réglages du livre",
     "readingMode": "Mode de lecture",
-    "modeSections": "En parties, chacune avec son examen",
-    "modeWholeBook": "D'un seul tenant, avec un examen sur l'ensemble",
-    "modeHint": "Le mode découle des parties : un livre qui n'en a pas est présenté et examiné en entier.",
+    "modeSections": "En parties",
+    "modeWholeBook": "D'un seul tenant",
+    "modeHint": "La présentation suit les parties. L'examen suit les questions : écrivez des questions pour le livre et il est examiné d'un seul tenant, les examens des parties cessant d'être proposés.",
     "bookPdfHint": "Présenté au lecteur comme le texte entier. Il peut coexister avec les parties, qui en sont alors le chemin de lecture.",
     "quizButtonHint": "Masquer le bouton masque l'examen. Il reste masqué tant qu'aucune question n'est ajoutée.",
-    "bookQuestions": "Questions du livre",
-    "noBookQuestions": "Aucune question. Le bouton reste masqué tant qu'il n'y en a pas.",
-    "sectionsBlockBookQuiz": "Ce livre se lit en parties ; ses questions appartiennent donc aux parties."
+    "bookQuestions": "Questions du livre (un examen sur l'ensemble)",
+    "noBookQuestions": "Aucune question de livre. L'examen porte sur les parties et le bouton du livre reste masqué. Ajoutez-en une pour déplacer l'examen sur le livre entier.",
+    "sectionsBlockBookQuiz": "Ce livre se lit en parties ; ses questions appartiennent donc aux parties.",
+    "examPlace": "Examen",
+    "examOnBook": "sur l'ensemble du livre",
+    "examOnSections": "un par partie",
+    "examNone": "aucune question — pas d’examen"
   },
   "common": {
     "loading": "Chargement…",

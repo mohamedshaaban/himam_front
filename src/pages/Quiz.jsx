@@ -79,8 +79,10 @@ export default function Quiz() {
         <h1 className="page-title" style={{ margin: 'var(--space-2) 0', fontSize: 'clamp(28px, 3.6vw, 40px)' }}>
           {sectionId ? t('quiz.title') : t('quiz.bookTitle')}
         </h1>
+        {/* The exam covering the whole book says nothing about how the book is
+            read: one laid out in sections is still read in sections. */}
         <p className="muted" style={{ margin: '0 0 var(--space-6)' }}>
-          {sectionId ? meta?.section?.title : t('book.wholeBookNote')}
+          {sectionId ? meta?.section?.title : t('quiz.bookScope')}
         </p>
 
         {/* A reader may sit the exam again as often as they like. Saying so

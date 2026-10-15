@@ -109,9 +109,10 @@ export default function BookEditor() {
           />
         )}
 
-        {/* A book read as one document is examined as a whole, so its questions
-            live here rather than on sections it does not have. */}
-        {book.data && wholeBook && (
+        {/* The book's own questions, whatever its layout. Writing one is how an
+            editor moves the exam to the book: the section quizzes stop being
+            offered from that moment. */}
+        {book.data && (
           <div className="card mb-3">
             <div className="card-header d-flex flex-wrap align-items-center gap-2">
               <h3 className="card-title mb-0 flex-grow-1">{t('admin.bookQuestions')}</h3>
@@ -260,6 +261,8 @@ export default function BookEditor() {
  * setting would invite it to disagree with the sections below.
  */
 function BookSettings({ book, wholeBook, onSaved, t }) {
+  const hasBookQuestions = (book.questions?.length ?? 0) > 0
+
   const [form, setForm] = useState({
     pdf: book.pdf ?? {},
     quiz_button_visible: book.quiz_button_visible ?? true,
@@ -291,9 +294,18 @@ function BookSettings({ book, wholeBook, onSaved, t }) {
       </div>
 
       <div className="card-body">
+        {/* Two separate facts, reported separately: how the book is laid out,
+            and where its exam lives. They used to be one line, which said the
+            exam was per section on a book whose exam was not. */}
         <p className="mb-1">
           <strong>{t('admin.readingMode')}:</strong>{' '}
           {wholeBook ? t('admin.modeWholeBook') : t('admin.modeSections')}
+        </p>
+        <p className="mb-1">
+          <strong>{t('admin.examPlace')}:</strong>{' '}
+          {hasBookQuestions
+            ? t('admin.examOnBook')
+            : wholeBook ? t('admin.examNone') : t('admin.examOnSections')}
         </p>
         <p className="text-secondary small">{t('admin.modeHint')}</p>
 

@@ -83,7 +83,20 @@ export default function Read() {
             <span className="muted" style={{ fontSize: 14 }}>
               {t('read.sectionCounter', { current: meta?.position, total: meta?.sections_total })}
             </span>
-            <Link to={`/sections/${sectionId}/quiz`} className="btn btn-primary">{t('actions.startSectionQuiz')}</Link>
+            {/* The exam may belong to the section or to the whole book; the
+                API says which, so the reader is never sent to one that does
+                not exist. */}
+            {meta?.book?.has_own_quiz
+              ? (meta.book.quiz_button?.visible && (
+                  <Link to={`/books/${data.book_id}/quiz`} className="btn btn-primary">
+                    {meta.book.quiz_button.label}
+                  </Link>
+                ))
+              : (
+                  <Link to={`/sections/${sectionId}/quiz`} className="btn btn-primary">
+                    {t('actions.startSectionQuiz')}
+                  </Link>
+                )}
           </div>
         </section>
       )}
