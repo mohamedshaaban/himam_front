@@ -87,7 +87,7 @@ export default function ProgramDetail() {
                   )}
 
                   <p className="muted tnum" style={{ margin: 'var(--space-2) 0 0', fontSize: 13 }}>
-                    {book.sections_passed}/{book.sections_total} · {t(`programs.${statusKey(book.status)}`)}
+                    {book.sections_read}/{book.sections_total} · {t(`programs.${statusKey(book.status)}`)}
                   </p>
 
                   {!book.unlocked && book.blocked_by && (

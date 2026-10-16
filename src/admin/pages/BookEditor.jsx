@@ -56,15 +56,11 @@ export default function BookEditor() {
   })
 
   const saveQuestion = useMutation({
-    // A question belongs either to a section or to the book itself, and the
-    // endpoint follows from which.
-    mutationFn: async (record) => {
-      if (record.id) return api.put(`/admin/questions/${record.id}`, record)
-
-      return record.book_section_id
-        ? api.post(`/admin/sections/${record.book_section_id}/questions`, record)
-        : api.post(`/admin/books/${bookId}/questions`, record)
-    },
+    // Questions belong to the book: the exam covers the whole of it.
+    mutationFn: async (record) =>
+      record.id
+        ? api.put(`/admin/questions/${record.id}`, record)
+        : api.post(`/admin/books/${bookId}/questions`, record),
     onSuccess: () => { setQuestion(null); setError(null); invalidate() },
     onError: fail,
   })
@@ -109,9 +105,7 @@ export default function BookEditor() {
           />
         )}
 
-        {/* The book's own questions, whatever its layout. Writing one is how an
-            editor moves the exam to the book: the section quizzes stop being
-            offered from that moment. */}
+        {/* The exam. One paper over the whole book, whatever its layout. */}
         {book.data && (
           <div className="card mb-3">
             <div className="card-header d-flex flex-wrap align-items-center gap-2">
@@ -156,13 +150,6 @@ export default function BookEditor() {
                     </span>
                     {pickTranslation(item.title, i18n.language)}
                   </h3>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() => { setError(null); setQuestion({ ...structuredClone(EMPTY_QUESTION), book_section_id: item.id }) }}
-                  >
-                    {t('admin.newQuestion')}
-                  </button>
                   <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => { setError(null); setSection(item) }}>
                     {t('actions.edit')}
                   </button>
@@ -176,22 +163,7 @@ export default function BookEditor() {
                 </div>
 
                 <div className="card-body">
-                  <QuestionList
-                    questions={item.questions}
-                    emptyMessage={t('quiz.empty')}
-                    onEdit={(q) => {
-                      setError(null)
-                      setQuestion({
-                        id: q.id,
-                        book_section_id: item.id,
-                        text: q.text ?? {},
-                        options: (q.options ?? []).map((o) => ({ text: o.text ?? {}, is_correct: Boolean(o.is_correct) })),
-                      })
-                    }}
-                    onRemove={(id) => confirmThen(() => removeQuestion.mutate(id))}
-                    t={t}
-                    language={i18n.language}
-                  />
+                  <p className="text-secondary mb-0">{t('admin.sectionIsReading')}</p>
                 </div>
               </div>
             </div>
@@ -294,18 +266,13 @@ function BookSettings({ book, wholeBook, onSaved, t }) {
       </div>
 
       <div className="card-body">
-        {/* Two separate facts, reported separately: how the book is laid out,
-            and where its exam lives. They used to be one line, which said the
-            exam was per section on a book whose exam was not. */}
         <p className="mb-1">
           <strong>{t('admin.readingMode')}:</strong>{' '}
           {wholeBook ? t('admin.modeWholeBook') : t('admin.modeSections')}
         </p>
         <p className="mb-1">
           <strong>{t('admin.examPlace')}:</strong>{' '}
-          {hasBookQuestions
-            ? t('admin.examOnBook')
-            : wholeBook ? t('admin.examNone') : t('admin.examOnSections')}
+          {hasBookQuestions ? t('admin.examOnBook') : t('admin.examNone')}
         </p>
         <p className="text-secondary small">{t('admin.modeHint')}</p>
 

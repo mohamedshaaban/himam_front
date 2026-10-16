@@ -29,7 +29,7 @@ function Dashboard({ data, user, t }) {
   ]
 
   const cards = [
-    { value: stats.sections_passed, top: t('home.sectionsPassed'), unit: t('home.outOf', { total: stats.sections_total }) },
+    { value: stats.sections_read, top: t('home.sectionsRead'), unit: t('home.outOf', { total: stats.sections_total }) },
     { value: stats.books_completed, top: t('home.booksCompleted'), unit: t('home.outOf', { total: stats.books_total }) },
     { value: stats.points, top: t('home.totalPoints'), unit: t('home.unit.point') },
   ]

@@ -77,22 +77,11 @@ export default function Books() {
   )
 }
 
-/**
- * The bar under a book card.
- *
- * A book examined as a whole has no section passes to count, so showing the
- * passed percentage would leave a reader who has read every page sitting at
- * zero. Reading is the progress there; finishing is the exam, reported on its
- * own rather than folded into the same number.
- */
 function BookProgress({ book, t }) {
+  // The bar measures reading, because that is what a reader does section by
+  // section. Finishing is the exam, reported beside it rather than folded in.
   const p = book.progress
-  const byReading = book.has_own_quiz
-
-  const percent = byReading ? (p.read_percent ?? 0) : p.percent
-  const label = byReading
-    ? t('book.progressRead', { done: p.sections_read ?? 0, total: p.sections_total })
-    : t('book.progress', { done: p.sections_passed, total: p.sections_total })
+  const percent = p.read_percent ?? 0
 
   return (
     <div>
@@ -100,8 +89,8 @@ function BookProgress({ book, t }) {
         <div className="progress__fill" style={{ width: `${percent}%` }} />
       </div>
       <p className="muted" style={{ margin: '6px 0 0', fontSize: 13 }}>
-        {label}
-        {byReading && percent === 100 && (
+        {t('book.progressRead', { done: p.sections_read ?? 0, total: p.sections_total })}
+        {percent === 100 && (
           <>
             {' — '}
             {p.completed ? t('book.completedBadge') : t('book.examPending')}

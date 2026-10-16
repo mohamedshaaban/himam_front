@@ -31,12 +31,12 @@ export default function Progress() {
 function Summary({ data, t }) {
   const { stats, levels } = data
   const overall = stats.sections_total > 0
-    ? Math.round((stats.sections_passed / stats.sections_total) * 100)
+    ? Math.round((stats.sections_read / stats.sections_total) * 100)
     : 0
-  const levelsCompleted = levels.filter((level) => level.sections_total > 0 && level.percent === 100).length
+  const levelsCompleted = levels.filter((level) => level.books_total > 0 && level.books_completed === level.books_total).length
 
   const figures = [
-    { value: `${stats.sections_passed}/${stats.sections_total}`, label: t('progress.sectionsPassed') },
+    { value: `${stats.sections_read}/${stats.sections_total}`, label: t('progress.sectionsRead') },
     { value: `${stats.books_completed}/${stats.books_total}`, label: t('progress.booksCompleted') },
     { value: `${levelsCompleted}/${levels.length}`, label: t('progress.levelsCompleted') },
     { value: stats.points, label: t('home.points'), accent: true },
@@ -129,7 +129,7 @@ function Levels({ levels, t }) {
                     {book.title}
                   </Link>
                   <span className="tnum muted" style={{ fontSize: 14 }}>
-                    {book.sections_passed}/{book.sections_total}
+                    {book.sections_read}/{book.sections_total}
                   </span>
                 </div>
 
@@ -138,9 +138,7 @@ function Levels({ levels, t }) {
                     <li key={section.id}>
                       <Link
                         to={`/sections/${section.id}`}
-                        className={`section-chip${
-                          section.passed ? ' section-chip--passed' : section.read ? ' section-chip--read' : ''
-                        }`}
+                        className={`section-chip${section.read ? ' section-chip--read' : ''}`}
                         title={section.title}
                       >
                         <span className="section-chip__no tnum">
@@ -148,17 +146,7 @@ function Levels({ levels, t }) {
                         </span>
                         <span className="section-chip__title">{section.title}</span>
                         <span className="section-chip__state">
-                          {section.passed
-                            ? t('progress.sectionPassed')
-                            : section.read
-                              ? t('progress.sectionRead')
-                              : t('progress.sectionTodo')}
-                          {section.attempts > 0 && (
-                            <span className="tnum">
-                              {' · '}
-                              {t('progress.bestScore', { score: `${section.best_score}/${section.questions}` })}
-                            </span>
-                          )}
+                          {section.read ? t('progress.sectionRead') : t('progress.sectionTodo')}
                         </span>
                       </Link>
                     </li>

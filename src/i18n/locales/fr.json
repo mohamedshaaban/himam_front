@@ -113,7 +113,6 @@
     "badges": "Insignes",
     "certificates": "Certificats",
     "statsTitle": "Vos chiffres",
-    "sectionsPassed": "Sections validées",
     "booksCompleted": "Livres terminés",
     "totalPoints": "Points",
     "outOf": "sur {{total}}",
@@ -122,13 +121,13 @@
       "book": "livres",
       "point": "points"
     },
-    "honorNote": "Une émulation qui met à l'honneur les lecteurs les plus assidus à travers les niveaux et les livres, classés chaque mois ou chaque année selon la décision de l'administration."
+    "honorNote": "Une émulation qui met à l'honneur les lecteurs les plus assidus à travers les niveaux et les livres, classés chaque mois ou chaque année selon la décision de l'administration.",
+    "sectionsRead": "Parties lues"
   },
   "progress": {
     "title": "Ma progression",
     "body": "Une vue détaillée de votre parcours : les sections, livres et niveaux terminés, les insignes les plus proches, et vos tentatives récentes.",
     "overall": "Progression globale",
-    "sectionsPassed": "Sections validées",
     "booksCompleted": "Livres terminés",
     "levelsCompleted": "Niveaux terminés",
     "levels": "Niveaux",
@@ -141,15 +140,14 @@
     "when": "Date",
     "passed": "Réussie",
     "failed": "Non réussie",
-    "sectionPassed": "Validée",
-    "sectionRead": "Lue",
-    "sectionTodo": "Non commencée",
+    "sectionRead": "Lu",
+    "sectionTodo": "Pas encore lu",
     "attemptsCount": "{{count}} tentatives",
-    "bestScore": "Meilleur {{score}}",
     "certificateEarned": "Certificat {{serial}}",
     "noActivity": "Aucune tentative pour l'instant — commencez par votre première section.",
     "continueReading": "Continuer la lecture",
-    "allDone": "Vous avez terminé toutes les sections disponibles."
+    "allDone": "Vous avez terminé toutes les sections disponibles.",
+    "sectionsRead": "Parties lues"
   },
   "books": {
     "title": "Livres",
@@ -168,8 +166,6 @@
     "factSections": "Sections",
     "factPages": "Pages",
     "factPoints": "Points du livre",
-    "statusDone": "Section terminée",
-    "statusTodo": "Lire, puis un court quiz",
     "progress": "{{done}} sur {{total}} terminées",
     "documentTitle": "Le livre",
     "wholeBookNote": "Ce livre se lit d'un seul tenant, et l'examen porte sur l'ensemble.",
@@ -177,9 +173,11 @@
     "progressRead": "{{done}} sur {{total}} lues",
     "completedBadge": "Livre terminé",
     "examPending": "L'examen du livre reste à passer",
-    "quizMovedToBook": "Ce livre est examiné d'un seul tenant, non partie par partie.",
+    "quizMovedToBook": "Les parties servent à la lecture ; l'examen porte sur tout le livre une fois celle-ci terminée.",
     "statusRead": "Lu",
-    "statusUnread": "Pas encore lu"
+    "statusUnread": "Pas encore lu",
+    "examAfterReading": "L'examen s'ouvre une fois le livre lu en entier.",
+    "examNotReady": "Aucune question n'a encore été ajoutée pour ce livre."
   },
   "read": {
     "sectionCounter": "Section {{current}} sur {{total}}",
@@ -371,9 +369,9 @@
     },
     "criteria": {
       "manual": "Attribué à la main",
-      "sections_passed": "Sections validées",
       "books_completed": "Livres terminés",
-      "points": "Points atteints"
+      "points": "Points atteints",
+      "sections_read": "Parties lues"
     },
     "newLevel": "Nouveau niveau",
     "newBook": "Nouveau livre",
@@ -449,16 +447,17 @@
     "readingMode": "Mode de lecture",
     "modeSections": "En parties",
     "modeWholeBook": "D'un seul tenant",
-    "modeHint": "La présentation suit les parties. L'examen suit les questions : écrivez des questions pour le livre et il est examiné d'un seul tenant, les examens des parties cessant d'être proposés.",
+    "modeHint": "Les parties sont la manière de lire ; l'examen est unique et porte sur tout le livre, et ne s'ouvre qu'une fois le livre lu en entier.",
     "bookPdfHint": "Présenté au lecteur comme le texte entier. Il peut coexister avec les parties, qui en sont alors le chemin de lecture.",
-    "quizButtonHint": "Masquer le bouton masque l'examen. Il reste masqué tant qu'aucune question n'est ajoutée.",
+    "quizButtonHint": "Masquer le bouton masque l'examen. Il reste masqué tant qu'il n'y a pas de questions et que le livre n'a pas été lu en entier.",
     "bookQuestions": "Questions du livre (un examen sur l'ensemble)",
-    "noBookQuestions": "Aucune question de livre. L'examen porte sur les parties et le bouton du livre reste masqué. Ajoutez-en une pour déplacer l'examen sur le livre entier.",
+    "noBookQuestions": "Aucune question : ce livre n'a pas d'examen. Ajoutez-en une pour l'activer.",
     "sectionsBlockBookQuiz": "Ce livre se lit en parties ; ses questions appartiennent donc aux parties.",
     "examPlace": "Examen",
-    "examOnBook": "sur l'ensemble du livre",
+    "examOnBook": "sur tout le livre",
     "examOnSections": "un par partie",
-    "examNone": "aucune question — pas d’examen"
+    "examNone": "aucune question — pas d'examen",
+    "sectionIsReading": "Cette partie sert à la lecture. Les questions du livre sont dans la carte ci-dessus."
   },
   "common": {
     "loading": "Chargement…",

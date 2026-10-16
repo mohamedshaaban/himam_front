@@ -113,7 +113,6 @@
     "badges": "Badges",
     "certificates": "Certificates",
     "statsTitle": "Your figures",
-    "sectionsPassed": "Sections passed",
     "booksCompleted": "Books completed",
     "totalPoints": "Points",
     "outOf": "of {{total}}",
@@ -122,13 +121,13 @@
       "book": "books",
       "point": "points"
     },
-    "honorNote": "A friendly competition honouring the readers who work hardest across the levels and books, ranked monthly or yearly as the programme administration decides."
+    "honorNote": "A friendly competition honouring the readers who work hardest across the levels and books, ranked monthly or yearly as the programme administration decides.",
+    "sectionsRead": "Sections read"
   },
   "progress": {
     "title": "My progress",
     "body": "A detailed view of your journey through the programme: the sections, books and levels you have finished, the badges you are closest to, and your recent attempts.",
     "overall": "Overall completion",
-    "sectionsPassed": "Sections passed",
     "booksCompleted": "Books completed",
     "levelsCompleted": "Levels completed",
     "levels": "Levels",
@@ -141,15 +140,14 @@
     "when": "Date",
     "passed": "Passed",
     "failed": "Not passed",
-    "sectionPassed": "Passed",
     "sectionRead": "Read",
-    "sectionTodo": "Not started",
+    "sectionTodo": "Not read yet",
     "attemptsCount": "{{count}} attempts",
-    "bestScore": "Best {{score}}",
     "certificateEarned": "Certificate {{serial}}",
     "noActivity": "No attempts yet — start with your first section.",
     "continueReading": "Continue reading",
-    "allDone": "You have finished every available section."
+    "allDone": "You have finished every available section.",
+    "sectionsRead": "Sections read"
   },
   "books": {
     "title": "Books",
@@ -168,8 +166,6 @@
     "factSections": "Sections",
     "factPages": "Pages",
     "factPoints": "Book points",
-    "statusDone": "Section completed",
-    "statusTodo": "Read, then a short quiz",
     "progress": "{{done}} of {{total}} completed",
     "documentTitle": "The book",
     "wholeBookNote": "This book is read as one document, and the exam covers all of it.",
@@ -177,9 +173,11 @@
     "progressRead": "{{done}} of {{total}} read",
     "completedBadge": "Book finished",
     "examPending": "The book exam is still to come",
-    "quizMovedToBook": "This book is examined as a whole, not section by section.",
+    "quizMovedToBook": "The sections are for reading; the exam covers the whole book once they are done.",
     "statusRead": "Read",
-    "statusUnread": "Not read yet"
+    "statusUnread": "Not read yet",
+    "examAfterReading": "The exam opens once the whole book has been read.",
+    "examNotReady": "No questions have been added for this book yet."
   },
   "read": {
     "sectionCounter": "Section {{current}} of {{total}}",
@@ -371,9 +369,9 @@
     },
     "criteria": {
       "manual": "Awarded by hand",
-      "sections_passed": "Sections passed",
       "books_completed": "Books completed",
-      "points": "Points reached"
+      "points": "Points reached",
+      "sections_read": "Sections read"
     },
     "newLevel": "New level",
     "newBook": "New book",
@@ -449,16 +447,17 @@
     "readingMode": "How it is read",
     "modeSections": "In sections",
     "modeWholeBook": "As one document",
-    "modeHint": "The layout follows the sections. The exam follows the questions: write questions for the book and it is examined as a whole, and the section quizzes stop being offered.",
+    "modeHint": "Sections are how the book is read; the exam is one paper over all of it, and it opens only once a reader has read the whole book.",
     "bookPdfHint": "Shown to the reader as the whole text. It can sit alongside the sections, which are then the way through it.",
-    "quizButtonHint": "Hiding the button hides the exam from readers. It stays hidden until questions are added.",
+    "quizButtonHint": "Hiding the button hides the exam. It stays hidden until questions exist and the reader has read the whole book.",
     "bookQuestions": "Book questions (one exam over the whole book)",
-    "noBookQuestions": "No book questions. The exam is on the sections and the book button stays hidden. Add one to move the exam to the whole book.",
+    "noBookQuestions": "No questions yet, so this book has no exam. Add one to enable it.",
     "sectionsBlockBookQuiz": "This book is read in sections, so its questions belong to the sections.",
     "examPlace": "Exam",
     "examOnBook": "over the whole book",
     "examOnSections": "one per section",
-    "examNone": "no questions yet — no exam"
+    "examNone": "no questions yet — no exam",
+    "sectionIsReading": "This section is for reading. The book’s questions are in the card above."
   },
   "common": {
     "loading": "Loading…",

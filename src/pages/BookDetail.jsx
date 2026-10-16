@@ -31,10 +31,9 @@ function Detail({ book, t, isAuthenticated }) {
   const sections = book.sections ?? []
   const hasSections = sections.length > 0
 
-  // Whether the exam is offered, and what its button says, are set in the
-  // dashboard — so a book can be published for reading before its questions
-  // are written.
-  const button = book.quiz_button ?? { visible: false, label: t('actions.quiz') }
+  // One flag decides the exam button. It opens only once the whole book has
+  // been read, and `reason` says which condition is holding it shut.
+  const button = book.quiz_button ?? { visible: false, label: t('actions.quiz'), reason: null }
 
   // Opening a book that is read as one document is what counts as reading it,
   // the same way opening a section does. A book that also has sections is
@@ -117,31 +116,35 @@ function Detail({ book, t, isAuthenticated }) {
           )}
 
           {hasSections && (
-            <Sections
-              sections={sections}
-              t={t}
-              isAuthenticated={isAuthenticated}
-              hasOwnQuiz={book.has_own_quiz}
-            />
+            <Sections sections={sections} t={t} isAuthenticated={isAuthenticated} />
           )}
 
-          {(button.visible || !isAuthenticated) && (
-            <div
-              className="row"
-              style={{
-                marginTop: 'var(--space-8)',
-                paddingTop: 'var(--space-4)',
-                borderTop: '1px solid var(--color-divider)',
-                justifyContent: 'flex-end',
-              }}
-            >
-              {isAuthenticated ? (
-                <Link to={`/books/${book.id}/quiz`} className="btn btn-primary">{button.label}</Link>
-              ) : (
-                <Link to="/login" className="btn btn-primary">{t('actions.login')}</Link>
-              )}
-            </div>
-          )}
+          <div
+            className="row"
+            style={{
+              marginTop: 'var(--space-8)',
+              paddingTop: 'var(--space-4)',
+              borderTop: '1px solid var(--color-divider)',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: 'var(--space-4)',
+            }}
+          >
+            {/* A button that is simply absent leaves a reader wondering; the
+                API says why it is shut, so the screen says it too. */}
+            {button.reason === 'unread' && (
+              <span className="muted" style={{ fontSize: 14 }}>{t('book.examAfterReading')}</span>
+            )}
+            {button.reason === 'no_questions' && (
+              <span className="muted" style={{ fontSize: 14 }}>{t('book.examNotReady')}</span>
+            )}
+
+            {!isAuthenticated ? (
+              <Link to="/login" className="btn btn-primary">{t('actions.login')}</Link>
+            ) : button.visible ? (
+              <Link to={`/books/${book.id}/quiz`} className="btn btn-primary">{button.label}</Link>
+            ) : null}
+          </div>
         </div>
       </div>
     </>
@@ -151,19 +154,14 @@ function Detail({ book, t, isAuthenticated }) {
 /**
  * A book read in parts, each part with its own short quiz.
  */
-function Sections({ sections, t, isAuthenticated, hasOwnQuiz }) {
+function Sections({ sections, t, isAuthenticated }) {
   return (
     <>
       <h2 style={{ margin: '0 0 var(--space-3)', fontSize: 26 }}>{t('book.sectionsTitle')}</h2>
 
-      {/* When the exam belongs to the book, the sections are the way through
-          the reading rather than five separate examinations. Saying so beats
-          leaving a reader to wonder where the quiz buttons went. */}
-      {hasOwnQuiz && (
-        <p className="muted" style={{ margin: '0 0 var(--space-3)', fontSize: 15 }}>
-          {t('book.quizMovedToBook')}
-        </p>
-      )}
+      <p className="muted" style={{ margin: '0 0 var(--space-3)', fontSize: 15 }}>
+        {t('book.quizMovedToBook')}
+      </p>
 
       <ol className="rule-list">
         {sections.map((section) => (
@@ -184,26 +182,13 @@ function Sections({ sections, t, isAuthenticated, hasOwnQuiz }) {
               <span>
                 <span style={{ display: 'block', fontSize: 21 }}>{section.title}</span>
                 <span style={{ display: 'block', fontSize: 14, color: 'var(--color-neutral-700)' }}>
-                  {/* "Read, then a short quiz" is only true while the section
-                      has one of its own. */}
-                  {section.passed
-                    ? t('book.statusDone')
-                    : section.read
-                      ? t('book.statusRead')
-                      : hasOwnQuiz
-                        ? t('book.statusUnread')
-                        : t('book.statusTodo')}
+                  {section.read ? t('book.statusRead') : t('book.statusUnread')}
                 </span>
               </span>
 
               <span className="row">
                 {isAuthenticated ? (
-                  <>
-                    <Link to={`/sections/${section.id}`} className="btn btn-primary btn-sm">{t('actions.read')}</Link>
-                    {!hasOwnQuiz && (
-                      <Link to={`/sections/${section.id}/quiz`} className="btn btn-ghost btn-sm">{t('actions.quiz')}</Link>
-                    )}
-                  </>
+                  <Link to={`/sections/${section.id}`} className="btn btn-primary btn-sm">{t('actions.read')}</Link>
                 ) : (
                   <Link to="/login" className="btn btn-primary btn-sm">{t('actions.login')}</Link>
                 )}

@@ -76,9 +76,8 @@ export default function App() {
           <Route path="home" element={<Home />} />
           <Route path="progress" element={<Progress />} />
           <Route path="sections/:sectionId" element={<Read />} />
-          <Route path="sections/:sectionId/quiz" element={<Quiz />} />
-
-          {/* The exam for a book read as one document rather than in parts. */}
+          {/* One exam, over the whole book. Sections are the way through
+              the reading, not separate examinations. */}
           <Route path="books/:bookId/quiz" element={<Quiz />} />
           <Route path="certificates" element={<Certificates />} />
           <Route path="notifications" element={<Notifications />} />

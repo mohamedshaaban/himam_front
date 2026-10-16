@@ -8,13 +8,13 @@ import QueryState from '../../components/PageState.jsx'
 import { pickTranslation } from '../translate.js'
 import { mediaUrl } from '../../api/media'
 
-const CRITERIA = ['manual', 'sections_passed', 'books_completed', 'points']
+const CRITERIA = ['manual', 'sections_read', 'books_completed', 'points']
 
 const EMPTY = {
   name: {},
   description: {},
   image: 'assets/badge.png',
-  criteria_type: 'sections_passed',
+  criteria_type: 'sections_read',
   criteria_value: 1,
   position: 0,
   is_active: true,
